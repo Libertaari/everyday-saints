@@ -20,53 +20,113 @@
       text-align: center;
     }
 
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    header p {
+      margin: 0.3rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
     main {
       max-width: 900px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
 
-    .feed-box {
+    #feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .feed-item {
       background: white;
       padding: 1rem;
-      margin-bottom: 1rem;
       border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    .feed-box h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
+    .source {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.3rem;
     }
 
-    .placeholder {
-      color: #666;
-      font-style: italic;
+    .title {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #1f2c3d;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <h1>Everyday Saints RSS Hub</h1>
-    <p>Aggregated faith-based blogs, podcasts, and video feeds</p>
+    <p>Aggregated faith-based blogs, podcasts, and video links</p>
   </header>
 
   <main>
-    <div class="feed-box">
-      <h2>Feed Slot 1</h2>
-      <p class="placeholder">RSS feed will load here</p>
-    </div>
-
-    <div class="feed-box">
-      <h2>Feed Slot 2</h2>
-      <p class="placeholder">RSS feed will load here</p>
-    </div>
-
-    <div class="feed-box">
-      <h2>Feed Slot 3</h2>
-      <p class="placeholder">RSS feed will load here</p>
-    </div>
+    <div id="feed"></div>
   </main>
+
+  <script>
+    async function loadFeed() {
+      const feed = document.getElementById("feed");
+
+      // Temporary placeholder data (we will replace this with Cloudflare Worker later)
+      const sampleData = [
+        {
+          source: "Example Blog",
+          title: "Welcome to Everyday Saints",
+          date: "2026-05-27",
+          url: "#"
+        },
+        {
+          source: "Example Channel",
+          title: "Sample Post Title",
+          date: "2026-05-27",
+          url: "#"
+        }
+      ];
+
+      feed.innerHTML = sampleData.map(item => `
+        <div class="feed-item">
+          <div class="source">${item.source}</div>
+          <div class="title">${item.title}</div>
+          <div class="meta">${item.date}</div>
+          <a href="${item.url}" target="_blank">Open</a>
+        </div>
+      `).join("");
+    }
+
+    loadFeed();
+  </script>
+
+</body>
+</html>
+
 </body>
 </html>
