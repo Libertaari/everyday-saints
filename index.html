@@ -105,6 +105,8 @@
 
         const data = await response.json();
 
+        const channelName = data.feed?.title || "YouTube Channel";
+
         if (!data.items || data.items.length === 0) {
           feed.innerHTML = "<p>No feed items found.</p>";
           return;
@@ -112,7 +114,7 @@
 
         feed.innerHTML = data.items.slice(0, 10).map(item => `
           <div class="feed-item">
-            <div class="source">YouTube Channel</div>
+            <div class="source">${channelName}</div>
             <div class="title">${item.title}</div>
             <div class="meta">${item.pubDate}</div>
             <a href="${item.link}" target="_blank">Watch</a>
