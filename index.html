@@ -244,30 +244,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* =========================
-   MULTI-FEED AGGREGATOR
+   RSS FEEDS (12 TOTAL)
 ========================= */
 
 const rssFeeds = [
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1W-CtmEfxf0bS_aChaKlw",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCFNi-bt0oFbPvWvv5UmmAVQ",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCCVNFLUX8St8pSF1-kStOGQ",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC8kOn6wIHfSo3Kj7l7hHhiQ",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCwJySRiyFIE2w99_bHvfmRA",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5VMWkt48I4xZLqWZ8E0fw",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC7gSP30IlaFEn6UQhBFSKZg",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCVFMSQbMVD4wyiDZsQrLZ5g",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCJJ4TYPZCKbZonuWVpA5XLg",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3WFOCWkUFQcX_1W3NjqAQ",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA",
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w"
+  {
+    name: "Main",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1W-CtmEfxf0bS_aChaKlw"
+  },
+  {
+    name: "UCFNi",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCFNi-bt0oFbPvWvv5UmmAVQ"
+  },
+  {
+    name: "UCCVN",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCCVNFLUX8St8pSF1-kStOGQ"
+  },
+  {
+    name: "UC8kOn",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC8kOn6wIHfSo3Kj7l7hHhiQ"
+  },
+  {
+    name: "UCwJyS",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCwJySRiyFIE2w99_bHvfmRA"
+  },
+  {
+    name: "UCn5VM",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5VMWkt48I4xZLqWZ8E0fw"
+  },
+  {
+    name: "UC7gSP",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC7gSP30IlaFEn6UQhBFSKZg"
+  },
+  {
+    name: "UCVFM",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVFMSQbMVD4wyiDZsQrLZ5g"
+  },
+  {
+    name: "UCJJ4T",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCJJ4TYPZCKbZonuWVpA5XLg"
+  },
+  {
+    name: "UC-3WF",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3WFOCWkUFQcX_1W3NjqAQ"
+  },
+  {
+    name: "UCpumf",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA"
+  },
+  {
+    name: "UCnmsA",
+    url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w"
+  }
 ];
 
-async function fetchFeed(url) {
+
+/* =========================
+   FETCH + MERGE
+========================= */
+
+async function fetchFeed(feed) {
   try {
     const res = await fetch(
       "https://api.rss2json.com/v1/api.json?rss_url=" +
-      encodeURIComponent(url)
+      encodeURIComponent(feed.url)
     );
 
     const data = await res.json();
@@ -278,11 +318,11 @@ async function fetchFeed(url) {
       title: item.title,
       link: item.link,
       pubDate: item.pubDate,
-      source: "YouTube"
+      source: feed.name
     }));
 
   } catch (e) {
-    console.error("Feed failed:", url, e);
+    console.error("Feed failed:", feed.url, e);
     return [];
   }
 }
@@ -292,7 +332,7 @@ async function loadFeed() {
 
   try {
     const results = await Promise.all(
-      rssFeeds.map(url => fetchFeed(url))
+      rssFeeds.map(feed => fetchFeed(feed))
     );
 
     const allItems = results
