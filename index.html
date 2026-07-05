@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Everyday Saints</title>
+
+<style>
+:root {
+  --bg: #f5f3ef;
+  --header: #1c2a3a;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3f5f7a;
+  --border: rgba(0,0,0,0.08);
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.logo {
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  transition: opacity 0.4s ease;
+}
+
+nav {
+  display: flex;
+  gap: 18px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+nav span {
+  cursor: default;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+nav span:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.controls {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+main {
+  max-width: 920px;
+  margin: 100px auto 120px auto;
+  padding: 0 16px;
+}
+
+#feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feed-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.source {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px 0 8px;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.feed-item a {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" id="logoBox">A</div>
+    <div>Everyday Saints</div>
+  </div>
+
+  <nav>
+    <span>Home</span>
+    <span>Feed</span>
+    <span>Topics</span>
+    <span>About</span>
+    <span>Search</span>
+  </nav>
+
+  <div class="controls">v1 • RSS Stream</div>
+</header>
+
+<main>
+  <div id="feed">Loading feed...</div>
+</main>
+
+<script>
+const logos = ["A", "B"];
+let currentLogo = logos[Math.floor(Math.random() * 2)];
+
+function rotateLogo() {
+  const box = document.getElementById("logoBox");
+
+  if (Math.random() < 0.5) {
+    currentLogo = currentLogo === "A" ? "B" : "A";
+  }
+
+  box.style.opacity = 0;
+  setTimeout(() => {
+    box.textContent = currentLogo;
+    box.style.opacity = 1;
+  }, 200);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("logoBox").textContent = currentLogo;
+  setInterval(rotateLogo, 5 * 60 * 1000);
+});
+
+const rssFeeds = [
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1W-CtmEfxf0bS_aChaKlw",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCFNi-bt0oFbPvWvv5UmmAVQ",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCCVNFLUX8St8pSF1-kStOGQ",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC8kOn6wIHfSo3Kj7l7hHhiQ",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCwJySRiyFIE2w99_bHvfmRA",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5VMWkt48I4xZLqWZ8E0fw",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC7gSP30IlaFEn6UQhBFSKZg",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCVFMSQbMVD4wyiDZsQrLZ5g",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCJJ4TYPZCKbZonuWVpA5XLg",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3WFOCWkUFQcX_1W3NjqAQ",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA",
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w"
+];
+
+async function fetchFeed(url) {
+  try {
+    const res = await fetch(
+      "https://api.rss2json.com/v1/api.json?rss_url=" +
+      encodeURIComponent(url)
+    );
+
+    const data = await res.json();
+    if (!data.items) return [];
+
+    const channelName = data.feed?.title || "Unknown Source";
+
+    return data.items.map(item => ({
+      title: item.title,
+      link: item.link,
+      pubDate: item.pubDate,
+      source: channelName
+    }));
+
+  } catch (e) {
+    console.error("Feed failed:", url, e);
+    return [];
+  }
+}
+
+async function loadFeed() {
+  const feed = document.getElementById("feed");
+
+  try {
+    const results = await Promise.all(
+      rssFeeds.map(url => fetchFeed(url))
+    );
+
+    const allItems = results
+      .flat()
+      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
+      .slice(0, 20);
+
+    if (allItems.length === 0) {
+      feed.innerHTML = "<p>No feed items found.</p>";
+      return;
+    }
+
+    feed.innerHTML = allItems.map(item => `
+      <div class="feed-item">
+        <div class="source">${item.source}</div>
+        <div class="title">${item.title}</div>
+        <div class="meta">${item.pubDate}</div>
+        <a href="${item.link}" target="_blank">Open</a>
+      </div>
+    `).join("");
+
+  } catch (err) {
+    console.error(err);
+    feed.innerHTML = "<p>Error loading feed.</p>";
+  }
+}
+
+loadFeed();
+</script>
+
+</body>
+</html>
