@@ -23,6 +23,7 @@ body {
   color: var(--text);
 }
 
+/* HEADER */
 header {
   position: fixed;
   top: 0;
@@ -44,7 +45,6 @@ header {
   align-items: center;
   gap: 12px;
   font-weight: 600;
-  letter-spacing: 0.3px;
 }
 
 .logo {
@@ -66,14 +66,10 @@ nav {
   opacity: 0.9;
 }
 
-nav span {
-  cursor: default;
-  padding: 6px 8px;
-  border-radius: 4px;
-}
-
 nav span:hover {
   background: rgba(255,255,255,0.08);
+  padding: 6px 8px;
+  border-radius: 4px;
 }
 
 .controls {
@@ -81,12 +77,14 @@ nav span:hover {
   opacity: 0.75;
 }
 
+/* LAYOUT */
 main {
   max-width: 920px;
   margin: 100px auto 120px auto;
   padding: 0 16px;
 }
 
+/* FEED */
 #feed {
   display: flex;
   flex-direction: column;
@@ -103,7 +101,6 @@ main {
 .source {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
   color: var(--muted);
 }
 
@@ -124,6 +121,39 @@ main {
   font-size: 13px;
   color: var(--accent);
   text-decoration: none;
+}
+
+/* ADS (RESTORED + STABLE) */
+#ad-right {
+  position: fixed;
+  right: 0;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+#ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: rgba(0,0,0,0.03);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
 }
 </style>
 </head>
@@ -146,6 +176,9 @@ main {
 
   <div class="controls">v1 • RSS Stream</div>
 </header>
+
+<div id="ad-right">AD SPACE</div>
+<div id="ad-bottom">AD SPACE</div>
 
 <main>
   <div id="feed">Loading feed...</div>
@@ -209,7 +242,6 @@ async function fetchFeed(url) {
     }));
 
   } catch (e) {
-    console.error("Feed failed:", url, e);
     return [];
   }
 }
@@ -217,34 +249,23 @@ async function fetchFeed(url) {
 async function loadFeed() {
   const feed = document.getElementById("feed");
 
-  try {
-    const results = await Promise.all(
-      rssFeeds.map(url => fetchFeed(url))
-    );
+  const results = await Promise.all(
+    rssFeeds.map(url => fetchFeed(url))
+  );
 
-    const allItems = results
-      .flat()
-      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
-      .slice(0, 20);
+  const allItems = results
+    .flat()
+    .sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate))
+    .slice(0, 20);
 
-    if (allItems.length === 0) {
-      feed.innerHTML = "<p>No feed items found.</p>";
-      return;
-    }
-
-    feed.innerHTML = allItems.map(item => `
-      <div class="feed-item">
-        <div class="source">${item.source}</div>
-        <div class="title">${item.title}</div>
-        <div class="meta">${item.pubDate}</div>
-        <a href="${item.link}" target="_blank">Open</a>
-      </div>
-    `).join("");
-
-  } catch (err) {
-    console.error(err);
-    feed.innerHTML = "<p>Error loading feed.</p>";
-  }
+  feed.innerHTML = allItems.map(item => `
+    <div class="feed-item">
+      <div class="source">${item.source}</div>
+      <div class="title">${item.title}</div>
+      <div class="meta">${item.pubDate}</div>
+      <a href="${item.link}" target="_blank">Open</a>
+    </div>
+  `).join("");
 }
 
 loadFeed();
