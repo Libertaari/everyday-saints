@@ -684,65 +684,85 @@ const rssFeeds = [
 // STATUS:
 // Complete
 //
+// Purpose:
+//
+// Provides the rotating visual identity system for the application.
+//
 // Current:
 //
-// - Random logo selected on load.
-// - Logo fades during transition.
-// - Rotation occurs every five minutes.
+// - Random logo selected on page load.
+// - Logo transition animation.
+// - Automatic rotation every five minutes.
 //
 // Future:
 //
 // Replace placeholders:
-// A = House / Temple concept
-// B = Christus concept
+// - A = House / Temple concept
+// - B = Christus concept
 //
 //##################################################################
+
 
 //==================================================================
 // 05.1 ROTATE LOGO
 //==================================================================
 //
-// Changes the displayed logo.
+// Purpose:
 //
-// Random switching prevents predictable behavior.
+// Changes the currently displayed logo.
+//
+// Current:
+//
+// Random switching prevents predictable rotation behavior.
 //
 //==================================================================
 
 function rotateLogo() {
   const box = document.getElementById("logoBox");
+
   if (Math.random() < 0.5) {
     currentLogo =
       currentLogo === "A"
         ? "B"
         : "A";
   }
+
   box.style.opacity = 0;
+
   setTimeout(() => {
     box.textContent = currentLogo;
     box.style.opacity = 1;
   }, 200);
 }
 
+
 //==================================================================
 // 05.2 INITIALIZE LOGO SYSTEM
 //==================================================================
 //
-// Runs after page loads.
+// Purpose:
 //
-// Sets initial logo.
-// Starts five-minute rotation timer.
+// Starts the logo system after the page loads.
+//
+// Current:
+//
+// - Sets the initial logo.
+// - Starts the five-minute rotation timer.
 //
 //==================================================================
+
 document.addEventListener("DOMContentLoaded", () => {
+
   document
     .getElementById("logoBox")
     .textContent = currentLogo;
+
   setInterval(
     rotateLogo,
     5 * 60 * 1000
   );
-});
 
+});
 //##################################################################
 // 06. RSS FEED RETRIEVAL
 //##################################################################
