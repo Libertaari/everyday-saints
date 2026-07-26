@@ -478,70 +478,124 @@ Objectives:
 
 <!--==================================================================
     03.1 HEADER
+====================================================================
+
+Purpose:
+
+Defines the fixed page header.
+
+Current:
+
+- Site logo
+- Site title
+- Navigation
+- Version display
+
+Future:
+
+- User menu
+- Notifications
+- Additional navigation controls
+
 ==================================================================-->
 <header>
+
   <div class="brand">
     <div class="logo" id="logoBox">
       A
     </div>
+
     <div>
       Everyday Saints
     </div>
   </div>
 
-<!--================================================================
-      03.2 NAVIGATION
+<!--==================================================================
+    03.2 NAVIGATION
+====================================================================
 
-      Current:
-      Placeholder navigation.
+Current:
 
-      Future:
-      Functional menus.
+Placeholder navigation.
 
-================================================================-->
+Future:
+
+- Functional navigation
+- Categories
+- Source filtering
+- Search integration
+
+==================================================================-->
+
   <nav>
-    <span>
-      Home
-    </span>
-    <span>
-      Feed
-    </span>
-    <span>
-      Topics
-    </span>
-    <span>
-      About
-    </span>
-    <span>
-      Search
-    </span>
+    <span>Home</span>
+    <span>Feed</span>
+    <span>Topics</span>
+    <span>About</span>
+    <span>Search</span>
   </nav>
+
   <div class="controls">
     v1 • RSS Stream
   </div>
+
 </header>
+
 
 <!--==================================================================
     03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+
+Placeholder advertisement containers.
+
+Future:
+
+- Google AdSense
+- House advertisements
+- Rotating advertisements
+- Responsive advertisement layouts
+
 ==================================================================-->
 
 <div id="ad-right">
   AD SPACE
 </div>
+
 <div id="ad-bottom">
   AD SPACE
 </div>
 
+
 <!--==================================================================
     03.4 FEED CONTAINER
+====================================================================
+
+Purpose:
+
+Primary container for rendered RSS articles.
+
+Current:
+
+Displays feed items after JavaScript processing.
+
+Future:
+
+- Infinite scrolling
+- Pagination
+- In-feed advertisements
+- Category filtering
+
 ==================================================================-->
+
 <main>
+
   <div id="feed">
     Loading feed...
   </div>
-</main>
 
-<!--##################################################################
+</main><!--##################################################################
     04. JAVASCRIPT CONFIGURATION
 ##################################################################-->
 <script>
