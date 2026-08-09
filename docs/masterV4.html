@@ -400,6 +400,45 @@ main {
 
 
 /*==================================================================
+    V4 THUMBNAIL STYLING
+====================================================================
+
+Current:
+
+Feed items display a thumbnail when one is available.
+
+Desktop layout:
+
+- Thumbnail on the left.
+- Feed content on the right.
+
+Future:
+
+- Refined thumbnail sizing.
+- Source-specific image handling.
+- Additional card layouts.
+
+==================================================================*/
+
+.feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feed-item .thumbnail {
+  width: 160px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.feed-content {
+  flex: 1;
+  min-width: 0;
+}
+/*==================================================================
     02.6 ADVERTISEMENT STYLING
 ====================================================================
 
@@ -770,36 +809,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-//==================================================================
-// 06.1 FETCH INDIVIDUAL FEED
-//==================================================================
-//
-// Purpose:
-////##################################################################
+//##################################################################
 // 06. RSS FEED RETRIEVAL
 //##################################################################
 //
 // STATUS:
-// Complete
-//
-// Purpose:
-//
-// Retrieves content from approved RSS sources and converts it into
-// a standardized format for Everyday Saints processing.
+// V4 - In Progress
 //
 // Current:
 //
 // Uses RSS2JSON to convert RSS XML into JSON.
 //
+// Each article is converted into a standardized Everyday Saints
+// article object containing:
+//
+// - Title
+// - Link
+// - Publication date
+// - Source
+// - Thumbnail
+//
 // Future:
 //
-// Replace with Cloudflare Worker/API for controlled retrieval.
+// Replace with Cloudflare Worker/API.
 //
 //##################################################################
 
-
-// Retrieves one RSS source and converts returned items into the
-// standard Everyday Saints article object.
+//==================================================================
+// 06.1 FETCH INDIVIDUAL FEED
+//==================================================================
 //
 // Input:
 //
@@ -807,18 +845,17 @@ document.addEventListener("DOMContentLoaded", () => {
 //
 // Output:
 //
-// Article objects containing:
-// - Title
-// - Link
-// - Publication date
-// - Source name
+// Standard Everyday Saints article object.
+//
+// Thumbnail:
+//
+// Uses the thumbnail supplied by RSS2JSON when available.
+// Returns an empty value when no thumbnail is provided.
 //
 //==================================================================
 
 async function fetchFeed(url) {
-
   try {
-
     const res = await fetch(
       "https://api.rss2json.com/v1/api.json?rss_url=" +
       encodeURIComponent(url)
@@ -835,39 +872,30 @@ async function fetchFeed(url) {
       "RSS FEED ERROR";
 
     return data.items.map(item => ({
-
       title: item.title,
       link: item.link,
       pubDate: item.pubDate,
-      source: channelName
-
+      source: channelName,
+      thumbnail: item.thumbnail || ""
     }));
 
   } catch (e) {
-
     return [];
-
   }
-
 }
 //##################################################################
 // 07. FEED PROCESSING
 //##################################################################
 //
 // STATUS:
-// Complete
-//
-// Purpose:
-//
-// Coordinates retrieved RSS data and prepares combined articles
-// for display.
+// V4 - In Progress
 //
 // Current:
 //
-// - Retrieves all approved feeds.
-// - Combines returned articles.
-// - Sorts articles by publication date.
-// - Sends final collection to rendering system.
+// - Retrieves all feeds.
+// - Combines articles.
+// - Sorts newest first.
+// - Preserves thumbnail data attached to each article.
 //
 // Future:
 //
@@ -877,23 +905,15 @@ async function fetchFeed(url) {
 //
 //##################################################################
 
-
 //==================================================================
 // 07.1 LOAD ALL FEEDS
 //==================================================================
 //
-// Purpose:
+// Retrieves all RSS sources and prepares them for display.
 //
-// Retrieves all RSS sources, combines results, and prepares the
-// final article collection for display.
-//
-// Process:
-//
-// 1. Requests each RSS source.
-// 2. Combines returned articles.
-// 3. Sorts newest articles first.
-// 4. Limits displayed results.
-// 5. Sends results to feed rendering.
+// Article objects are passed through without modification so that
+// data retrieved by Section 06, including thumbnails, remains
+// available to Section 08 for rendering.
 //
 //==================================================================
 
@@ -913,55 +933,16 @@ async function loadFeed() {
     .slice(0, 20);
 
   renderFeed(allItems);
-
 }
-//##################################################################
-// 08. FEED RENDERING
-//##################################################################
-//
-// STATUS:
-// Complete
-//
-// Purpose:
-//
-// Converts processed article data into visible feed cards within
-// the Everyday Saints interface.
-//
-// Current:
-//
-// - Displays source name.
-// - Displays article title.
-// - Displays publication date.
-// - Provides article link.
-// - Displays error message when no items are available.
-//
-// Future:
-//
-// - Improved card layouts.
-// - Images.
-// - Source icons.
-// - Categories and tags.
-// - Additional article metadata.
-//
-//##################################################################
-
-
 //==================================================================
 // 08.1 RENDER FEED CARDS
 //==================================================================
 //
-// Purpose:
+// V4:
 //
-// Creates the visible feed card structure from processed article
-// objects.
+// Displays article thumbnails when available.
 //
-// Input:
-//
-// Processed article collection.
-//
-// Output:
-//
-// HTML feed cards displayed inside the feed container.
+// Articles without thumbnails continue to display normally.
 //
 //==================================================================
 
@@ -973,43 +954,60 @@ function renderFeed(items) {
 
     feed.innerHTML = `
       <div class="feed-item">
-        <div class="source">
-          RSS FEED ERROR
+
+        <div class="feed-content">
+
+          <div class="source">
+            RSS FEED ERROR
+          </div>
+
+          <div class="title">
+            Unable to load feed items.
+          </div>
+
         </div>
-        <div class="title">
-          Unable to load feed items.
-        </div>
+
       </div>
     `;
 
     return;
-
   }
 
   feed.innerHTML = items.map(item => `
 
     <div class="feed-item">
 
-      <div class="source">
-        ${item.source}
-      </div>
+      ${item.thumbnail ? `
+        <img
+          class="thumbnail"
+          src="${item.thumbnail}"
+          alt=""
+        >
+      ` : ""}
 
-      <div class="title">
-        ${item.title}
-      </div>
+      <div class="feed-content">
 
-      <div class="meta">
-        ${item.pubDate}
-      </div>
+        <div class="source">
+          ${item.source}
+        </div>
 
-      <a href="${item.link}" target="_blank">
-        Open
-      </a>
+        <div class="title">
+          ${item.title}
+        </div>
+
+        <div class="meta">
+          ${item.pubDate}
+        </div>
+
+        <a href="${item.link}" target="_blank">
+          Open
+        </a>
+
+      </div>
 
     </div>
 
   `).join("");
-
 }
 
 //##################################################################
