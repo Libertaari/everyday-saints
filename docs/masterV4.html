@@ -493,24 +493,84 @@ Future:
 
 STATUS:
 
-In Progress
+In Progress — V3
 
-Objectives:
+Purpose:
 
-- Optimize layout for phones
-- Adjust header sizing
-- Reposition or hide advertisements
-- Improve touch usability
-- Prevent horizontal scrolling
+Adapt the existing desktop layout for smaller screens.
+
+Goals:
+
+- Keep the header usable on phones.
+- Allow navigation to wrap rather than overflow.
+- Remove the fixed right-side advertisement on small screens.
+- Reduce bottom advertisement height.
+- Reduce page margins and feed spacing.
+- Prevent horizontal scrolling.
 
 ==================================================================*/
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
 
-    /*
-        Mobile-specific CSS will be added here.
-    */
+  header {
+    height: auto;
+    min-height: 60px;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
+  .brand {
+    gap: 8px;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 12px;
+  }
+
+  nav span:hover {
+    padding: 4px 6px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  main {
+    margin: 120px auto 80px auto;
+    padding: 0 10px;
+  }
+
+  #feed {
+    gap: 10px;
+  }
+
+  .feed-item {
+    padding: 12px 13px;
+    border-radius: 8px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  #ad-right {
+    display: none;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
 }
 </style>
 </head>
