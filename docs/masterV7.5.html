@@ -283,21 +283,41 @@ header {
   object-position: center;
   border-radius: 5px;
 }
-/*==================================================================
+ /*==================================================================
     02.4 NAVIGATION STYLING
 ====================================================================
+V7.5:
+Current:
+- Navigation is structurally separate from the fixed header.
+- Navigation occupies its own horizontal field below the branding.
+- Navigation items are centered.
+- Version display remains within the navigation field.
 
-Purpose:
-
-Defines desktop navigation appearance.
-
+Future:
+- Additional navigation items.
+- Expanded navigation features.
+- Responsive navigation behavior.
 ==================================================================*/
-
 nav {
+  position: fixed;
+  top: 96px;
+  left: 0;
+  right: 0;
+  height: 42px;
+  background: var(--header);
+  color: white;
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 18px;
   font-size: 13px;
   opacity: 0.9;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+nav span {
+  white-space: nowrap;
 }
 
 nav span:hover {
@@ -309,9 +329,8 @@ nav span:hover {
 .controls {
   font-size: 12px;
   opacity: 0.75;
+  margin-left: 18px;
 }
-
-
 /*==================================================================
     02.5 FEED STYLING
 ====================================================================
