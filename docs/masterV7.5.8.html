@@ -2,7 +2,7 @@
     EVERYDAY SAINTS
     MASTER APPLICATION FILE
     Version:
-    V7.42 - Header and Feed Experience Pass
+    V7.5.8 - Header and Feed Experience Pass
     Purpose:
     RSS aggregation platform for Latter-day Saint content.
     Philosophy:
@@ -283,14 +283,18 @@ header {
   object-position: center;
   border-radius: 5px;
 }
-/*==================================================================
+ /*==================================================================
     02.4 NAVIGATION STYLING
 ====================================================================
 V7.5:
+Purpose:
+Defines the navigation field independently from the fixed header.
+
 Current:
-- Navigation is structurally separate from the fixed header.
-- Navigation occupies its own horizontal field below the branding.
-- Navigation items are centered.
+- Navigation is separate from the branding header.
+- Navigation occupies its own horizontal field.
+- Navigation remains visible below the header.
+- Navigation participates in normal page flow.
 - Version display remains within the navigation field.
 
 Future:
@@ -299,10 +303,6 @@ Future:
 - Responsive navigation behavior.
 ==================================================================*/
 nav {
-  position: fixed;
-  top: 96px;
-  left: 0;
-  right: 0;
   height: 42px;
   background: var(--header);
   color: white;
@@ -312,7 +312,6 @@ nav {
   gap: 18px;
   font-size: 13px;
   opacity: 0.9;
-  z-index: 999;
   box-sizing: border-box;
 }
 
@@ -331,7 +330,6 @@ nav span:hover {
   opacity: 0.75;
   margin-left: 18px;
 }
-
 /*==================================================================
     02.5 FEED STYLING
 ====================================================================
