@@ -218,18 +218,24 @@ body {
 /*==================================================================
     02.3 HEADER STYLING
 ====================================================================
-V7.5:
+V7.5.8.1:
 Current:
 - Fixed top branding header.
 - Everyday [rotating artwork] Saints branding.
 - Branding is centered within the header.
-- Navigation is now structurally separate from the header.
+- Navigation is structurally separate from the header.
+- Shared site-header wrapper reserves space for the fixed header.
 - Header provides dedicated space for site branding.
 
 Future:
 - Expanded branding features.
 - Additional header controls.
 ==================================================================*/
+
+.site-header {
+  padding-top: 96px;
+}
+
 header {
   position: fixed;
   top: 0;
