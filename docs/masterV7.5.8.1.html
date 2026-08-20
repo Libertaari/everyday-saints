@@ -542,27 +542,33 @@ Future:
     02.8 RESPONSIVE DESIGN
 ====================================================================
 STATUS:
-V7 - Updated
+V7.5.8.1 - Updated
 
 Purpose:
-Adapt the desktop layout for smaller screens while preserving
-the established V6.3 page geometry.
+Adapts the separate branding header and navigation field for
+smaller screens while preserving the established page structure.
 
 Current:
-- Two-row header remains centered.
-- Everyday [rotating artwork] Saints branding remains centered.
-- Navigation remains centered beneath the branding.
+- Branding remains centered in its own fixed header.
+- Everyday [rotating artwork] Saints branding remains horizontal.
+- Navigation occupies its own field below the branding.
+- Navigation participates in normal page flow.
 - Right-side advertisement is removed on small screens.
 - Bottom advertisement is reduced.
-- Feed spacing and margins are reduced.
+- Feed spacing is reduced.
 - Horizontal scrolling is prevented.
+
+Future:
+- Additional responsive navigation behavior.
 ==================================================================*/
+
 @media (max-width: 700px) {
+
   header {
     height: 90px;
+    min-height: 90px;
     padding: 8px 10px;
     justify-content: center;
-    gap: 4px;
   }
 
   .brand {
@@ -584,14 +590,15 @@ Current:
   }
 
   nav {
-    width: auto;
+    width: 100%;
+    height: 42px;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 4px 8px;
+    flex-wrap: nowrap;
+    gap: 8px;
     font-size: 11px;
     text-align: center;
-    min-width: 0;
-    margin-top: 0;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   nav span {
@@ -607,7 +614,7 @@ Current:
   }
 
   main {
-    margin: 110px auto 80px auto;
+    margin: 20px auto 80px auto;
     padding: 0 10px;
   }
 
@@ -637,7 +644,7 @@ Current:
     display: none;
   }
 
-  #ad-bottom {
+    #ad-bottom {
     height: 50px;
   }
 }
@@ -645,8 +652,6 @@ Current:
 </style>
 </head>
 <body>
-
-
 <!--##################################################################
     03. HTML BODY STRUCTURE
 ##################################################################-->
