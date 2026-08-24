@@ -531,61 +531,52 @@ Future:
 /*==================================================================
     02.8 RESPONSIVE DESIGN
 ====================================================================
-STATUS:
-V7.5.8.1 - Updated
-
-Purpose:
-Adapts the separate branding header and navigation field for
-smaller screens while preserving the established page structure.
-
-Current:
-- Branding remains centered in its own fixed header.
-- Everyday [rotating artwork] Saints branding remains horizontal.
-- Navigation occupies its own field below the branding.
-- Navigation participates in normal page flow.
-- Right-side advertisement is removed on small screens.
-- Bottom advertisement is reduced.
-- Feed spacing is reduced.
-- Horizontal scrolling is prevented.
-
-Future:
-- Additional responsive navigation behavior.
+V7.6.3 - Responsive Header Architecture
 ==================================================================*/
 
 @media (max-width: 700px) {
 
+  /*--------------------------------------------------------------
+      MOBILE HEADER
+  --------------------------------------------------------------*/
+
+  .site-header {
+    padding-top: 150px;
+  }
+
   header {
-    height: 90px;
-    min-height: 90px;
+    height: 150px;
+    min-height: 150px;
     padding: 8px 10px;
-    justify-content: center;
   }
 
   .brand {
-    justify-content: center;
-    gap: 8px;
-    min-width: 0;
+    max-width: 700px;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .brand > div {
-    font-size: 17px;
-    line-height: 18px;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
+  .brand-word {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: 0.5px;
   }
 
   .logo {
-    width: 34px;
-    height: 46px;
+    width: 80px;
+    height: 125px;
   }
 
+  /*--------------------------------------------------------------
+      MOBILE NAVIGATION
+  --------------------------------------------------------------*/
+
   nav {
+    height: 48px;
     width: 100%;
-    height: 42px;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 8px;
-    font-size: 11px;
+    gap: 10px;
+    font-size: 13px;
     text-align: center;
     box-sizing: border-box;
     overflow: hidden;
@@ -602,6 +593,10 @@ Future:
   .controls {
     display: none;
   }
+
+  /*--------------------------------------------------------------
+      MOBILE FEED
+  --------------------------------------------------------------*/
 
   main {
     margin: 20px auto 80px auto;
@@ -630,12 +625,72 @@ Future:
     font-size: 12px;
   }
 
+  /*--------------------------------------------------------------
+      MOBILE ADVERTISING
+  --------------------------------------------------------------*/
+
   #ad-right {
     display: none;
   }
 
   #ad-bottom {
     height: 50px;
+  }
+}
+
+
+/*==================================================================
+    PORTRAIT PHONE
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .site-header {
+    padding-top: 120px;
+  }
+
+  header {
+    height: 120px;
+    min-height: 120px;
+    padding: 6px 6px;
+  }
+
+  .brand {
+    max-width: 480px;
+  }
+
+  .brand-word {
+    font-size: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 96px;
+  }
+
+  nav {
+    height: 44px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  main {
+    margin: 16px auto 70px auto;
+    padding: 0 8px;
+  }
+
+  .feed-item {
+    padding: 11px 12px;
+  }
+
+  .feed-item .thumbnail {
+    width: 95px;
+    height: 54px;
+  }
+
+  .title {
+    font-size: 14px;
   }
 }
 </style>
