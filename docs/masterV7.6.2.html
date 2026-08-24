@@ -1,0 +1,1519 @@
+<!--##################################################################
+    EVERYDAY SAINTS
+    MASTER APPLICATION FILE
+    Version:
+    V7.5.8 - Header and Feed Experience Pass
+    Purpose:
+    RSS aggregation platform for Latter-day Saint content.
+    Philosophy:
+    The code is organized for long-term maintenance.
+    Every major feature has a designated location.
+##################################################################
+====================================================================
+00. PROJECT DOCUMENTATION
+====================================================================
+TABLE OF CONTENTS
+====================================================================
+00. Project Documentation
+    00.1 Purpose
+    00.2 Development Status
+    00.3 Roadmap
+01. Document Setup
+    01.1 HTML Declaration
+    01.2 Head Information
+02. CSS Styling
+    02.1 Theme Variables
+    02.2 Base Page Styling
+    02.3 Header Styling
+    02.4 Navigation Styling
+    02.5 Feed Styling
+    02.6 Advertisement Styling
+    02.7 Responsive Design (Future)
+03. HTML Body Structure
+    03.1 Header
+    03.2 Navigation
+    03.3 Advertisement Containers
+    03.4 Feed Container
+04. JavaScript Configuration
+    04.1 Global Variables
+    04.2 RSS Source List
+05. Logo System
+    Status: Complete
+06. RSS Feed Retrieval
+    Status: In Progress
+07. Feed Processing
+    Status: In Progress
+08. Feed Rendering
+    Status: In Progress
+09. Load More / Progressive Feed
+    Status: Implemented
+10. Search System
+    Status: Planned
+11. Category and Tag System
+    Status: Planned
+12. Advertisement System
+    Status: In Progress
+13. User Submission System
+    Status: Planned
+14. Admin Review Tools
+    Status: Planned
+15. Utility Functions
+    Status: Planned
+16. Debugging Tools
+    Status: Planned
+17. Application Initialization
+    Status: Complete
+====================================================================
+00.1 PURPOSE
+====================================================================
+Everyday Saints is designed as an RSS aggregation platform.
+
+Current focus:
+- Gather content from approved sources.
+- Display newest content first.
+- Provide a central location for discovery.
+- Provide a smooth progressive feed experience.
+- Establish controlled advertisement placement.
+
+Future focus:
+- Search.
+- Categories and tags.
+- Source filtering.
+- User submissions.
+- Community features.
+- Full advertising integration.
+====================================================================
+00.2 DEVELOPMENT STATUS
+====================================================================
+COMPLETED:
+✔ Basic page layout
+✔ Fixed header
+✔ Feed display
+✔ RSS retrieval
+✔ RSS sorting
+✔ Advertisement placeholders
+✔ Logo rotation system
+✔ Progressive feed loading
+✔ 30-article feed batches
+✔ In-feed advertisement placement
+
+CURRENT:
+► Header and responsive presentation refinement
+► Feed experience refinement
+► Advertisement system development
+► Code organization and documentation
+► Preparing for future expansion
+
+PLANNED:
+□ Search
+□ Categories and tags
+□ Source filtering
+□ User submissions
+□ Admin review process
+====================================================================
+00.3 ROADMAP
+====================================================================
+NEXT FEATURES:
+□ Replace RSS2JSON with controlled API/Cloudflare Worker
+□ Add categories/tags
+□ Add search
+□ Add source filtering
+□ Add real advertisements
+□ Add user submissions
+□ Add admin review process
+====================================================================
+END PROJECT DOCUMENTATION
+====================================================================
+-->
+
+
+<!--
+====================================================================
+01. DOCUMENT SETUP
+====================================================================
+
+01.1 HTML DECLARATION
+====================================================================
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!--
+====================================================================
+01.2 HEAD INFORMATION
+====================================================================
+
+Purpose:
+Defines document metadata and initializes the HTML head.
+
+Current Components:
+- Character encoding (UTF-8)
+- Responsive viewport
+- Browser page title
+- Beginning of embedded CSS
+
+Future Considerations:
+- Favicon
+- SEO metadata
+- Open Graph metadata
+- External CSS stylesheet(s), if adopted
+- External JavaScript file(s), if adopted
+
+====================================================================
+-->
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Everyday Saints</title>
+
+<style>
+
+/*##################################################################
+    02. CSS STYLING
+##################################################################*/
+
+/*==================================================================
+    02.1 THEME VARIABLES
+====================================================================
+
+Purpose:
+
+Central location for colors and visual design choices.
+
+Future:
+
+- Additional themes.
+- User customization.
+
+==================================================================*/
+
+:root {
+  --bg: #f5f3ef;
+  --header: #1c2a3a;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3f5f7a;
+  --border: rgba(0,0,0,0.08);
+}
+
+
+/*==================================================================
+    02.2 BASE PAGE STYLING
+====================================================================
+Purpose:
+Defines the default appearance of the page.
+==================================================================*/
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/*==================================================================
+    02.3 HEADER STYLING
+====================================================================
+V7.6.2 - Three Equal Header Fields
+==================================================================*/
+
+.site-header {
+  padding-top: 175px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 175px;
+  min-height: 175px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.brand {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.brand-word {
+  position: static;
+  transform: none;
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.brand-everyday {
+  grid-column: 1;
+}
+
+.brand-saints {
+  grid-column: 3;
+}
+
+.logo {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 110px;
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 5px;
+}
+/*==================================================================
+    02.4 NAVIGATION STYLING
+====================================================================
+V7.6 - Expanded Navigation Scale
+==================================================================*/
+
+nav {
+  height: 56px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  font-size: 16px;
+  opacity: 0.9;
+  box-sizing: border-box;
+}
+
+nav span {
+  white-space: nowrap;
+}
+
+nav span:hover {
+  background: rgba(255,255,255,0.08);
+  padding: 7px 9px;
+  border-radius: 4px;
+}
+
+.controls {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-left: 20px;
+}
+/*==================================================================
+    02.5 FEED STYLING
+====================================================================
+
+Current:
+Feed cards display article information and thumbnails when
+available.
+Desktop layout:
+- Thumbnail on the left.
+- Feed content on the right.
+- OPEN button provides the deliberate article-opening action.
+Future:
+- Summaries.
+- Tags.
+- Source icons.
+- Category labels.
+- Additional card layouts.
+
+==================================================================*/
+
+main {
+  max-width: 920px;
+  margin: 100px auto 120px auto;
+  padding: 0 16px;
+}
+
+#feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feed-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feed-item .thumbnail {
+  width: 160px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.feed-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.source {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px 0 8px;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.open-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--accent);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+
+.open-button:visited {
+  background: #6b4c8a;
+  border-color: #6b4c8a;
+}
+
+.open-button:hover {
+  background: #527895;
+  border-color: #527895;
+}
+
+.open-button:active {
+  background: #304b61;
+  border-color: #304b61;
+}
+
+.open-button:visited:hover {
+  background: #80609f;
+  border-color: #80609f;
+}
+
+.open-button:visited:active {
+  background: #54376f;
+  border-color: #54376f;
+}
+
+
+/*==================================================================
+    02.6 LOAD MORE STYLING
+====================================================================
+
+V5:
+
+Styles the LOAD MORE control used by the progressive feed.
+
+Current:
+
+- Centered below the available feed items.
+- User-controlled loading of additional articles.
+
+Future:
+
+- Additional visual states.
+- Loading indicator.
+- End-of-feed message.
+
+==================================================================*/
+
+#loadMore {
+  display: block;
+  margin: 20px auto 10px auto;
+  padding: 10px 22px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--accent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#loadMore:hover {
+  background: var(--bg);
+}
+
+
+/*==================================================================
+    02.7 ADVERTISEMENT STYLING
+====================================================================
+
+Current:
+
+Placeholder advertising locations.
+
+Future:
+
+- Google AdSense.
+- In-feed advertisements.
+- Advertisement rotation.
+
+==================================================================*/
+
+#ad-right {
+  position: fixed;
+  right: 0;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+#ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: rgba(0,0,0,0.03);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+
+/*==================================================================
+    02.8 RESPONSIVE DESIGN
+====================================================================
+STATUS:
+V7.5.8.1 - Updated
+
+Purpose:
+Adapts the separate branding header and navigation field for
+smaller screens while preserving the established page structure.
+
+Current:
+- Branding remains centered in its own fixed header.
+- Everyday [rotating artwork] Saints branding remains horizontal.
+- Navigation occupies its own field below the branding.
+- Navigation participates in normal page flow.
+- Right-side advertisement is removed on small screens.
+- Bottom advertisement is reduced.
+- Feed spacing is reduced.
+- Horizontal scrolling is prevented.
+
+Future:
+- Additional responsive navigation behavior.
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  header {
+    height: 90px;
+    min-height: 90px;
+    padding: 8px 10px;
+    justify-content: center;
+  }
+
+  .brand {
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .brand > div {
+    font-size: 17px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .logo {
+    width: 34px;
+    height: 46px;
+  }
+
+  nav {
+    width: 100%;
+    height: 42px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    font-size: 11px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  nav span {
+    white-space: nowrap;
+  }
+
+  nav span:hover {
+    padding: 4px 5px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  main {
+    margin: 20px auto 80px auto;
+    padding: 0 10px;
+  }
+
+  #feed {
+    gap: 10px;
+  }
+
+  .feed-item {
+    padding: 12px 13px;
+    border-radius: 8px;
+  }
+
+  .feed-item .thumbnail {
+    width: 110px;
+    height: 62px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .source {
+    font-size: 12px;
+  }
+
+  #ad-right {
+    display: none;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<!--##################################################################
+    03. HTML BODY STRUCTURE
+##################################################################-->
+
+<!--==================================================================
+    03.1 HEADER
+====================================================================
+V7.6.1 - Three-Element Header Structure
+==================================================================-->
+
+<div class="site-header">
+
+  <header>
+    <div class="brand">
+
+      <div class="brand-word brand-everyday">
+        Everyday
+      </div>
+
+      <div class="logo" id="logoBox">
+        <img
+          src="images/christus.png"
+          alt="Everyday Saints"
+        >
+      </div>
+
+      <div class="brand-word brand-saints">
+        Saints
+      </div>
+
+    </div>
+  </header>
+
+  <nav>
+    <span>Home</span>
+    <span>Feed</span>
+    <span>Topics</span>
+    <span>About</span>
+    <span>Search</span>
+    <div class="controls">
+      v1 • RSS Stream
+    </div>
+  </nav>
+
+</div>
+<!--==================================================================
+    03.2 NAVIGATION
+====================================================================
+
+Purpose:
+
+Documents the navigation system.
+
+Current:
+
+Navigation is structurally contained within the site-header
+structure defined in Section 03.1.
+
+The navigation field contains:
+
+- Home
+- Feed
+- Topics
+- About
+- Search
+- Version display
+
+The navigation is visually separate from the branding header
+but remains part of the overall header/navigation structure.
+
+Future:
+
+- Functional navigation
+- Categories
+- Source filtering
+- Search integration
+- Additional navigation items
+
+==================================================================-->
+
+<!--==================================================================
+    03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+
+Placeholder advertisement containers.
+
+Future:
+
+- Google AdSense
+- House advertisements
+- Rotating advertisements
+- Responsive advertisement layouts
+
+==================================================================-->
+
+<div id="ad-right">
+  AD SPACE
+</div>
+
+<div id="ad-bottom">
+  AD SPACE
+</div>
+
+
+<!--==================================================================
+    03.4 FEED CONTAINER
+====================================================================
+
+Purpose:
+
+Primary container for rendered RSS articles.
+
+Current:
+
+Displays feed items after JavaScript processing.
+
+Future:
+
+- Infinite scrolling
+- Pagination
+- In-feed advertisements
+- Category filtering
+
+==================================================================-->
+
+<main>
+
+  <div id="feed">
+    Loading feed...
+  </div>
+
+</main>
+
+<!--##################################################################
+    04. JAVASCRIPT CONFIGURATION
+##################################################################-->
+<script>
+//==================================================================
+// 04.1 GLOBAL VARIABLES
+//==================================================================
+//
+// Shared application variables.
+//
+// Current:
+//
+// Stores the available header logo options and the currently
+// selected logo.
+//
+// The logo system supports the V7 alternating header treatment.
+//
+// Future:
+//
+// Additional application settings will be centralized here.
+//
+//==================================================================
+
+const logos = [
+  "images/christus.png",
+  "images/temple.png"
+];
+
+let currentLogo =
+  logos[Math.floor(Math.random() * logos.length)];
+
+
+//==================================================================
+// 04.2 RSS SOURCE LIST
+//==================================================================
+//
+// Current:
+//
+// Stores approved YouTube RSS feed sources.
+//
+// The application retrieves new content from these sources
+// and processes them through the feed system.
+//
+// Future:
+//
+// Move sources into external configuration.
+//
+// Add:
+// - Source names
+// - Channel descriptions
+// - Categories
+// - Source images
+// - Source management tools
+//
+//==================================================================
+
+const rssFeeds = [
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1W-CtmEfxf0bS_aChaKlw",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCFNi-bt0oFbPvWvv5UmmAVQ",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCCVNFLUX8St8pSF1-kStOGQ",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC8kOn6wIHfSo3Kj7l7hHhiQ",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCwJySRiyFIE2w99_bHvfmRA",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5VMWkt48I4xZLqWZ8E0fw",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC7gSP30IlaFEn6UQhBFSKZg",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCVFMSQbMVD4wyiDZsQrLZ5g",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCJJ4TYPZCKbZonuWVpA5XLg",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3WFOCWkUFQcX_1W3NjqAQ",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA",
+
+  "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w",
+
+// ================================================================
+  // END OF ORIGINAL 12 SOURCES
+  // ================================================================
+
+  // New sources added after V6.3.1:
+ 
+
+];
+
+//##################################################################
+// 05. LOGO SYSTEM
+//##################################################################
+//
+// STATUS:
+// V6.3 - Updated
+//
+// Purpose:
+//
+// Provides the rotating visual identity system for the application.
+//
+// Current:
+//
+// - Random logo selected on page load.
+// - Christus and temple artwork alternate as the logo.
+// - Logo transition animation.
+// - Automatic rotation every two minutes.
+//
+// Future:
+//
+// - Additional logo artwork.
+// - Expanded visual identity system.
+//
+//##################################################################
+
+
+//==================================================================
+// 05.1 ROTATE LOGO
+//==================================================================
+//
+// Purpose:
+//
+// Changes the currently displayed logo.
+//
+// Current:
+//
+// The initial logo is selected randomly when the page loads.
+// After the initial selection, the logos alternate in sequence
+// at the established rotation interval.
+//
+//==================================================================
+function rotateLogo() {
+  const box = document.getElementById("logoBox");
+
+  currentLogo =
+    currentLogo === logos[0]
+      ? logos[1]
+      : logos[0];
+
+  box.style.opacity = 0;
+
+  setTimeout(() => {
+    box.innerHTML = `
+      <img
+        src="${currentLogo}"
+        alt="Everyday Saints"
+      >
+    `;
+    box.style.opacity = 1;
+  }, 200);
+}
+
+// 05.2 INITIALIZE LOGO SYSTEM
+//==================================================================
+//
+// Purpose:
+//
+// Starts the logo system after the page loads.
+//
+// Current:
+//
+// - Sets the initial logo.
+// - Makes the logo clickable.
+// - Opens the current artwork in a new browser tab.
+// - Starts the two-minute rotation timer.
+//
+//==================================================================
+document.addEventListener("DOMContentLoaded", () => {
+
+  const box = document.getElementById("logoBox");
+
+  box.innerHTML = `
+    <img
+      src="${currentLogo}"
+      alt="Everyday Saints"
+    >
+  `;
+
+  box.addEventListener("click", () => {
+    window.open(currentLogo, "_blank");
+  });
+
+  setInterval(
+    rotateLogo,
+    2 * 60 * 1000
+  );
+
+});
+
+
+
+//##################################################################
+// 06. RSS FEED RETRIEVAL
+//##################################################################
+//
+// STATUS:
+// Current implementation - RSS2JSON
+//
+// Current:
+//
+// Uses RSS2JSON to convert RSS XML into JSON.
+//
+// Each article is converted into a standardized Everyday Saints
+// article object containing:
+//
+// - Title
+// - Link
+// - Publication date
+// - Source
+// - Thumbnail
+//
+// Future:
+//
+// Replace RSS2JSON with a Cloudflare Worker/API.
+// This will improve reliability, control, caching, and scalability.
+//
+//##################################################################
+
+//==================================================================
+// 06.1 FETCH INDIVIDUAL FEED
+//==================================================================
+//
+// Input:
+//
+// RSS URL
+//
+// Output:
+//
+// Standard Everyday Saints article object.
+//
+// Thumbnail:
+//
+// Uses the thumbnail supplied by RSS2JSON when available.
+// Returns an empty value when no thumbnail is provided.
+//
+//==================================================================
+
+async function fetchFeed(url) {
+  try {
+    const res = await fetch(
+      "https://api.rss2json.com/v1/api.json?rss_url=" +
+      encodeURIComponent(url)
+    );
+
+    const data = await res.json();
+
+    if (!data.items) {
+      return [];
+    }
+
+    const channelName =
+      data.feed?.title ||
+      "RSS FEED ERROR";
+
+    return data.items.map(item => ({
+      title: item.title,
+      link: item.link,
+      pubDate: item.pubDate,
+      source: channelName,
+      thumbnail: item.thumbnail || ""
+    }));
+
+  } catch (e) {
+    return [];
+  }
+}
+
+
+//##################################################################
+// 07. FEED PROCESSING
+//##################################################################
+//
+// STATUS:
+// V7 - In Progress
+//
+// Current:
+//
+// - Retrieves all feeds.
+// - Combines articles.
+// - Sorts newest first.
+// - Preserves thumbnail data attached to each article.
+// - Stores the complete sorted article set.
+// - Controls the number of articles initially displayed.
+//
+// V7 Direction:
+//
+// - Support a larger initial article pool.
+// - Provide a smooth progression through the available feed.
+// - Prepare for additional feed content without repeatedly retrieving
+//   the RSS sources.
+//
+// Future:
+//
+// - Filtering.
+// - Categories.
+// - Additional feed controls.
+//
+//##################################################################
+//==================================================================
+// 07.1 LOAD ALL FEEDS
+//==================================================================
+//
+// Retrieves all RSS sources and prepares them for display.
+//
+// Article objects are passed through without modification so that
+// data retrieved by Section 06, including thumbnails, remains
+// available to Section 08 for rendering.
+//
+// The complete sorted article set is retained so that additional
+// batches can be displayed without retrieving the feeds again.
+//
+//==================================================================
+
+let allFeedItems = [];
+
+let displayedCount = 30;
+
+async function loadFeed() {
+
+  const feed = document.getElementById("feed");
+
+  const results = await Promise.all(
+    rssFeeds.map(url => fetchFeed(url))
+  );
+
+  allFeedItems = results
+    .flat()
+    .sort((a, b) =>
+      new Date(b.pubDate) - new Date(a.pubDate)
+    );
+
+  displayedCount = 30;
+
+  renderFeed(
+    allFeedItems.slice(0, displayedCount)
+  );
+}
+
+
+//==================================================================
+// 08.1 RENDER FEED CARDS
+//==================================================================
+//
+// V7:
+//
+// Renders standardized Everyday Saints article cards.
+//
+// Displays article thumbnails when available.
+//
+// Articles without thumbnails continue to display normally.
+//
+// Each feed batch contains 30 articles.
+//
+// An advertisement placeholder is inserted after article 15
+// and before article 16 of each batch.
+//
+// Additional articles are appended through the LOAD MORE control.
+//
+//==================================================================
+function renderFeed(items) {
+  const feed = document.getElementById("feed");
+
+  if (!items.length) {
+    feed.innerHTML = `
+      <div class="feed-item">
+        <div class="feed-content">
+          <div class="source">
+            RSS FEED ERROR
+          </div>
+          <div class="title">
+            Unable to load feed items.
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  feed.innerHTML = renderArticleBatch(items);
+  renderLoadMore();
+}
+
+function renderArticleBatch(items) {
+  return items.map((item, index) => `
+    ${index === 15 ? `
+      <div class="in-feed-ad">
+        AD SPACE
+      </div>
+    ` : ""}
+    <div class="feed-item">
+      ${item.thumbnail ? `
+        <img
+          class="thumbnail"
+          src="${item.thumbnail}"
+          alt=""
+        >
+      ` : ""}
+      <div class="feed-content">
+        <div class="source">
+          ${item.source}
+        </div>
+        <div class="title">
+          ${item.title}
+        </div>
+        <div class="meta">
+          ${item.pubDate}
+        </div>
+        <a
+          class="open-button"
+          href="${item.link}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          OPEN
+        </a>
+      </div>
+    </div>
+  `).join("");
+}
+//==================================================================
+// 08.2 LOAD MORE CONTROL
+//==================================================================
+//
+// V7:
+//
+// Adds a LOAD MORE button when additional articles are available.
+//
+// Each selection reveals the next 30 articles.
+//
+// Each 30-article batch contains an advertisement placeholder
+// between articles 15 and 16.
+//
+// The existing feed remains visible while the next batch is
+// appended below it.
+//
+//==================================================================
+function renderLoadMore() {
+  const existingButton =
+    document.getElementById("loadMore");
+
+  if (existingButton) {
+    existingButton.remove();
+  }
+
+  if (displayedCount >= allFeedItems.length) {
+    return;
+  }
+
+  const feed = document.getElementById("feed");
+  const button = document.createElement("button");
+
+  button.id = "loadMore";
+  button.textContent = "LOAD MORE";
+
+  button.addEventListener("click", () => {
+    const previousCount = displayedCount;
+
+    displayedCount += 30;
+
+    const newItems =
+      allFeedItems.slice(
+        previousCount,
+        displayedCount
+      );
+
+    feed.insertAdjacentHTML(
+      "beforeend",
+      renderArticleBatch(newItems)
+    );
+
+    renderLoadMore();
+  });
+
+  feed.appendChild(button);
+}
+
+
+
+//##################################################################
+// 09. LOAD MORE / PROGRESSIVE FEED
+//##################################################################
+//
+// STATUS:
+// V7 - Implemented
+//
+// Purpose:
+//
+// Allow users to continue browsing the aggregated feed without
+// traditional page-by-page navigation or automatic infinite scroll.
+//
+// Current:
+//
+// - Initial feed displays 30 articles.
+// - Additional batches contain 30 articles.
+// - Each batch places an advertisement placeholder between
+//   articles 15 and 16.
+// - Additional articles are appended to the existing feed.
+// - The complete sorted article set remains available in memory.
+//
+// Feed behavior:
+//
+// - No numbered pages.
+// - No automatic infinite scrolling.
+// - User controls when additional content is loaded.
+// - LOAD MORE reveals the next batch without replacing existing
+//   feed content.
+//
+// Advertisement behavior:
+//
+// - One advertisement placeholder is inserted per 30-article batch.
+// - Placement occurs after article 15 and before article 16.
+//
+// Future:
+//
+// - Improved retrieval and caching through the Cloudflare
+//   Worker/API.
+// - End-of-feed handling when no additional articles remain.
+//
+//##################################################################
+
+
+//##################################################################
+// 10. SEARCH SYSTEM
+//##################################################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides the ability to locate content across the Everyday Saints
+// platform.
+//
+// Future:
+//
+// Search across:
+//
+// - Titles.
+// - Sources.
+// - Summaries.
+// - Tags.
+//
+//##################################################################
+
+//##################################################################
+// 11. CATEGORY AND TAG SYSTEM
+//##############################on####################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides organizational tools for grouping and filtering content
+// across the Everyday Saints platform.
+//
+// Future:
+//
+// Categories:
+//
+// - Scripture Study.
+// - News.
+// - Podcasts.
+// - Personal Stories.
+// - Church Resources.
+//
+// Tags:
+//
+// - Additional topic-based labels.
+// - Flexible content classification.
+//
+//##################################################################
+
+//##################################################################
+// 12. ADVERTISEMENT SYSTEM
+//##################################################################
+//
+// STATUS:
+// V7 - In Progress
+//
+// Purpose:
+//
+// Provides the framework for advertising and monetization features
+// within the Everyday Saints platform.
+//
+// Current:
+//
+// - Placeholder advertisement containers exist.
+// - Desktop and bottom advertisement locations are established.
+// - In-feed advertisement placeholders are implemented.
+// - In-feed advertisements appear once per 30-article batch,
+//   between articles 15 and 16.
+//
+// V7 Advertising Strategy:
+//
+// - Maintain controlled advertisement frequency.
+// - Avoid excessive interruption of the feed experience.
+// - Keep advertisement placement consistent across feed batches.
+//
+// Future:
+//
+// - Google AdSense integration.
+// - Advertisement placement optimization.
+// - Additional responsive advertisement layouts.
+//
+//##################################################################
+
+//##################################################################
+// 13. USER SUBMISSION SYSTEM
+//##################################################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides a future method for users to contribute content to the
+// Everyday Saints platform.
+//
+// Future:
+//
+// Allow submissions:
+//
+// - Spiritual experiences.
+// - Testimonies.
+// - Conversion stories.
+// - Mission experiences.
+//
+// Requires:
+//
+// - Content storage.
+// - Review workflow.
+// - Approval process.
+// - User submission management.
+//
+//##################################################################
+
+//##################################################################
+// 14. ADMIN REVIEW TOOLS
+//##################################################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides future administrative tools for managing submitted
+// content and maintaining platform quality.
+//
+// Future:
+//
+// Administrative tools:
+//
+// - Review submissions.
+// - Approve content.
+// - Reject content.
+// - Edit content.
+//
+// Requires:
+//
+// - User submission system.
+// - Administrative access controls.
+// - Content management workflow.
+//
+//##################################################################
+//##################################################################
+// 15. UTILITY FUNCTIONS
+//##################################################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides a centralized location for reusable helper functions
+// shared across multiple application features.
+//
+// Future:
+//
+// Shared helpers:
+//
+// - Date formatting.
+// - Text cleanup.
+// - Image handling.
+// - Error handling.
+// - Additional reusable tools.
+//
+//##################################################################
+
+//##################################################################
+// 16. DEBUGGING TOOLS
+//##################################################################
+//
+// STATUS:
+// Planned
+//
+// Purpose:
+//
+// Provides development tools for monitoring, testing, and
+// troubleshooting application behavior.
+//
+// Future:
+//
+// Development tools:
+//
+// - Console logging.
+// - Feed testing tools.
+// - Error reporting.
+// - Diagnostic information.
+//
+//##################################################################
+
+//##################################################################
+// 17. APPLICATION INITIALIZATION
+//##################################################################
+//
+// STATUS:
+// Complete
+//
+// Purpose:
+//
+// Starts the Everyday Saints application after all required
+// functions and configuration have been loaded.
+//
+// Current:
+//
+// - Initiates feed loading.
+// - Begins the RSS retrieval, processing, and rendering workflow.
+//
+//##################################################################
+
+loadFeed();
+
+</script>
+
+</body>
+</html>
+
