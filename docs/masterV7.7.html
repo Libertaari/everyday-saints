@@ -692,42 +692,75 @@ V7.6.3 - Responsive Fixed Header and Navigation
 @media (max-width: 700px) and (orientation: landscape) {
 
   .site-header {
-    padding-top: 72px;
+    padding-top: 76px !important;
   }
 
   header {
-    height: 52px;
-    min-height: 52px;
-    padding: 2px 6px;
-    overflow: hidden;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    max-height: 52px !important;
+    padding: 0 6px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   .brand {
-    height: 52px;
-    max-width: 700px;
+    width: 100% !important;
+    max-width: 700px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    align-items: center !important;
   }
 
   .brand-word {
-    font-size: 20px;
-    line-height: 1;
-    letter-spacing: 0.2px;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    letter-spacing: 0.2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
   }
 
   .logo {
-    width: 44px;
-    height: 46px;
+    width: 44px !important;
+    height: 46px !important;
+    justify-self: center !important;
+    align-self: center !important;
+  }
+
+  .logo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
 
   nav {
-    top: 52px;
-    height: 20px;
-    gap: 6px;
-    font-size: 10px;
+    position: fixed !important;
+    top: 52px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 6px !important;
+    font-size: 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
   main {
-    margin: 0 auto 70px auto;
-    padding: 0 8px;
+    margin: 0 auto 70px auto !important;
+    padding: 0 8px !important;
   }
 }
 
