@@ -1251,13 +1251,21 @@ async function loadFeed() {
 // 08.1 RENDER FEED CARDS
 //==================================================================
 //
-// V7:
+// V8.2:
 //
 // Renders standardized Everyday Saints article cards.
 //
+// Displays:
+// - Source
+// - Title
+// - Summary when available
+// - Publication date
+// - OPEN button
+//
 // Displays article thumbnails when available.
 //
-// Articles without thumbnails continue to display normally.
+// Articles without thumbnails or summaries continue to display
+// normally.
 //
 // Each feed batch contains 30 articles.
 //
@@ -1297,7 +1305,9 @@ function renderArticleBatch(items) {
         AD SPACE
       </div>
     ` : ""}
+
     <div class="feed-item">
+
       ${item.thumbnail ? `
         <img
           class="thumbnail"
@@ -1305,16 +1315,31 @@ function renderArticleBatch(items) {
           alt=""
         >
       ` : ""}
+
       <div class="feed-content">
+
         <div class="source">
           ${item.source}
         </div>
+
         <div class="title">
           ${item.title}
         </div>
+
+        ${item.summary ? `
+          <div class="summary">
+            ${item.summary
+              .replace(/<[^>]*>/g, " ")
+              .replace(/\s+/g, " ")
+              .trim()
+            }
+          </div>
+        ` : ""}
+
         <div class="meta">
           ${item.pubDate}
         </div>
+
         <a
           class="open-button"
           href="${item.link}"
@@ -1323,6 +1348,7 @@ function renderArticleBatch(items) {
         >
           OPEN
         </a>
+
       </div>
     </div>
   `).join("");
