@@ -1272,34 +1272,32 @@ async function loadFeed() {
 }
 
 
-//==================================================================
-// 08.1 RENDER FEED CARDS
-//==================================================================
-//
-// V8.2:
-//
-// Renders standardized Everyday Saints article cards.
-//
-// Displays:
-// - Source
-// - Title
-// - Summary when available
-// - Publication date
-// - OPEN button
-//
-// Displays article thumbnails when available.
-//
-// Articles without thumbnails or summaries continue to display
-// normally.
-//
-// Each feed batch contains 30 articles.
-//
-// An advertisement placeholder is inserted after article 15
-// and before article 16 of each batch.
-//
-// Additional articles are appended through the LOAD MORE control.
-//
-//==================================================================
+/*==================================================================
+    08.1 RENDER FEED CARDS
+====================================================================
+
+V8.3 - Feed Summaries Diagnostic
+
+Current:
+
+- Renders standardized Everyday Saints article cards.
+- Displays article thumbnails when available.
+- Displays article summaries when available.
+- Displays a diagnostic message when no summary data is present.
+- Articles without thumbnails continue to display normally.
+- Each feed batch contains 30 articles.
+- An advertisement placeholder is inserted after article 15
+  and before article 16 of each batch.
+- Additional articles are appended through the LOAD MORE control.
+
+Future:
+
+- Summary cleanup.
+- Summary length control.
+- Additional card layouts.
+
+==================================================================*/
+
 function renderFeed(items) {
   const feed = document.getElementById("feed");
 
@@ -1359,7 +1357,11 @@ function renderArticleBatch(items) {
               .trim()
             }
           </div>
-        ` : ""}
+        ` : `
+          <div class="summary">
+            [NO SUMMARY DATA]
+          </div>
+        `}
 
         <div class="meta">
           ${item.pubDate}
