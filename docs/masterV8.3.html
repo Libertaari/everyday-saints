@@ -335,19 +335,24 @@ nav span:hover {
     02.5 FEED STYLING
 ====================================================================
 
+V8.3 - Feed Summaries
+
 Current:
-Feed cards display article information and thumbnails when
-available.
-Desktop layout:
-- Thumbnail on the left.
-- Feed content on the right.
-- OPEN button provides the deliberate article-opening action.
+- Feed cards display article information and thumbnails when
+  available.
+- Feed cards now display article summaries when available.
+- Desktop layout:
+  - Thumbnail on the left.
+  - Feed content on the right.
+  - OPEN button provides the deliberate article-opening action.
+- Summary text is displayed beneath the article title.
+
 Future:
-- Summaries.
+- Summary length control.
+- Additional card layouts.
 - Tags.
 - Source icons.
 - Category labels.
-- Additional card layouts.
 
 ==================================================================*/
 
@@ -398,6 +403,13 @@ main {
   font-size: 16px;
   font-weight: 600;
   margin: 6px 0 8px;
+}
+
+.summary {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 8px 0;
 }
 
 .meta {
