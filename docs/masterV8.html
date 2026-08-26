@@ -1137,8 +1137,13 @@ document.addEventListener("DOMContentLoaded", () => {
 // Uses the thumbnail supplied by RSS2JSON when available.
 // Returns an empty value when no thumbnail is provided.
 //
+// Summary:
+//
+// Uses the description supplied by RSS2JSON when available.
+// Falls back to content when description is unavailable.
+// Returns an empty value when neither is available.
+//
 //==================================================================
-
 async function fetchFeed(url) {
   try {
     const res = await fetch(
@@ -1161,7 +1166,8 @@ async function fetchFeed(url) {
       link: item.link,
       pubDate: item.pubDate,
       source: channelName,
-      thumbnail: item.thumbnail || ""
+      thumbnail: item.thumbnail || "",
+      summary: item.description || item.content || ""
     }));
 
   } catch (e) {
