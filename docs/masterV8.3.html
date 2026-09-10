@@ -569,15 +569,34 @@ V7.6.3 - Responsive Fixed Header and Navigation
   }
 
   .brand-word {
-    font-size: 36px;
-    line-height: 1;
-    letter-spacing: 0.5px;
-  }
+  width: auto;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.brand-everyday,
+.brand-saints {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  transform: none;
+  transform-origin: center;
+}
+
+.brand-saints {
+  letter-spacing: 0.5px;
+}
 
   .logo {
-    width: 80px;
-    height: 125px;
-  }
+  grid-row: 1;
+  justify-self: center;
+  width: 80px;
+  height: 125px;
+}
+ .logo img {
+   object-fit: contain;
+}
 
   nav {
     top: 150px;
@@ -665,6 +684,9 @@ V7.6.3 - Responsive Fixed Header and Navigation
     font-size: 24px;
     letter-spacing: 0.3px;
   }
+  .brand-saints {
+   letter-spacing: 0.3px;
+}
 
   .logo {
     width: 58px;
@@ -731,12 +753,26 @@ V7.6.3 - Responsive Fixed Header and Navigation
   }
 
   .brand-word {
-    font-size: 34.5px;
-    line-height: 1;
-    letter-spacing: 0.2px;
-    text-align: center;
-    white-space: nowrap;
-  }
+  width: auto;
+  font-size: 34.5px;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.brand-everyday,
+.brand-saints {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  transform: none;
+  transform-origin: center;
+}
+
+.brand-saints {
+  letter-spacing: 0.2px;
+}
 
   .logo {
     width: 75px;
