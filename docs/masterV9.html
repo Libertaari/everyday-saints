@@ -905,11 +905,6 @@ V7.6.3 - Responsive Fixed Header and Navigation
     border-radius: 8px;
   }
 
-  .feed-item .thumbnail {
-    width: 110px;
-    height: 62px;
-  }
-
   .title {
     font-size: 15px;
   }
@@ -972,11 +967,6 @@ V7.6.3 - Responsive Fixed Header and Navigation
 
   .feed-item {
     padding: 11px 12px;
-  }
-
-  .feed-item .thumbnail {
-    width: 95px;
-    height: 54px;
   }
 
   .title {
@@ -1616,8 +1606,8 @@ async function fetchFeed(url) {
         type: feedType,
 
         title:
-          item.title || "",
-
+          cleanRSSText(item.title || ""),
+          
         link:
           item.link || "",
 
