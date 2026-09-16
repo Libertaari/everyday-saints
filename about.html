@@ -1831,23 +1831,19 @@ Used by:
 <!--##################################################################
     04. JAVASCRIPT CONFIGURATION
 ##################################################################-->
+
 <script>
+
 //==================================================================
-// 04.1 GLOBAL VARIABLES
+// 04.1 LOGO VARIABLES
 //==================================================================
 //
-// Shared application variables.
+// Content Page V1
 //
-// Current:
+// Stores the available header logo options and selects the
+// initial logo randomly.
 //
-// Stores the available header logo options and the currently
-// selected logo.
-//
-// The logo system supports the V7 alternating header treatment.
-//
-// Future:
-//
-// Additional application settings will be centralized here.
+// Used by the shared Everyday Saints logo system.
 //
 //==================================================================
 
@@ -1858,66 +1854,6 @@ const logos = [
 
 let currentLogo =
   logos[Math.floor(Math.random() * logos.length)];
-
-
-//==================================================================
-// 04.2 RSS SOURCE LIST
-//==================================================================
-//
-// Current:
-//
-// Stores approved YouTube RSS feed sources.
-//
-// The application retrieves new content from these sources
-// and processes them through the feed system.
-//
-// Future:
-//
-// Move sources into external configuration.
-//
-// Add:
-// - Source names
-// - Channel descriptions
-// - Categories
-// - Source images
-// - Source management tools
-//
-//==================================================================
-
-const rssFeeds = [
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1W-CtmEfxf0bS_aChaKlw",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCFNi-bt0oFbPvWvv5UmmAVQ",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCCVNFLUX8St8pSF1-kStOGQ",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC8kOn6wIHfSo3Kj7l7hHhiQ",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCwJySRiyFIE2w99_bHvfmRA",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5VMWkt48I4xZLqWZ8E0fw",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC7gSP30IlaFEn6UQhBFSKZg",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCVFMSQbMVD4wyiDZsQrLZ5g",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCJJ4TYPZCKbZonuWVpA5XLg",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UC-3WFOCWkUFQcX_1W3NjqAQ",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA",
-
-  "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w",
-
-// ================================================================
-  // END OF ORIGINAL 12 SOURCES
-  // ================================================================
-
-  // New sources added after V6.3.1:
- 
-
-];
 
 //##################################################################
 // 05. LOGO SYSTEM
