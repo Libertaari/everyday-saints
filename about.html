@@ -1196,6 +1196,89 @@ Future:
 - Google AdSense
 - House advertisements
 - Rotating advertisements
+<!--##################################################################
+    03. HTML BODY STRUCTURE
+##################################################################-->
+
+<!--==================================================================
+    03.1 HEADER
+====================================================================
+Content Page V1 - Shared Everyday Saints Header
+==================================================================-->
+
+<div class="site-header">
+
+  <header>
+    <div class="brand">
+
+      <div class="brand-word brand-everyday">
+        EVERYDAY
+      </div>
+
+      <div class="logo" id="logoBox">
+        <img
+          src="images/christus.png"
+          alt="Everyday Saints"
+        >
+      </div>
+
+      <div class="brand-word brand-saints">
+        SAINTS
+      </div>
+
+    </div>
+  </header>
+
+  <nav>
+    <span>Home</span>
+    <span>Feed</span>
+    <span>Topics</span>
+    <span>About</span>
+    <span>Search</span>
+
+    <div class="controls">
+      v1 • Everyday Saints
+    </div>
+  </nav>
+
+</div>
+
+
+<!--==================================================================
+    03.2 NAVIGATION
+====================================================================
+
+Purpose:
+
+Shared Everyday Saints navigation.
+
+Current:
+
+Navigation is structurally contained within the site-header
+defined in Section 03.1.
+
+Future:
+
+- Functional page navigation
+- Search integration
+- Topics
+- Additional site sections
+
+==================================================================-->
+
+
+<!--==================================================================
+    03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+
+Placeholder advertisement containers.
+
+Future:
+
+- Google AdSense
+- House advertisements
 - Responsive advertisement layouts
 
 ==================================================================-->
@@ -1210,31 +1293,51 @@ Future:
 
 
 <!--==================================================================
-    03.4 FEED CONTAINER
+    03.4 CONTENT PAGE
 ====================================================================
 
 Purpose:
 
-Primary container for rendered RSS articles.
+Primary content area for Everyday Saints informational pages.
 
 Current:
 
-Displays feed items after JavaScript processing.
+Provides a reusable content-page structure.
 
-Future:
+Individual pages supply their own:
 
-- Infinite scrolling
-- Pagination
-- In-feed advertisements
-- Category filtering
+- Page title
+- Introductory text
+- Page content
+
+Used by:
+
+- About
+- FAQ
+- What's Next?
+- Sources
+- Privacy
+- Terms
 
 ==================================================================-->
 
-<main>
+<main class="content-page">
 
-  <div id="feed">
-    Loading feed...
-  </div>
+  <article class="page-content">
+
+    <h1>
+      About Everyday Saints
+    </h1>
+
+    <div class="page-body">
+
+      <p>
+        About content goes here.
+      </p>
+
+    </div>
+
+  </article>
 
 </main>
 
