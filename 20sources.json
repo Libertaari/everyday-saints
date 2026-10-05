@@ -133,7 +133,9 @@
     "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpumfWNEXE5YbL5QMjg5agA"
   },
   {
-    "name": "WARD Radio",
-    "type": "youtube",
-    "handle": "@WARDRADIO",
-    "channelId": "UC
+  "name": "WARD Radio",
+  "type": "youtube",
+  "handle": "@WARDRADIO",
+  "channelId": "UCnmsAFGrFuGe0obW6tkEY6w",
+  "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnmsAFGrFuGe0obW6tkEY6w"
+}
