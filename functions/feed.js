@@ -98,7 +98,7 @@ export async function onRequestGet(context) {
 
     // ============================================================
     // STEP 5:
-    // Retrieve five newest uploads from EACH channel.
+    // Retrieve fifteen newest uploads from EACH channel.
     // ============================================================
 
     const playlistRequests =
@@ -118,7 +118,7 @@ export async function onRequestGet(context) {
           "?part=snippet,contentDetails" +
           "&playlistId=" +
           encodeURIComponent(uploadsPlaylistId) +
-          "&maxResults=5" +
+          "&maxResults=15" +
           "&key=" +
           encodeURIComponent(apiKey);
 
@@ -187,7 +187,7 @@ export async function onRequestGet(context) {
     // Get video durations.
     //
     // YouTube's videos endpoint accepts up to 50 IDs per request.
-    // Twenty channels × five videos = up to 100 videos,
+    // Twenty channels × fifteen videos = up to 300 videos,
     // so we split the IDs into groups of 50.
     // ============================================================
 
