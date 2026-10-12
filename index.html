@@ -385,10 +385,11 @@ header {
   object-position: center;
   border-radius: 5px;
 }
+
 /*==================================================================
     02.4 NAVIGATION STYLING
 ====================================================================
-V9.5 - Primary Navigation and Search Field
+V11.AOR - Primary Navigation and Search Field
 
 Current:
 - Fixed navigation field below the branding header.
@@ -396,6 +397,7 @@ Current:
 - Topics control.
 - Integrated search input.
 - Version display.
+- Increased navigation opacity for improved readability.
 ==================================================================*/
 
 nav {
@@ -417,7 +419,7 @@ nav {
 
   font-size: 16px;
 
-  opacity: 0.9;
+  opacity: 0.96;
 
   box-sizing: border-box;
 
@@ -426,7 +428,7 @@ nav {
 
 
 /*==================================================================
-    NAVIGATION LINKS
+   NAVIGATION LINKS
 ==================================================================*/
 
 nav a,
@@ -473,12 +475,11 @@ nav a:active,
 
 
 /*==================================================================
-    NAVIGATION SEARCH
+   NAVIGATION SEARCH
 ==================================================================*/
 
 .nav-search {
   display: flex;
-
   align-items: center;
 
   width: 190px;
@@ -511,13 +512,12 @@ nav a:active,
 
 #searchInput:focus {
   border-color: rgba(255,255,255,0.85);
-
   background: rgba(255,255,255,0.18);
 }
 
 
 /*==================================================================
-    VERSION DISPLAY
+   VERSION DISPLAY
 ==================================================================*/
 
 .controls {
@@ -526,7 +526,6 @@ nav a:active,
   opacity: 0.75;
 
   margin-left: 10px;
-
   white-space: nowrap;
 }
 
