@@ -3370,102 +3370,110 @@ if (tagFeedContainer && tagFeedContainer.parentNode) {
 }
 
 
-//==================================================================
-// 11.7 UPDATE FILTER BAR
-//==================================================================
-//
-// Rebuilds the selected tag buttons and dropdown.
-//
-// Already selected tags are excluded from the dropdown.
-//
-//==================================================================
+
+ //==================================================================
+ // 11.7 UPDATE FILTER BAR
+ //==================================================================
+ //
+ // Rebuilds the selected tag buttons and dropdown.
+ //
+ // Already selected tags are excluded from the dropdown.
+ //
+ // The filter bar is visible when:
+ // - One or more tags are selected.
+ // - Topics has explicitly opened the controls.
+ //
+ //==================================================================
+
+let topicsPanelOpen = false;
 
 function updateTagFilterStatus() {
 
-  const isActive = activeTagFilters.length > 0;
+    const isActive = activeTagFilters.length > 0;
 
-  tagFilterStatus.hidden = !isActive;
+    const shouldShow = isActive || topicsPanelOpen;
 
-  tagFilterStatus.style.display =
-    isActive ? "flex" : "none";
+    tagFilterStatus.hidden = !shouldShow;
 
-  // Rebuild removable selected-tag buttons.
+    tagFilterStatus.style.display =
+     shouldShow ? "flex" : "none";
 
-  tagChipArea.replaceChildren();
+    // Rebuild removable selected-tag buttons.
 
-  activeTagFilters.forEach(tag => {
+    tagChipArea.replaceChildren();
 
-    const chip = document.createElement("button");
+    activeTagFilters.forEach(tag => {
 
-    chip.type = "button";
-    chip.textContent = tag + " ×";
-    chip.title = "Remove " + tag;
+     const chip = document.createElement("button");
 
-    chip.setAttribute(
-      "aria-label",
-      "Remove " + tag + " filter"
-    );
+     chip.type = "button";
+     chip.textContent = tag + " ×";
+     chip.title = "Remove " + tag;
 
-    chip.style.cssText = `
-      padding: 6px 9px;
-      border: 1px solid #8da9c4;
-      border-radius: 18px;
-      background: white;
-      color: #243b53;
-      cursor: pointer;
-      font: inherit;
-    `;
+     chip.setAttribute(
+       "aria-label",
+       "Remove " + tag + " filter"
+     );
 
-    chip.addEventListener("click", () => {
+     chip.style.cssText = `
+       padding: 6px 9px;
+       border: 1px solid #8da9c4;
+       border-radius: 18px;
+       background: white;
+       color: #243b53;
+       cursor: pointer;
+       font: inherit;
+     `;
 
-      activeTagFilters = activeTagFilters.filter(
-        selected => selected !== tag
-      );
+     chip.addEventListener("click", () => {
 
-      applySearch();
+          activeTagFilters = activeTagFilters.filter(
+            selected => selected !== tag
+          );
 
-    });
+          applySearch();
 
-    tagChipArea.appendChild(chip);
+     });
 
-  });
-
-  // Rebuild dropdown with unselected tags.
-
-  addTagSelect.replaceChildren();
-
-  const placeholder = document.createElement("option");
-
-  placeholder.value = "";
-  placeholder.textContent = "Add Tag…";
-
-  addTagSelect.appendChild(placeholder);
-
-  tagNames
-    .filter(tag => !activeTagFilters.includes(tag))
-    .forEach(tag => {
-
-      const option = document.createElement("option");
-
-      option.value = tag;
-      option.textContent = tag;
-
-      addTagSelect.appendChild(option);
+     tagChipArea.appendChild(chip);
 
     });
 
-  addTagSelect.value = "";
+    // Rebuild dropdown with unselected tags.
 
-  modeSelect.value = tagMatchMode;
+    addTagSelect.replaceChildren();
 
-  tagFilterExplanation.textContent = isActive
-    ? "Showing videos matching " +
-      (tagMatchMode === "AND" ? "ALL" : "ANY") +
-      " of the selected tags."
-    : "";
+    const placeholder = document.createElement("option");
+
+    placeholder.value = "";
+    placeholder.textContent = "Add Tag…";
+
+    addTagSelect.appendChild(placeholder);
+
+    tagNames
+     .filter(tag => !activeTagFilters.includes(tag))
+     .forEach(tag => {
+
+          const option = document.createElement("option");
+
+          option.value = tag;
+          option.textContent = tag;
+
+          addTagSelect.appendChild(option);
+
+     });
+
+    addTagSelect.value = "";
+
+    modeSelect.value = tagMatchMode;
+
+    tagFilterExplanation.textContent = isActive
+     ? "Showing videos matching " +
+       (tagMatchMode === "AND" ? "ALL" : "ANY") +
+       " of the selected tags."
+     : "";
 
 }
-
 
 //==================================================================
 // 11.8 ADD A TAG FILTER
@@ -3661,6 +3669,46 @@ document.addEventListener("click", event => {
   }
 
 });
+
+//==================================================================
+// 11.12 TOPICS NAVIGATION CONTROL
+//==================================================================
+//
+// Connects the Topics navigation button to the existing
+// tag-filter interface.
+//
+// Clicking Topics:
+// - Reveals the filter controls.
+// - Scrolls to the filter bar.
+// - Preserves selected tags and search terms.
+// - Does not create a separate Topics page.
+//
+//==================================================================
+
+const topicsButton =
+ document.getElementById("topicsButton");
+
+if (topicsButton) {
+
+    topicsButton.addEventListener("click", () => {
+
+        // Reveal the controls, even when no tags
+        // have been selected.
+
+        topicsPanelOpen = true;
+
+        updateTagFilterStatus();
+
+        // Scroll to the existing tag-filter bar.
+
+        tagFilterStatus.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+}
 
 
 //##################################################################
