@@ -931,45 +931,93 @@ main {
 }
 
 
+
 /*==================================================================
-    02.6 LOAD MORE STYLING
+   02.6 LOAD MORE STYLING
 ====================================================================
-
-V5:
-
-Styles the LOAD MORE control used by the progressive feed.
+V11.AOR - Styled Progressive Feed Control
 
 Current:
-
-- Centered below the available feed items.
-- User-controlled loading of additional articles.
+- Prominent, centered LOAD MORE button.
+- Dark-blue styling consistent with OPEN buttons.
+- Hover and active feedback.
+- Keyboard focus visibility.
+- Existing progressive loading behavior preserved.
 
 Future:
-
-- Additional visual states.
 - Loading indicator.
 - End-of-feed message.
-
 ==================================================================*/
 
 #loadMore {
   display: block;
-  margin: 20px auto 10px auto;
-  padding: 10px 22px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--card);
-  color: var(--accent);
+
+  margin: 28px auto 20px auto;
+  padding: 13px 36px;
+
+  min-width: 180px;
+
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+
+  background: var(--accent);
+  color: #ffffff;
+
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+
+  text-align: center;
   cursor: pointer;
+
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
+
+/*==================================================================
+   HOVER STATE
+==================================================================*/
 
 #loadMore:hover {
-  background: var(--bg);
+  background: #304c64;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
 }
 
+/*==================================================================
+   ACTIVE / CLICK STATE
+==================================================================*/
 
+#loadMore:active {
+  background: #263d52;
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+/*==================================================================
+   KEYBOARD FOCUS
+==================================================================*/
+
+#loadMore:focus-visible {
+  outline: 3px solid #8db6d8;
+  outline-offset: 3px;
+}
+
+/*==================================================================
+   DISABLED STATE
+==================================================================*/
+
+#loadMore:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 /*==================================================================
     02.7 ADVERTISEMENT STYLING
 ====================================================================
