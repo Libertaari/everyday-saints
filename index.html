@@ -1032,6 +1032,7 @@ Current:
 - Mobile portrait and landscape retain existing behavior.
 ==================================================================*/
 
+
 /*==================================================================
    NARROW DESKTOP - TEST
 ==================================================================*/
@@ -1043,6 +1044,36 @@ Current:
     max-width: calc(100% - 160px);
     margin-left: 16px;
     margin-right: auto;
+  }
+
+  header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand {
+    max-width: 100%;
+  }
+
+  .brand-word {
+    font-size: clamp(30px, 4.4vw, 52px);
+    letter-spacing: 0;
+  }
+
+  .brand-everyday {
+    padding-right: 8px;
+    transform: none;
+  }
+
+  .brand-saints {
+    padding-left: 8px;
+    letter-spacing: 2px;
+    transform: none;
+  }
+
+  .logo {
+    width: clamp(80px, 11vw, 132px);
+    height: clamp(80px, 11vw, 132px);
   }
 
 }
