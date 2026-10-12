@@ -3670,20 +3670,18 @@ document.addEventListener("click", event => {
 
 });
 
-//==================================================================
-// 11.12 TOPICS NAVIGATION CONTROL
-//==================================================================
-//
-// Connects the Topics navigation button to the existing
-// tag-filter interface.
-//
-// Clicking Topics:
-// - Reveals the filter controls.
-// - Scrolls to the filter bar.
-// - Preserves selected tags and search terms.
-// - Does not create a separate Topics page.
-//
-//==================================================================
+
+ //==================================================================
+ // 11.12 TOPICS NAVIGATION CONTROL
+ //==================================================================
+ //
+ // Connects Topics to the existing tag-filter interface.
+ //
+ // - Reveals the filter controls.
+ // - Scrolls below the fixed header and navigation.
+ // - Preserves selected tags and search terms.
+ //
+ //==================================================================
 
 const topicsButton =
  document.getElementById("topicsButton");
@@ -3692,25 +3690,38 @@ if (topicsButton) {
 
     topicsButton.addEventListener("click", () => {
 
-        // Reveal the controls, even when no tags
-        // have been selected.
-
         topicsPanelOpen = true;
 
         updateTagFilterStatus();
 
-        // Scroll to the existing tag-filter bar.
+        // Calculate the bottom of the fixed navigation.
 
-        tagFilterStatus.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+        const navigation =
+         document.querySelector("nav");
+
+        const navigationBottom = navigation
+         ? navigation.getBoundingClientRect().bottom
+         : 0;
+
+        // Leave a little breathing room below the nav.
+
+        const clearance = navigationBottom + 16;
+
+        const panelPosition =
+         tagFilterStatus.getBoundingClientRect().top
+         + window.scrollY;
+
+        const targetPosition =
+         Math.max(0, panelPosition - clearance);
+
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
         });
 
     });
 
 }
-
-
 //##################################################################
 // END SECTION 11
 //##################################################################
