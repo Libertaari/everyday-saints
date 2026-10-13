@@ -1,714 +1,1531 @@
+
+<!--##################################################################
+  00. PROJECT DOCUMENTATION
+====================================================================
+
+EVERYDAY SAINTS — V12 TERMS AND CONDITIONS PAGE
+
+====================================================================
+  00.1 PURPOSE
+====================================================================
+
+The Terms and Conditions page establishes the rules,
+limitations, and conditions governing the use of
+Everyday Saints.
+
+Everyday Saints is designed as a curated discovery hub
+for Latter-day Saint-related content, bringing together
+material from multiple independent sources.
+
+The Terms and Conditions page explains the site's
+relationship to third-party content, external links,
+intellectual property, acceptable use, disclaimers,
+and limitations of responsibility.
+
+This page is informational. It does not retrieve or
+process the homepage's video feeds.
+
+The page shares the site's established visual identity,
+including its header, navigation, rotating logo,
+advertisement containers, and footer.
+
+====================================================================
+  00.2 DEVELOPMENT STATUS
+====================================================================
+
+Version: V12
+Page: Terms and Conditions
+Source Template: V12 Additional Pages Master
+
+IMPLEMENTED:
+
+- Shared Everyday Saints header and branding.
+- Responsive navigation and page layout.
+- Rotating header logo.
+- Advertisement placeholders.
+- Shared footer navigation.
+- Dedicated informational content container.
+- Navigation redirects for Topics and Search.
+- Homepage handling for incoming Topics requests.
+
+PAGE-SPECIFIC:
+
+- Terms and Conditions page browser title.
+- Terms and Conditions page heading.
+- Terms and Conditions informational content area.
+
+DEPENDENCIES:
+
+- Search redirects require corresponding URL
+  parameter handling on the homepage.
+
+- Terms and Conditions must accurately reflect
+  the site's actual functionality, content
+  practices, and relationships with third parties.
+
+====================================================================
+  00.3 ROADMAP
+====================================================================
+
+IMMEDIATE:
+
+- Finalize Terms and Conditions page content.
+- Verify page-specific document information.
+- Deploy terms.html.
+- Test desktop and mobile layouts.
+- Verify navigation and footer links.
+
+FOLLOWING:
+
+- Complete homepage handling for incoming Search
+  requests.
+- Test cross-page Search navigation.
+- Review Terms and Conditions before public launch.
+- Confirm language concerning third-party content,
+  external links, intellectual property, and
+  limitations of responsibility.
+
+ONGOING:
+
+- Update Terms and Conditions when website
+  functionality or operating practices change.
+- Review terms when new features or third-party
+  services are introduced.
+- Maintain visual consistency with the homepage
+  and other informational pages.
+
+====================================================================
+  END PROJECT DOCUMENTATION
+##################################################################-->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Terms | Everyday Saints</title>
-
-  <style>
-
-    :root {
-      --bg: #f5f3ef;
-      --header: #1c2a3a;
-      --card: #ffffff;
-      --text: #1a1a1a;
-      --muted: #6b6b6b;
-      --accent: #3f5f7a;
-      --border: rgba(0,0,0,0.08);
-    }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    .site-header {
-      padding-top: 175px;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 175px;
-      min-height: 175px;
-      background: var(--header);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 24px;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-      box-sizing: border-box;
-    }
-
-    .brand {
-      position: relative;
-      width: 100%;
-      max-width: 1400px;
-      height: 100%;
-      display: grid;
-      grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
-      align-items: center;
-      justify-items: center;
-    }
-
-    .brand-word {
-      width: 100%;
-      font-size: 72px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      white-space: nowrap;
-      text-align: center;
-      line-height: 1;
-    }
-
-    .brand-everyday {
-      grid-column: 1;
-      text-align: right;
-      padding-right: 75px;
-      box-sizing: border-box;
-      transform: translateX(-20px) scaleX(0.97);
-      transform-origin: right center;
-    }
-
-    .brand-saints {
-      grid-column: 3;
-      text-align: left;
-      padding-left: 40px;
-      box-sizing: border-box;
-      letter-spacing: 12px;
-      transform: scaleX(1.08);
-      transform-origin: left center;
-    }
-
-    .logo {
-      grid-column: 2;
-      width: 160px;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: opacity 0.4s ease;
-      cursor: pointer;
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      object-position: center;
-      border-radius: 5px;
-    }
-
-    nav {
-      position: fixed;
-      top: 175px;
-      left: 0;
-      right: 0;
-      height: 56px;
-      background: var(--header);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      font-size: 16px;
-      opacity: 0.9;
-      box-sizing: border-box;
-      z-index: 999;
-    }
-
-    nav a,
-    .nav-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 9px;
-      border: 0;
-      border-radius: 4px;
-      background: transparent;
-      color: white;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 16px;
-      line-height: 1;
-      text-decoration: none;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    nav a:visited { color: white; }
-
-    nav a:hover,
-    .nav-button:hover {
-      background: rgba(255,255,255,0.08);
-    }
-
-    nav a:active,
-    .nav-button:active {
-      background: rgba(255,255,255,0.14);
-    }
-
-    .nav-search {
-      display: flex;
-      align-items: center;
-      width: 190px;
-    }
-
-    #searchInput {
-      width: 100%;
-      height: 32px;
-      padding: 5px 10px;
-      border: 1px solid rgba(255,255,255,0.45);
-      border-radius: 5px;
-      background: rgba(255,255,255,0.12);
-      color: white;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 14px;
-      box-sizing: border-box;
-      outline: none;
-    }
-
-    #searchInput::placeholder {
-      color: rgba(255,255,255,0.75);
-    }
-
-    #searchInput:focus {
-      border-color: rgba(255,255,255,0.85);
-      background: rgba(255,255,255,0.18);
-    }
-
-    .controls {
-      font-size: 14px;
-      opacity: 0.75;
-      margin-left: 10px;
-      white-space: nowrap;
-    }
-
-    main.content-page {
-      max-width: 900px;
-      margin: 100px auto 120px auto;
-      padding: 0 16px;
-    }
-
-    .page-content {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 34px 40px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    }
-
-    .page-content h1 {
-      margin: 0 0 24px 0;
-      font-size: 34px;
-      line-height: 1.15;
-    }
-
-    .page-content h2 {
-      margin: 30px 0 12px 0;
-      font-size: 23px;
-    }
-
-    .page-content h3 {
-      margin: 24px 0 10px 0;
-      font-size: 18px;
-    }
-
-    .page-body {
-      font-size: 16px;
-      line-height: 1.65;
-    }
-
-    .page-body p {
-      margin: 0 0 18px 0;
-    }
-
-    .page-body ul,
-    .page-body ol {
-      margin: 0 0 18px 0;
-      padding-left: 28px;
-    }
-
-    .page-body li {
-      margin-bottom: 8px;
-    }
-
-    .page-body a {
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-
-    #ad-right {
-      position: fixed;
-      right: 0;
-      top: 90px;
-      width: 160px;
-      height: 600px;
-      background: rgba(0,0,0,0.03);
-      border-left: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--muted);
-      z-index: 900;
-    }
-
-    #ad-bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 90px;
-      background: rgba(0,0,0,0.03);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--muted);
-      z-index: 900;
-    }
-
-    @media (max-width:700px) {
-
-      .site-header { padding-top:150px; }
-
-      header {
-        height:150px;
-        min-height:150px;
-        padding:8px 10px;
-      }
-
-      .brand {
-        max-width:700px;
-        grid-template-columns:repeat(3,1fr);
-      }
-
-      .brand-word {
-        font-size:36px;
-        line-height:1;
-        letter-spacing:.5px;
-      }
-
-      .brand-everyday {
-        padding-right:10px;
-        transform:none;
-        text-align:right;
-      }
-
-      .brand-saints {
-        padding-left:10px;
-        letter-spacing:.5px;
-        transform:none;
-        text-align:left;
-      }
-
-      .logo {
-        width:80px;
-        height:125px;
-      }
-
-      nav {
-        top:150px;
-        height:48px;
-        width:100%;
-        justify-content:center;
-        flex-wrap:nowrap;
-        gap:6px;
-        padding:0 6px;
-        font-size:13px;
-        overflow:hidden;
-      }
-
-      nav a,
-      .nav-button {
-        padding:4px 5px;
-        font-size:13px;
-        flex-shrink:0;
-      }
-
-      .nav-search {
-        width:125px;
-        flex-shrink:1;
-        min-width:80px;
-      }
-
-      #searchInput {
-        height:28px;
-        padding:4px 7px;
-        font-size:12px;
-      }
-
-      .controls { display:none; }
-
-      main.content-page {
-        margin:20px auto 80px auto;
-        padding:0 10px;
-      }
-
-      .page-content { padding:26px 24px; }
-      .page-content h1 { font-size:29px; }
-      .page-content h2 { font-size:21px; }
-      .page-body { font-size:15px; }
-      #ad-right { display:none; }
-      #ad-bottom { height:50px; }
-    }
-
-    @media (max-width:480px) {
-
-      .site-header { padding-top:120px; }
-
-      header {
-        height:120px;
-        min-height:120px;
-        padding:6px;
-      }
-
-      .brand { max-width:480px; }
-
-      .brand-word {
-        font-size:24px;
-        letter-spacing:.3px;
-      }
-
-      .brand-everyday {
-        padding-right:6px;
-        transform:none;
-      }
-
-      .brand-saints {
-        padding-left:6px;
-        letter-spacing:.3px;
-        transform:none;
-      }
-
-      .logo {
-        width:58px;
-        height:96px;
-      }
-
-      nav {
-        top:120px;
-        height:44px;
-        gap:4px;
-        padding:0 4px;
-        font-size:11px;
-      }
-
-      nav a,
-      .nav-button {
-        padding:3px;
-        font-size:11px;
-      }
-
-      .nav-search {
-        width:92px;
-        min-width:70px;
-      }
-
-      #searchInput {
-        height:26px;
-        padding:3px 6px;
-        font-size:11px;
-      }
-
-      main.content-page {
-        margin:48px auto 70px auto;
-        padding:0 8px;
-      }
-
-      .page-content {
-        padding:22px 18px;
-        border-radius:10px;
-      }
-
-      .page-content h1 {
-        font-size:26px;
-        margin-bottom:20px;
-      }
-
-      .page-content h2 { font-size:20px; }
-    }
-
-    @media (max-width:900px) and (orientation:landscape) {
-
-      .site-header { padding-top:129px; }
-
-      header {
-        position:fixed;
-        top:0;
-        left:0;
-        right:0;
-        width:100%;
-        height:87px;
-        min-height:87px;
-        padding:0 6px;
-        box-sizing:border-box;
-        overflow:hidden;
-      }
-
-      .brand {
-        width:100%;
-        max-width:900px;
-        height:87px;
-        margin:0;
-        padding:0;
-        grid-template-columns:repeat(3,1fr);
-        align-items:center;
-      }
-
-      .brand-word {
-        font-size:34.5px;
-        line-height:1;
-        letter-spacing:.2px;
-        text-align:center;
-        white-space:nowrap;
-      }
-
-      .brand-everyday {
-        padding-right:10px;
-        transform:none;
-        text-align:right;
-      }
-
-      .brand-saints {
-        padding-left:10px;
-        letter-spacing:.2px;
-        transform:none;
-        text-align:left;
-      }
-
-      .logo {
-        width:75px;
-        height:78px;
-        justify-self:center;
-        align-self:center;
-      }
-
-      .logo img {
-        width:100%;
-        height:100%;
-        object-fit:contain;
-      }
-
-      nav {
-        position:fixed;
-        top:87px;
-        left:0;
-        right:0;
-        width:100%;
-        height:42px;
-        min-height:42px;
-        padding:0 6px;
-        margin:0;
-        gap:5px;
-        font-size:11px;
-        overflow:hidden;
-      }
-
-      nav a,
-      .nav-button {
-        padding:3px 4px;
-        font-size:11px;
-        flex-shrink:0;
-      }
-
-      .nav-search {
-        width:125px;
-        min-width:85px;
-        flex-shrink:1;
-      }
-
-      #searchInput {
-        height:27px;
-        padding:3px 7px;
-        font-size:11px;
-      }
-
-      .controls { display:none; }
-
-      main.content-page {
-        margin:0 auto 70px auto;
-        padding:0 108px 0 8px;
-      }
-
-      .page-content { padding:24px 28px; }
-
-      #ad-right {
-        display:flex;
-        top:129px;
-        right:0;
-        width:90px;
-        height:250px;
-      }
-
-      #ad-bottom { height:50px; }
-    }
-
-  </style>
+<!--
+====================================================================
+01.2 HEAD INFORMATION
+====================================================================
+
+Purpose:
+Defines document metadata and initializes the HTML head.
+
+Current Components:
+- Character encoding (UTF-8)
+- Responsive viewport
+- Browser page title
+- Beginning of embedded CSS
+
+Future Considerations:
+- Favicon
+- SEO metadata
+- Open Graph metadata
+- External CSS stylesheet(s), if adopted
+- External JavaScript file(s), if adopted
+
+====================================================================
+-->
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms And Conditions</title>
+
+<style>
+
+/*##################################################################
+    02. CSS STYLING
+##################################################################*/
+
+/*==================================================================
+    02.1 THEME VARIABLES
+====================================================================
+
+Purpose:
+
+Central location for colors and visual design choices.
+
+Future:
+
+- Additional themes.
+- User customization.
+
+==================================================================*/
+
+:root {
+  --bg: #f5f3ef;
+  --header: #1c2a3a;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3f5f7a;
+  --border: rgba(0,0,0,0.08);
+}
+
+
+/*==================================================================
+    02.2 BASE PAGE STYLING
+====================================================================
+Purpose:
+Defines the default appearance of the page.
+==================================================================*/
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/*==================================================================
+    02.3 HEADER STYLING
+====================================================================
+V7.6.2 - Three Equal Header Fields
+==================================================================*/
+
+.site-header {
+  padding-top: 175px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 175px;
+  min-height: 175px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.brand {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.brand-word {
+  position: static;
+  transform: none;
+  width: 100%;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+}
+
+.brand-everyday {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 75px;
+  box-sizing: border-box;
+  transform: translateX(-20px) scaleX(0.97);
+  transform-origin: right center;  
+}
+
+.brand-saints {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 40px;
+  box-sizing: border-box;
+  letter-spacing: 12px;
+  transform: scaleX(1.08);
+  transform-origin: left center;
+}
+
+.logo {
+  grid-column: 2;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  border-radius: 5px;
+}
+
+/*==================================================================
+    02.4 NAVIGATION STYLING
+====================================================================
+V11.AOR - Primary Navigation and Search Field
+
+Current:
+- Fixed navigation field below the branding header.
+- Functional page links.
+- Topics control.
+- Integrated search input.
+- Version display.
+- Increased navigation opacity for improved readability.
+==================================================================*/
+
+nav {
+  position: fixed;
+  top: 175px;
+  left: 0;
+  right: 0;
+
+  height: 56px;
+
+  background: var(--header);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  font-size: 16px;
+
+  opacity: 0.96;
+
+  box-sizing: border-box;
+
+  z-index: 999;
+}
 
+
+/*==================================================================
+   NAVIGATION LINKS
+==================================================================*/
+
+nav a,
+.nav-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 9px;
+
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+nav a:visited {
+  color: white;
+}
+
+nav a:hover,
+.nav-button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+nav a:active,
+.nav-button:active {
+  background: rgba(255,255,255,0.14);
+}
+
+
+/*==================================================================
+   NAVIGATION SEARCH
+==================================================================*/
+
+.nav-search {
+  display: flex;
+  align-items: center;
+
+  width: 190px;
+}
+
+#searchInput {
+  width: 100%;
+  height: 32px;
+
+  padding: 5px 10px;
+
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 5px;
+
+  background: rgba(255,255,255,0.12);
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  outline: none;
+}
+
+#searchInput::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+#searchInput:focus {
+  border-color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+}
+
+
+/*==================================================================
+   VERSION DISPLAY
+==================================================================*/
+
+.controls {
+  font-size: 14px;
+
+  opacity: 0.75;
+
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+
+/*==================================================================
+  02.5 ADDITIONAL PAGES CONTENT STYLING
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Provides a consistent content layout for the six supporting
+pages of Everyday Saints.
+
+Current:
+- Shared content container.
+- Centered desktop presentation.
+- White content panel matching the established site design.
+- Consistent headings, paragraphs, and lists.
+- Responsive text and spacing.
+- Compatible with the existing header, navigation, footer,
+  and advertisement containers.
+
+Pages:
+- About
+- FAQ
+- Sources
+- What's Next
+- Privacy
+- Terms
+==================================================================*/
+
+
+/*==================================================================
+  MAIN CONTENT AREA
+==================================================================*/
+
+main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 980px;
+  margin: 100px auto 120px auto;
+  padding: 0 16px;
+}
+
+
+/*==================================================================
+  CONTENT PANEL
+==================================================================*/
+
+.page-content {
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 32px 36px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/*==================================================================
+  PAGE TITLE
+==================================================================*/
+
+.page-content h1 {
+  margin: 0 0 24px;
+
+  color: var(--text);
+
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+
+/*==================================================================
+  SECTION HEADINGS
+==================================================================*/
+
+.page-content h2 {
+  margin: 32px 0 14px;
+
+  color: var(--text);
+
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.page-content h3 {
+  margin: 24px 0 12px;
+
+  color: var(--text);
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+
+/*==================================================================
+  PARAGRAPHS AND LISTS
+==================================================================*/
+
+.page-content p {
+  margin: 0 0 16px;
+
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content ul,
+.page-content ol {
+  margin: 0 0 20px;
+  padding-left: 28px;
+
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content li {
+  margin-bottom: 8px;
+}
+
+
+/*==================================================================
+  LINKS
+==================================================================*/
+
+.page-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-content a:hover {
+  color: #527895;
+}
+
+
+/*==================================================================
+  CONTENT SPACING
+==================================================================*/
+
+.page-content > :last-child {
+  margin-bottom: 0;
+}
+
+.page-content section + section {
+  margin-top: 28px;
+}
+
+
+/*==================================================================
+  MOBILE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .page-content {
+    padding: 24px 20px;
+    border-radius: 10px;
+  }
+
+  .page-content h1 {
+    font-size: 26px;
+  }
+
+  .page-content h2 {
+    font-size: 21px;
+  }
+
+  .page-content h3 {
+    font-size: 18px;
+  }
+
+  .page-content p,
+  .page-content ul,
+  .page-content ol {
+    font-size: 15px;
+  }
+
+}
+
+
+/*==================================================================
+  SMALL PHONE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .page-content {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+
+  .page-content h1 {
+    font-size: 24px;
+  }
+
+  .page-content h2 {
+    font-size: 20px;
+  }
+
+}
+
+
+
+/*==================================================================
+    02.7 ADVERTISEMENT STYLING
+====================================================================
+
+Current:
+
+Placeholder advertising locations.
+
+Future:
+
+- Google AdSense.
+- In-feed advertisements.
+- Advertisement rotation.
+
+==================================================================*/
+
+#ad-right {
+  position: fixed;
+  right: 0;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+#ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: rgba(0,0,0,0.03);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+
+
+
+/*==================================================================
+  02.8 RESPONSIVE DESIGN
+====================================================================
+V12 - Additional Pages Responsive Layout
+
+Purpose:
+Preserves the established Everyday Saints header, navigation,
+branding, and advertisement behavior across screen sizes.
+
+Current:
+- Wide desktop retains the established layout.
+- Narrow desktop reserves space for the right advertisement.
+- Mobile portrait and landscape retain V12 branding proportions.
+- Feed-specific responsive rules have been removed.
+- Main content adapts to the available page width.
+==================================================================*/
+
+
+/*==================================================================
+  NARROW DESKTOP
+==================================================================*/
+
+@media (min-width: 901px) and (max-width: 1200px) {
+
+  main {
+    box-sizing: border-box;
+    max-width: calc(100% - 160px);
+    margin-left: 16px;
+    margin-right: auto;
+  }
+
+  header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand {
+    max-width: 100%;
+  }
+
+  .brand-word {
+    font-size: clamp(30px, 4.4vw, 52px);
+    letter-spacing: 0;
+  }
+
+  .brand-everyday {
+    padding-right: 8px;
+    transform: none;
+  }
+
+  .brand-saints {
+    padding-left: 8px;
+    letter-spacing: 2px;
+    transform: none;
+  }
+
+  .logo {
+    width: clamp(80px, 11vw, 132px);
+    height: clamp(80px, 11vw, 132px);
+  }
+
+}
+
+
+/*==================================================================
+  MOBILE
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .site-header {
+    padding-top: 150px;
+  }
+
+  header {
+    height: 150px;
+    min-height: 150px;
+    padding: 8px 10px;
+  }
+
+  .brand {
+    max-width: 700px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .brand-word {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 80px;
+    height: 125px;
+  }
+
+  nav {
+    top: 150px;
+    height: 48px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  nav span {
+    white-space: nowrap;
+  }
+
+  nav span:hover {
+    padding: 4px 5px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  main {
+    margin: 20px auto 80px auto;
+    padding: 0 10px;
+  }
+
+  #ad-right {
+    display: none;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+
+/*==================================================================
+  PORTRAIT PHONE
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .site-header {
+    padding-top: 120px;
+  }
+
+  header {
+    height: 120px;
+    min-height: 120px;
+    padding: 6px;
+  }
+
+  .brand {
+    max-width: 480px;
+  }
+
+  .brand-word {
+    font-size: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .brand-everyday {
+    padding-right: 6px;
+  }
+
+  .brand-saints {
+    padding-left: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 96px;
+  }
+
+  nav {
+    top: 120px;
+    height: 44px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  main {
+    margin: 48px auto 70px auto;
+    padding: 0 8px;
+  }
+
+}
+
+
+/*==================================================================
+  MOBILE LANDSCAPE
+==================================================================*/
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  .site-header {
+    padding-top: 129px;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 87px;
+    min-height: 87px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .brand {
+    width: 100%;
+    max-width: 900px;
+    height: 87px;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+
+  .brand-word {
+    font-size: 34.5px;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.2px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 75px;
+    height: 78px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  nav {
+    position: fixed;
+    top: 87px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    padding: 0;
+    margin: 0;
+    gap: 7px;
+    font-size: 11px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  main {
+    margin: 0 auto 70px auto;
+    padding: 0 8px;
+    padding-right: 108px;
+  }
+
+  #ad-right {
+    display: flex;
+    top: 129px;
+    right: 0;
+    width: 90px;
+    height: 250px;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+
+/*==================================================================
+   02.9 SITE FOOTER STYLING
+====================================================================
+V11 - Secondary Navigation Footer
+
+- Follows the feed in normal document flow.
+- Moves downward when LOAD MORE adds videos.
+- Provides links to informational and legal pages.
+- Leaves clearance for the fixed bottom advertisement.
+- Supports desktop and mobile layouts.
+==================================================================*/
+
+#site-footer {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+  margin-top: 20px;
+  padding: 24px 16px 120px;
+
+  background: var(--header);
+  color: #ffffff;
+
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px 26px;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* Mobile footer adjustments */
+
+@media (max-width: 700px) {
+
+  #site-footer {
+    padding: 22px 12px 90px;
+  }
+
+  .footer-links {
+    gap: 12px 18px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+}
+
+</style>
 </head>
-
 <body>
 
-  <div class="site-header">
 
-    <header>
+<!--##################################################################
+    03. HTML BODY STRUCTURE
+##################################################################-->
 
-      <div class="brand">
 
-        <div class="brand-word brand-everyday">
-          EVERYDAY
-        </div>
+<!--==================================================================
+  03.1 HEADER AND NAVIGATION
+====================================================================
+V12 - Additional Pages Master
 
-        <div class="logo" id="logoBox">
-          <img src="images/christus.png" alt="Everyday Saints">
-        </div>
+Purpose:
+Provides the shared Everyday Saints header and navigation
+for all six additional pages.
 
-        <div class="brand-word brand-saints">
-          SAINTS
-        </div>
+Topics and Search redirect to the homepage, where their
+corresponding functionality is available.
+==================================================================-->
 
+<div class="site-header">
+
+  <header>
+
+    <div class="brand">
+
+      <div class="brand-word brand-everyday">
+        EVERYDAY
       </div>
 
-    </header>
+      <div class="logo" id="logoBox">
+        <img src="images/christus.png" alt="Everyday Saints">
+      </div>
 
-    <nav>
+      <div class="brand-word brand-saints">
+        SAINTS
+      </div>
 
-      <a href="index.html">Home</a>
-      <a href="index.html#feed">Feed</a>
+    </div>
 
-      <button
-        type="button"
-        id="topicsButton"
-        class="nav-button"
+  </header>
+
+  <nav>
+
+    <a href="index.html">Home</a>
+
+    <a href="index.html#feed">Feed</a>
+
+    <button
+      type="button"
+      id="topicsButton"
+      class="nav-button">
+      Topics
+    </button>
+
+    <a href="about.html">About</a>
+
+    <div class="nav-search">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search"
+        aria-label="Search Everyday Saints"
+        autocomplete="off">
+    </div>
+
+    <div class="controls">
+      V9.5 • RSS Stream
+    </div>
+
+  </nav>
+
+</div>
+
+
+<!--==================================================================
+  03.2 NAVIGATION
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Documents navigation behavior for the six additional pages.
+
+The navigation HTML is defined in Section 03.1.
+This section contains documentation only.
+
+====================================================================
+
+NAVIGATION STRUCTURE
+
+HOME
+- Links to index.html.
+- Returns visitors to the main Everyday Saints homepage.
+
+FEED
+- Links to index.html#feed.
+- Takes visitors to the homepage feed.
+
+TOPICS
+- Uses the topicsButton control defined in Section 03.1.
+- Redirects visitors to the homepage.
+- Requests that the homepage open its Topics controls.
+- Requires supporting JavaScript in the Additional Pages
+  Template and corresponding handling in Index.
+
+ABOUT
+- Links to about.html.
+- Provides access to the site's introductory information.
+
+SEARCH
+- Uses the searchInput control defined in Section 03.1.
+- Accepts a search term on any additional page.
+- Redirects visitors to the homepage with that search term.
+- Requires supporting JavaScript in the Additional Pages
+  Template and corresponding handling in Index.
+
+VERSION LABEL
+- Retains the existing V12 navigation display.
+- May be updated separately when site-wide version
+  information is standardized.
+
+====================================================================
+
+ADDITIONAL PAGE NAVIGATION
+
+The footer provides links to:
+
+- Home
+- Sources
+- FAQ
+- What's Next
+- Privacy
+- Terms
+
+Footer HTML is defined in Section 03.5.
+Footer styling is defined in Section 02.9.
+
+====================================================================
+
+IMPLEMENTATION NOTES
+
+1. The additional pages do not load or process the feed.
+
+2. Search and Topics functionality remains on the homepage.
+
+3. Navigation controls on additional pages must redirect
+   to the homepage rather than attempt to operate locally.
+
+4. Shared navigation appearance remains controlled by
+   Sections 02.4 and 02.8.
+
+5. This section contains no executable HTML or JavaScript.
+
+==================================================================-->
+
+
+<!--==================================================================
+    03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+
+Placeholder advertisement containers.
+
+Future:
+
+- Google AdSense
+- House advertisements
+- Rotating advertisements
+- Responsive advertisement layouts
+
+==================================================================-->
+
+<div id="ad-right">
+  AD SPACE
+</div>
+
+<div id="ad-bottom">
+  AD SPACE
+</div>
+
+
+
+<!--==================================================================
+  03.4 ADDITIONAL PAGE CONTENT
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Provides a reusable content structure for all six
+additional pages of Everyday Saints.
+
+The shared appearance is controlled by Section 02.5.
+
+Each individual page will replace the placeholder title
+and content without changing the surrounding structure.
+==================================================================-->
+
+<main id="main-content">
+
+  <article class="page-content">
+
+    <h1>Terms And Conditions</h1>
+
+    <section>
+
+      <p>
+        Page content goes here.
+      </p>
+
+    </section>
+
+  </article>
+
+</main>
+
+
+
+<!--==================================================================
+   03.5 SITE FOOTER
+====================================================================
+
+Purpose:
+Provides secondary navigation to informational and legal pages.
+
+The footer follows the feed in normal document flow.
+It moves downward as additional feed items are loaded.
+
+==================================================================-->
+
+<footer id="site-footer">
+
+  <div class="footer-links">
+
+    <a href="index.html">Home</a>
+
+    <a href="sources.html">Sources</a>
+
+    <a href="faq.html">FAQ</a>
+
+    <a href="whats-next.html">What's Next</a>
+
+    <a href="privacy.html">Privacy</a>
+
+    <a href="terms.html">Terms</a>
+
+  </div>
+
+  <div class="footer-copyright">
+    &copy; 2026 Everyday Saints
+  </div>
+
+</footer>
+
+<!--##################################################################
+    04. JAVASCRIPT CONFIGURATION
+##################################################################-->
+<script>
+//==================================================================
+// 04.1 GLOBAL VARIABLES
+//==================================================================
+//
+// Shared configuration for the Additional Pages Template.
+//
+// Current:
+//
+// Stores the available header logo options and the currently
+// selected logo.
+//
+// The logo system supports the V7 alternating header treatment.
+//
+// Future:
+//
+// Additional application settings will be centralized here.
+//
+//==================================================================
+
+const logos = [
+  "images/christus.png",
+  "images/temple.png"
+];
+
+let currentLogo =
+  logos[Math.floor(Math.random() * logos.length)];
+
+//##################################################################
+// 05. LOGO SYSTEM
+//##################################################################
+//
+//
+// Purpose:
+//
+// Provides the rotating visual identity system for the application.
+//
+// Current:
+//
+// - Random logo selected on page load.
+// - Christus and temple artwork alternate as the logo.
+// - Logo transition animation.
+// - Automatic rotation every two minutes.
+//
+// Future:
+//
+// - Additional logo artwork.
+// - Expanded visual identity system.
+//
+//##################################################################
+
+
+//==================================================================
+// 05.1 ROTATE LOGO
+//==================================================================
+//
+// Purpose:
+//
+// Changes the currently displayed logo.
+//
+// Current:
+//
+// The initial logo is selected randomly when the page loads.
+// After the initial selection, the logos alternate in sequence
+// at the established rotation interval.
+//
+//==================================================================
+function rotateLogo() {
+  const box = document.getElementById("logoBox");
+
+  currentLogo =
+    currentLogo === logos[0]
+      ? logos[1]
+      : logos[0];
+
+  box.style.opacity = 0;
+
+  setTimeout(() => {
+    box.innerHTML = `
+      <img
+        src="${currentLogo}"
+        alt="Everyday Saints"
       >
-        Topics
-      </button>
+    `;
+    box.style.opacity = 1;
+  }, 200);
+}
 
-      <a href="about.html">About</a>
+//==================================================================
+// 05.2 INITIALIZE LOGO SYSTEM
+//==================================================================
 
-      <div class="nav-search">
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search"
-          aria-label="Search Everyday Saints"
-          autocomplete="off"
-        >
-      </div>
+//
+// Purpose:
+//
+// Starts the logo system after the page loads.
+//
+// Current:
+//
+// - Sets the initial logo.
+// - Makes the logo clickable.
+// - Opens the current artwork in a new browser tab.
+// - Starts the two-minute rotation timer.
+//
+//==================================================================
+document.addEventListener("DOMContentLoaded", () => {
 
-      <div class="controls">
-        V9.5 • RSS Stream
-      </div>
+  const box = document.getElementById("logoBox");
 
-    </nav>
+  box.innerHTML = `
+    <img
+      src="${currentLogo}"
+      alt="Everyday Saints"
+    >
+  `;
 
-  </div>
+  box.addEventListener("click", () => {
+    window.open(currentLogo, "_blank");
+  });
 
-  <div id="ad-right">
-    AD SPACE
-  </div>
+  setInterval(
+    rotateLogo,
+    2 * 60 * 1000
+  );
 
-  <div id="ad-bottom">
-    AD SPACE
-  </div>
+});
 
-  <main class="content-page">
 
-    <article class="page-content">
+//##################################################################
+// 06. ADDITIONAL PAGES NAVIGATION
+//##################################################################
+//
+// V12 - Additional Pages Master
+//
+// Purpose:
+// Connects the shared navigation controls on informational
+// pages to the corresponding functionality on the homepage.
+//
+// Current:
+// - Topics redirects to the homepage with a topics request.
+// - Search redirects to the homepage with a search term.
+// - No feed retrieval or processing occurs on these pages.
+//
+// Dependency:
+// Index must recognize the incoming URL parameters.
+// That functionality will be added separately.
+//
+//==================================================================
 
-      <h1>
-        Terms
-      </h1>
 
-      <div class="page-body">
+//==================================================================
+// 06.1 TOPICS NAVIGATION
+//==================================================================
+//
+// Redirects visitors to the homepage and requests that
+// the Topics panel be opened.
+//
+//==================================================================
 
-        <p>
-          Terms information goes here.
-        </p>
+const additionalTopicsButton =
+  document.getElementById("topicsButton");
 
-      </div>
+if (additionalTopicsButton) {
 
-    </article>
+  additionalTopicsButton.addEventListener("click", function () {
 
-  </main>
+    window.location.href = "index.html?topics=open";
 
-  <script>
+  });
 
-    const logos = [
-      "images/christus.png",
-      "images/temple.png"
-    ];
+}
 
-    let currentLogo =
-      logos[Math.floor(Math.random() * logos.length)];
 
-    function rotateLogo() {
+//==================================================================
+// 06.2 SEARCH NAVIGATION
+//==================================================================
+//
+// Redirects visitors to the homepage with their search term.
+//
+// Search executes when the visitor presses Enter.
+// The homepage will read the incoming search parameter
+// and apply its existing search functionality.
+//
+//==================================================================
 
-      const box = document.getElementById("logoBox");
+const additionalSearchInput =
+  document.getElementById("searchInput");
 
-      currentLogo =
-        currentLogo === logos[0]
-          ? logos[1]
-          : logos[0];
+if (additionalSearchInput) {
 
-      box.style.opacity = 0;
+  additionalSearchInput.addEventListener("keydown", function (event) {
 
-      setTimeout(() => {
-
-        box.innerHTML = `
-          <img
-            src="${currentLogo}"
-            alt="Everyday Saints"
-          >
-        `;
-
-        box.style.opacity = 1;
-
-      }, 200);
+    if (event.key !== "Enter") {
+      return;
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    const searchTerm = additionalSearchInput.value.trim();
 
-      const box = document.getElementById("logoBox");
+    if (!searchTerm) {
+      return;
+    }
 
-      box.innerHTML = `
-        <img
-          src="${currentLogo}"
-          alt="Everyday Saints"
-        >
-      `;
+    window.location.href =
+      "index.html?search=" + encodeURIComponent(searchTerm);
 
-      box.addEventListener("click", () => {
-        window.open(currentLogo, "_blank");
-      });
+  });
 
-      setInterval(
-        rotateLogo,
-        2 * 60 * 1000
-      );
+}
 
-    });
 
-  </script>
+//==================================================================
+// END SECTION 06
+//==================================================================
+
+</script>
 
 </body>
-
 </html>
+
+
