@@ -1,19 +1,20 @@
+
 <!--##################################################################
-    EVERYDAY SAINTS
-    MASTER APPLICATION FILE
+   EVERYDAY SAINTS
+   MASTER APPLICATION FILE
 
-    Version:
-    V9.5 - Unified Feed and Search Preparation
+   Version:
+   V12 - Index Master
 
-    Purpose:
-    Content aggregation and discovery platform for
-    Latter-day Saint content.
+   Purpose:
+   Content aggregation and discovery platform for
+   Latter-day Saint content.
 
-    Philosophy:
-    The code is organized for long-term maintenance.
-    Every major feature has a designated location.
-    Working systems are documented according to their current
-    behavior rather than their original development version.
+   Philosophy:
+   The code is organized for long-term maintenance.
+   Every major feature has a designated location.
+   Working systems are documented according to their current
+   behavior rather than their original development version.
 ##################################################################
 
 ====================================================================
@@ -24,64 +25,83 @@ TABLE OF CONTENTS
 ====================================================================
 
 00. Project Documentation
-    00.1 Purpose
-    00.2 Development Status
-    00.3 Roadmap
+  00.1 Purpose
+  00.2 Development Status
+  00.3 Roadmap
 
 01. Document Setup
-    01.1 HTML Declaration
-    01.2 Head Information
+  01.1 HTML Declaration
+  01.2 Head Information
 
 02. CSS Styling
-    02.1 Theme Variables
-    02.2 Base Page Styling
-    02.3 Header Styling
-    02.4 Navigation Styling
-    02.5 Feed Styling
-    02.6 Load More Styling
-    02.7 Advertisement Styling
-    02.8 Responsive Design
+  02.1 Theme Variables
+  02.2 Base Page Styling
+  02.3 Header Styling
+  02.4 Navigation Styling
+  02.5 Feed Styling
+  02.6 Load More Styling
+  02.7 Advertisement Styling
+  02.8 Responsive Design
+  02.9 Site Footer Styling
 
 03. HTML Body Structure
-    03.1 Header
-    03.2 Navigation
-    03.3 Advertisement Containers
-    03.4 Feed Container
+  03.1 Header
+  03.2 Navigation
+  03.3 Advertisement Containers
+  03.4 Feed Container
+  03.5 Site Footer
 
 04. JavaScript Configuration
-    04.1 Global Variables
-    04.2 RSS Source List
+  04.1 Global Variables
+  04.2 RSS Source List
 
 05. Logo System
-    05.1 Rotate Logo
-    05.2 Initialize Logo System
+  05.1 Rotate Logo
+  05.2 Initialize Logo System
 
 06. RSS Feed Retrieval
-    06.1 Clean RSS Text
-    06.2 Detect Feed Type
-    06.3 YouTube Thumbnail Fallback
-    06.4 Fetch Individual Feed
+  06.1 Clean RSS Text
+  06.2 Detect Feed Type
+  06.3 YouTube Thumbnail Fallback
+  06.4 Fetch Individual Feed
 
 07. Feed Processing
-    07.1 Feed State
-    07.2 Load All Feeds
+  07.1 Feed State
+  07.2 Load All Feeds
 
 08. Feed Card Rendering
-    08.1 Escape Display Text
-    08.2 Format Publication Date
-    08.3 Automatic Tag Rules
-    08.4 Generate Automatic Tags
-    08.5 Source Type Display
-    08.6 Render Single Feed Card
-    08.7 Render Initial Feed
-    08.8 Render Article Batch
-    08.9 Load More Control
+  08.1 Escape Display Text
+  08.2 Format Publication Date
+  08.3 Automatic Tag Rules
+  08.4 Generate Automatic Tags
+  08.5 Source Type Display
+  08.6 Render Single Feed Card
+  08.7 Render Initial Feed
+  08.8 Render Article Batch
+  08.9 Load More Control
 
 09. Load More / Progressive Feed
 
 10. Search System
+  10.1 Search State
+  10.2 Build Searchable Text
+  10.3 Find Search Results
+  10.4 Apply Search
+  10.5 Search Input Control
 
 11. Category and Tag System
+  11.1 Active Tag State
+  11.2 Available Tags
+  11.3 Create Tag Filter Bar
+  11.4 Add Tag Dropdown
+  11.5 AND / OR Selection
+  11.6 Clear All Button
+  11.7 Update Filter Bar
+  11.8 Add a Tag Filter
+  11.9 Handle Filter Controls
+  11.10 Combine Search with Tag Filtering
+  11.11 Handle Clicks on Card Tags
+  11.12 Topics Navigation Control
 
 12. Advertisement System
 
@@ -105,24 +125,28 @@ platform for Latter-day Saint content.
 Current focus:
 
 - Gather content from approved sources.
-- Standardize content from different feed types.
+- Display content from multiple sources in a unified feed.
 - Display newest content first.
-- Present content through a unified feed-card system.
-- Provide summaries, source identification, and automatic tags.
-- Provide a smooth user-controlled progressive feed experience.
+- Present content through a standardized feed-card system.
+- Provide source identification, summaries, and video metadata.
+- Generate automatic topic tags.
+- Support keyword Search and interactive tag filtering.
+- Support combined keyword and tag filtering.
+- Provide user-controlled progressive feed loading.
+- Maintain responsive desktop, portrait, and landscape layouts.
 - Establish controlled advertisement placement.
-- Prepare the feed architecture for search and filtering.
-- Expand beyond the initial YouTube source set.
+- Provide consistent navigation and supporting information pages.
 
 Long-term focus:
 
-- Search and interactive tag filtering.
-- External source registry.
-- Additional YouTube, blog, and podcast sources.
-- Source and topic filtering.
-- Improved feed retrieval and caching.
-- Full advertising integration.
-- User submissions and administrative review tools.
+- Expand the approved source registry.
+- Add additional YouTube, blog, and podcast sources.
+- Improve automatic tagging and content discovery.
+- Expand source and topic filtering.
+- Improve feed retrieval, caching, and content history.
+- Integrate production advertising.
+- Develop user submission and administrative review tools.
+- Maintain consistent design across all site pages.
 
 ====================================================================
 00.2 DEVELOPMENT STATUS
@@ -134,8 +158,8 @@ IMPLEMENTED:
 ✔ Fixed responsive header
 ✔ Fixed responsive navigation
 ✔ Rotating Christus and temple branding
-✔ RSS feed retrieval through RSS2JSON
-✔ Standardized feed-item structure
+✔ Server-side unified feed retrieval through /feed
+✔ Standardized feed-item processing
 ✔ Multi-source feed aggregation
 ✔ Newest-first feed sorting
 ✔ Unified feed-card system
@@ -143,34 +167,44 @@ IMPLEMENTED:
 ✔ Feed thumbnails
 ✔ Feed summaries
 ✔ Publication-date display
-✔ Automatic topic-tag generation
+✔ Video duration display when available
+✔ Weighted automatic topic-tag generation
+✔ Keyword Search
+✔ Interactive tag filtering
+✔ AND / OR tag matching
+✔ Combined Search and tag filtering
+✔ Topics navigation control
 ✔ Progressive feed loading
 ✔ 30-item feed batches
-✔ LOAD MORE control
+✔ Styled LOAD MORE control
 ✔ Advertisement placeholders
 ✔ In-feed advertisement placement
 ✔ Responsive desktop, portrait, and landscape layouts
+✔ Increased navigation opacity
+✔ Site footer with supporting-page links
 
 CURRENT:
 
-► Search system implementation
-► Interactive tag filtering
-► Navigation functionality
-► External source-registry preparation
-► Additional source integration
-► Feed and responsive presentation refinement
-► Advertisement system development
-► Code organization and documentation
+► Expand and refine the approved source registry
+► Develop the Sources directory
+► Standardize supporting-page structure and appearance
+► Create an Other Pages Master template
+► Complete informational and legal page content
+► Refine automatic tagging
+► Continue feed and responsive presentation improvements
+► Prepare for production advertising
+► Maintain code organization and documentation
 
 PLANNED:
 
-□ External source registry
+□ Expanded external source registry
 □ Additional YouTube sources
 □ Blog feed integration
 □ Podcast feed integration
 □ Expanded automatic tagging
-□ Source and topic filtering
-□ Cloudflare Worker/API feed retrieval
+□ Additional source and topic filtering
+□ Improved feed retrieval and caching
+□ Expanded historical content retrieval
 □ Google AdSense integration
 □ User submission system
 □ Administrative review tools
@@ -181,22 +215,28 @@ PLANNED:
 
 IMMEDIATE:
 
-□ Implement search across titles, sources, summaries, and tags
-□ Make feed tags interactive
-□ Connect primary navigation
-□ Complete V9.1 search and navigation functionality
+□ Create the Other Pages Master from the V12 Index Master
+□ Remove homepage-only systems from the supporting-page template
+□ Standardize the six supporting pages
+□ Build the Sources page framework
+□ Connect the Sources directory to its JSON data
+□ Complete supporting-page copy and documentation
 
 NEXT:
 
-□ Move source configuration to external registry
 □ Expand approved content sources
-□ Add blog and podcast feeds
-□ Expand filtering and topic organization
-□ Refine responsive feed behavior
+□ Refine source registry organization
+□ Add additional YouTube channels
+□ Improve automatic topic tagging
+□ Refine search and filtering behavior
+□ Complete production advertising preparation
+□ Continue responsive and usability refinements
 
 LATER:
 
-□ Replace RSS2JSON with controlled Cloudflare Worker/API
+□ Add blog and podcast feeds
+□ Improve feed caching and historical retrieval
+□ Expand content discovery and source filtering
 □ Integrate production advertising
 □ Add user submissions
 □ Add administrative review workflow
@@ -206,7 +246,6 @@ LATER:
 END PROJECT DOCUMENTATION
 ====================================================================
 -->
-
 
 
 <!--
