@@ -3354,14 +3354,15 @@ const tagNames = [
 ];
 
 
+
 //==================================================================
 // 11.3 CREATE TAG FILTER BAR
 //==================================================================
 //
-// The filter bar appears above the feed whenever at least one
-// tag is selected.
+// Creates the Topics filter panel above the feed.
 //
-// Controls remain left-aligned to avoid the sidebar ad.
+// Includes a dedicated Close button.
+// Closing the panel does not clear selected tag filters.
 //
 //==================================================================
 
@@ -3384,9 +3385,44 @@ tagFilterStatus.style.cssText = `
   scroll-margin-top: 210px;
 `;
 
+const tagFilterHeader = document.createElement("div");
+
+tagFilterHeader.style.cssText = `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+`;
+
 const tagFilterHeading = document.createElement("strong");
 
 tagFilterHeading.textContent = "Filter by tags";
+
+const closeTagButton = document.createElement("button");
+
+closeTagButton.type = "button";
+closeTagButton.textContent = "×";
+closeTagButton.title = "Close Topics";
+closeTagButton.setAttribute(
+  "aria-label",
+  "Close Topics panel"
+);
+
+closeTagButton.style.cssText = `
+  border: none;
+  background: transparent;
+  color: #243b53;
+  font-size: 26px;
+  line-height: 1;
+  padding: 2px 6px;
+  cursor: pointer;
+`;
+
+tagFilterHeader.append(
+  tagFilterHeading,
+  closeTagButton
+);
 
 const tagFilterControls = document.createElement("div");
 
@@ -3407,7 +3443,6 @@ tagChipArea.style.cssText = `
   gap: 6px;
   align-items: center;
 `;
-
 
 //==================================================================
 // 11.4 ADD TAG DROPDOWN
@@ -3500,7 +3535,7 @@ tagFilterControls.append(
 );
 
 tagFilterStatus.append(
-  tagFilterHeading,
+  tagFilterHeader,
   tagFilterControls,
   tagFilterExplanation
 );
@@ -3515,8 +3550,6 @@ if (tagFeedContainer && tagFeedContainer.parentNode) {
   );
 
 }
-
-
 
  //==================================================================
  // 11.7 UPDATE FILTER BAR
@@ -3538,7 +3571,7 @@ function updateTagFilterStatus() {
 
     const isActive = activeTagFilters.length > 0;
 
-    const shouldShow = isActive || topicsPanelOpen;
+    const shouldShow = topicsPanelOpen;
 
     tagFilterStatus.hidden = !shouldShow;
 
@@ -3642,41 +3675,57 @@ function addTagFilter(tag) {
 
     activeTagFilters.push(tag);
 
-    applySearch();
+    topicsPanelOpen = true;
 
+    applySearch();
   }
 
 }
 
 
-//==================================================================
-// 11.9 HANDLE FILTER CONTROLS
-//==================================================================
 
-addTagSelect.addEventListener("change", () => {
+ //==================================================================
+ // 11.9 HANDLE FILTER CONTROLS
+ //==================================================================
+ //
+ // Handles adding tags, changing AND/OR matching,
+ // clearing filters, and closing the Topics panel.
+ //
+ // Closing Topics preserves all active filters.
+ //
+ //==================================================================
 
-  if (addTagSelect.value) {
-    addTagFilter(addTagSelect.value);
-  }
+ addTagSelect.addEventListener("change", () => {
 
-});
+     if (addTagSelect.value) {
+       addTagFilter(addTagSelect.value);
+     }
 
-modeSelect.addEventListener("change", () => {
+ });
 
-  tagMatchMode = modeSelect.value;
+ modeSelect.addEventListener("change", () => {
 
-  applySearch();
+     tagMatchMode = modeSelect.value;
 
-});
+     applySearch();
 
-clearTagButton.addEventListener("click", () => {
+ });
 
-  activeTagFilters = [];
+ clearTagButton.addEventListener("click", () => {
 
-  applySearch();
+     activeTagFilters = [];
 
-});
+     applySearch();
 
+ });
+
+ closeTagButton.addEventListener("click", () => {
+
+     topicsPanelOpen = false;
+
+     updateTagFilterStatus();
+
+ });
 
 //==================================================================
 // 11.10 COMBINE SEARCH WITH TAG FILTERING
@@ -3818,57 +3867,102 @@ document.addEventListener("click", event => {
 });
 
 
- //==================================================================
- // 11.12 TOPICS NAVIGATION CONTROL
- //==================================================================
- //
- // Connects Topics to the existing tag-filter interface.
- //
- // - Reveals the filter controls.
- // - Scrolls below the fixed header and navigation.
- // - Preserves selected tags and search terms.
- //
- //==================================================================
+
+//==================================================================
+// 11.12 TOPICS NAVIGATION CONTROL
+//==================================================================
+//
+// Opens the Topics filter panel from the navigation.
+//
+// Also recognizes ?topics=open when visitors arrive
+// from another Everyday Saints page.
+//
+// Preserves selected tags and search terms.
+// Closing the panel is handled in Section 11.9.
+//
+//==================================================================
 
 const topicsButton =
- document.getElementById("topicsButton");
+  document.getElementById("topicsButton");
+
+function openTopicsPanel() {
+
+    topicsPanelOpen = true;
+
+    updateTagFilterStatus();
+
+    // Calculate the bottom of the fixed navigation.
+
+    const navigation =
+      document.querySelector("nav");
+
+    const navigationBottom = navigation
+      ? navigation.getBoundingClientRect().bottom
+      : 0;
+
+    // Leave breathing room below the navigation.
+
+    const clearance = navigationBottom + 16;
+
+    const panelPosition =
+      tagFilterStatus.getBoundingClientRect().top
+      + window.scrollY;
+
+    const targetPosition =
+      Math.max(0, panelPosition - clearance);
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth"
+    });
+
+}
+
+// Open Topics whenever the navigation button is clicked.
 
 if (topicsButton) {
 
     topicsButton.addEventListener("click", () => {
 
-        topicsPanelOpen = true;
-
-        updateTagFilterStatus();
-
-        // Calculate the bottom of the fixed navigation.
-
-        const navigation =
-         document.querySelector("nav");
-
-        const navigationBottom = navigation
-         ? navigation.getBoundingClientRect().bottom
-         : 0;
-
-        // Leave a little breathing room below the nav.
-
-        const clearance = navigationBottom + 16;
-
-        const panelPosition =
-         tagFilterStatus.getBoundingClientRect().top
-         + window.scrollY;
-
-        const targetPosition =
-         Math.max(0, panelPosition - clearance);
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: "smooth"
-        });
+        openTopicsPanel();
 
     });
 
 }
+
+// Automatically open Topics after a cross-page redirect.
+
+const topicsUrlParams =
+  new URLSearchParams(window.location.search);
+
+if (topicsUrlParams.get("topics") === "open") {
+
+    // Remove the temporary URL instruction.
+
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname +
+      window.location.search.replace(
+        /([?&])topics=open(&|$)/,
+        (match, before, after) =>
+          before === "?" && after === "&" ? "?" :
+          before === "?" ? "" :
+          after === "&" ? "&" : ""
+      ) +
+      window.location.hash
+    );
+
+    // Wait until the page layout is ready to scroll.
+
+    window.addEventListener("load", () => {
+
+        openTopicsPanel();
+
+    }, { once: true });
+
+}
+
 //##################################################################
 // END SECTION 11
 //##################################################################
