@@ -1,6 +1,4 @@
 
-
-
 <!--##################################################################
   00. PROJECT DOCUMENTATION
 ====================================================================
@@ -11,28 +9,13 @@ EVERYDAY SAINTS — V12 SOURCES PAGE
   00.1 PURPOSE
 ====================================================================
 
-The Sources page identifies the content creators,
-channels, and other sources represented on
-Everyday Saints.
+The Sources page identifies the content creators, channels,
+and other sources represented on Everyday Saints.
 
-Everyday Saints is designed as a curated discovery hub
-for Latter-day Saint-related content, bringing together
-material from multiple independent sources.
+The directory is generated from the existing root-level
+20sources.json file.
 
-The Sources page provides visitors with a directory
-of participating sources and links to their original
-websites, channels, or other publishing locations.
-
-Unlike the other informational pages, the Sources
-page is intended to use structured JSON data to
-generate and maintain its source directory.
-
-The page does not retrieve or process the homepage's
-video feeds.
-
-The page shares the site's established visual identity,
-including its header, navigation, rotating logo,
-advertisement containers, and footer.
+The page does not retrieve or process homepage video feeds.
 
 ====================================================================
   00.2 DEVELOPMENT STATUS
@@ -51,25 +34,15 @@ IMPLEMENTED:
 - Shared footer navigation.
 - Dedicated informational content container.
 - Navigation redirects for Topics and Search.
-- Homepage handling for incoming Topics requests.
-
-PAGE-SPECIFIC:
-
-- Sources page browser title.
-- Sources page heading.
-- Sources directory container.
-- Planned JSON-powered source listings.
+- JSON-powered Sources directory.
+- Responsive source cards.
+- Alphabetical source listings.
+- External links to original YouTube channels.
 
 DEPENDENCIES:
 
-- Search redirects require corresponding URL
-  parameter handling on the homepage.
-
-- Sources directory requires a JSON data file
-  and JavaScript rendering functionality.
-
-- Source records must use a consistent data
-  structure for reliable display.
+- Root-level 20sources.json.
+- Homepage handling for incoming Search requests.
 
 ====================================================================
   00.3 ROADMAP
@@ -77,64 +50,30 @@ DEPENDENCIES:
 
 IMMEDIATE:
 
-- Establish Sources page identity and heading.
-- Reserve a container for the Sources directory.
-- Verify page-specific document information.
 - Deploy sources.html.
+- Verify all 20 source cards appear.
 - Test desktop and mobile layouts.
+- Verify external YouTube links.
 - Verify navigation and footer links.
-
-FOLLOWING:
-
-- Establish the Sources JSON data structure.
-- Connect the Sources page to its JSON file.
-- Implement directory rendering and formatting.
-- Test source listings and external links.
-- Complete homepage handling for incoming Search
-  requests.
 
 ONGOING:
 
-- Add new sources as Everyday Saints expands.
-- Update existing source information as needed.
-- Maintain consistency between the source
-  registry and published directory.
-- Maintain visual consistency with the homepage
-  and other informational pages.
+- Add sources through the existing JSON registry.
+- Expand to additional content source types.
+- Maintain visual consistency with the homepage.
 
 ====================================================================
   END PROJECT DOCUMENTATION
 ##################################################################-->
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<!--
-====================================================================
-01.2 HEAD INFORMATION
-====================================================================
-
-Purpose:
-Defines document metadata and initializes the HTML head.
-
-Current Components:
-- Character encoding (UTF-8)
-- Responsive viewport
-- Browser page title
-- Beginning of embedded CSS
-
-Future Considerations:
-- Favicon
-- SEO metadata
-- Open Graph metadata
-- External CSS stylesheet(s), if adopted
-- External JavaScript file(s), if adopted
-
-====================================================================
--->
+<!--==================================================================
+  01.2 HEAD INFORMATION
+====================================================================-->
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -143,22 +82,11 @@ Future Considerations:
 <style>
 
 /*##################################################################
-    02. CSS STYLING
+  02. CSS STYLING
 ##################################################################*/
 
 /*==================================================================
-    02.1 THEME VARIABLES
-====================================================================
-
-Purpose:
-
-Central location for colors and visual design choices.
-
-Future:
-
-- Additional themes.
-- User customization.
-
+  02.1 THEME VARIABLES
 ==================================================================*/
 
 :root {
@@ -171,13 +99,10 @@ Future:
   --border: rgba(0,0,0,0.08);
 }
 
-
 /*==================================================================
-    02.2 BASE PAGE STYLING
-====================================================================
-Purpose:
-Defines the default appearance of the page.
+  02.2 BASE PAGE STYLING
 ==================================================================*/
+
 body {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
@@ -187,7 +112,7 @@ body {
 }
 
 /*==================================================================
-    02.3 HEADER STYLING
+  02.3 HEADER STYLING
 ====================================================================
 V7.6.2 - Three Equal Header Fields
 ==================================================================*/
@@ -243,7 +168,7 @@ header {
   padding-right: 75px;
   box-sizing: border-box;
   transform: translateX(-20px) scaleX(0.97);
-  transform-origin: right center;  
+  transform-origin: right center;
 }
 
 .brand-saints {
@@ -267,6 +192,7 @@ header {
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
+
 .logo img {
   width: 100%;
   height: 100%;
@@ -276,17 +202,9 @@ header {
 }
 
 /*==================================================================
-    02.4 NAVIGATION STYLING
+  02.4 NAVIGATION STYLING
 ====================================================================
 V11.AOR - Primary Navigation and Search Field
-
-Current:
-- Fixed navigation field below the branding header.
-- Functional page links.
-- Topics control.
-- Integrated search input.
-- Version display.
-- Increased navigation opacity for improved readability.
 ==================================================================*/
 
 nav {
@@ -294,57 +212,38 @@ nav {
   top: 175px;
   left: 0;
   right: 0;
-
   height: 56px;
-
   background: var(--header);
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 20px;
-
   font-size: 16px;
-
   opacity: 0.96;
-
   box-sizing: border-box;
-
   z-index: 999;
 }
 
-
 /*==================================================================
-   NAVIGATION LINKS
+  NAVIGATION LINKS
 ==================================================================*/
 
 nav a,
 .nav-button {
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
-
   padding: 7px 9px;
-
   border: 0;
   border-radius: 4px;
-
   background: transparent;
-
   color: white;
-
   font-family: Georgia, "Times New Roman", serif;
   font-size: 16px;
-
   line-height: 1;
-
   text-decoration: none;
-
   white-space: nowrap;
-
   cursor: pointer;
 }
 
@@ -362,36 +261,27 @@ nav a:active,
   background: rgba(255,255,255,0.14);
 }
 
-
 /*==================================================================
-   NAVIGATION SEARCH
+  NAVIGATION SEARCH
 ==================================================================*/
 
 .nav-search {
   display: flex;
   align-items: center;
-
   width: 190px;
 }
 
 #searchInput {
   width: 100%;
   height: 32px;
-
   padding: 5px 10px;
-
   border: 1px solid rgba(255,255,255,0.45);
   border-radius: 5px;
-
   background: rgba(255,255,255,0.12);
-
   color: white;
-
   font-family: Georgia, "Times New Roman", serif;
   font-size: 14px;
-
   box-sizing: border-box;
-
   outline: none;
 }
 
@@ -404,48 +294,25 @@ nav a:active,
   background: rgba(255,255,255,0.18);
 }
 
-
 /*==================================================================
-   VERSION DISPLAY
+  VERSION DISPLAY
 ==================================================================*/
 
 .controls {
   font-size: 14px;
-
   opacity: 0.75;
-
   margin-left: 10px;
   white-space: nowrap;
 }
 
-
 /*==================================================================
   02.5 ADDITIONAL PAGES CONTENT STYLING
 ====================================================================
-V12 - Additional Pages Master
+V12 - Sources Page
 
-Purpose:
-Provides a consistent content layout for the six supporting
-pages of Everyday Saints.
-
-Current:
-- Shared content container.
-- Centered desktop presentation.
-- White content panel matching the established site design.
-- Consistent headings, paragraphs, and lists.
-- Responsive text and spacing.
-- Compatible with the existing header, navigation, footer,
-  and advertisement containers.
-
-Pages:
-- About
-- FAQ
-- Sources
-- What's Next
-- Privacy
-- Terms
+Preserves the shared informational page layout and adds
+responsive cards for the JSON-powered Sources directory.
 ==================================================================*/
-
 
 /*==================================================================
   MAIN CONTENT AREA
@@ -459,7 +326,6 @@ main {
   padding: 0 16px;
 }
 
-
 /*==================================================================
   CONTENT PANEL
 ==================================================================*/
@@ -467,16 +333,12 @@ main {
 .page-content {
   box-sizing: border-box;
   width: 100%;
-
   padding: 32px 36px;
-
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
-
 
 /*==================================================================
   PAGE TITLE
@@ -484,14 +346,11 @@ main {
 
 .page-content h1 {
   margin: 0 0 24px;
-
   color: var(--text);
-
   font-size: 30px;
   font-weight: 700;
   line-height: 1.2;
 }
-
 
 /*==================================================================
   SECTION HEADINGS
@@ -499,9 +358,7 @@ main {
 
 .page-content h2 {
   margin: 32px 0 14px;
-
   color: var(--text);
-
   font-size: 23px;
   font-weight: 700;
   line-height: 1.3;
@@ -509,14 +366,11 @@ main {
 
 .page-content h3 {
   margin: 24px 0 12px;
-
   color: var(--text);
-
   font-size: 19px;
   font-weight: 700;
   line-height: 1.3;
 }
-
 
 /*==================================================================
   PARAGRAPHS AND LISTS
@@ -524,7 +378,6 @@ main {
 
 .page-content p {
   margin: 0 0 16px;
-
   font-size: 16px;
   line-height: 1.65;
 }
@@ -533,7 +386,6 @@ main {
 .page-content ol {
   margin: 0 0 20px;
   padding-left: 28px;
-
   font-size: 16px;
   line-height: 1.65;
 }
@@ -541,7 +393,6 @@ main {
 .page-content li {
   margin-bottom: 8px;
 }
-
 
 /*==================================================================
   LINKS
@@ -557,7 +408,6 @@ main {
   color: #527895;
 }
 
-
 /*==================================================================
   CONTENT SPACING
 ==================================================================*/
@@ -570,6 +420,109 @@ main {
   margin-top: 28px;
 }
 
+/*==================================================================
+  SOURCES DIRECTORY
+====================================================================
+
+The directory uses the existing 20sources.json registry.
+
+Each source receives a card containing:
+- Source name
+- YouTube handle
+- Link to original YouTube channel
+
+Cards are generated automatically by Section 07.
+==================================================================*/
+
+.sources-intro {
+  margin-bottom: 12px;
+}
+
+.sources-status {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/*==================================================================
+  SOURCES CARD GRID
+==================================================================*/
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+/*==================================================================
+  INDIVIDUAL SOURCE CARD
+==================================================================*/
+
+.source-card {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fafbfc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.source-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.source-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #c4302b;
+  color: white;
+  font: bold 11px Arial, sans-serif;
+}
+
+.page-content .source-card-title {
+  margin: 2px 0 0;
+  font-size: 18px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.source-card-handle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.page-content .source-card-link {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.page-content .source-card-link:hover,
+.page-content .source-card-link:focus-visible {
+  background: #527895;
+  color: white;
+}
 
 /*==================================================================
   MOBILE CONTENT ADJUSTMENTS
@@ -600,8 +553,11 @@ main {
     font-size: 15px;
   }
 
-}
+  .sources-grid {
+    grid-template-columns: 1fr;
+  }
 
+}
 
 /*==================================================================
   SMALL PHONE CONTENT ADJUSTMENTS
@@ -624,18 +580,14 @@ main {
 
 }
 
-
-
 /*==================================================================
-    02.7 ADVERTISEMENT STYLING
+  02.7 ADVERTISEMENT STYLING
 ====================================================================
 
 Current:
-
-Placeholder advertising locations.
+- Placeholder advertising locations.
 
 Future:
-
 - Google AdSense.
 - In-feed advertisements.
 - Advertisement rotation.
@@ -674,26 +626,11 @@ Future:
   z-index: 900;
 }
 
-
-
-
 /*==================================================================
   02.8 RESPONSIVE DESIGN
 ====================================================================
 V12 - Additional Pages Responsive Layout
-
-Purpose:
-Preserves the established Everyday Saints header, navigation,
-branding, and advertisement behavior across screen sizes.
-
-Current:
-- Wide desktop retains the established layout.
-- Narrow desktop reserves space for the right advertisement.
-- Mobile portrait and landscape retain V12 branding proportions.
-- Feed-specific responsive rules have been removed.
-- Main content adapts to the available page width.
 ==================================================================*/
-
 
 /*==================================================================
   NARROW DESKTOP
@@ -739,7 +676,6 @@ Current:
   }
 
 }
-
 
 /*==================================================================
   MOBILE
@@ -826,7 +762,6 @@ Current:
 
 }
 
-
 /*==================================================================
   PORTRAIT PHONE
 ==================================================================*/
@@ -879,7 +814,6 @@ Current:
   }
 
 }
-
 
 /*==================================================================
   MOBILE LANDSCAPE
@@ -984,30 +918,20 @@ Current:
 
 }
 
-
 /*==================================================================
-   02.9 SITE FOOTER STYLING
+  02.9 SITE FOOTER STYLING
 ====================================================================
 V11 - Secondary Navigation Footer
-
-- Follows the feed in normal document flow.
-- Moves downward when LOAD MORE adds videos.
-- Provides links to informational and legal pages.
-- Leaves clearance for the fixed bottom advertisement.
-- Supports desktop and mobile layouts.
 ==================================================================*/
 
 #site-footer {
   position: relative;
   box-sizing: border-box;
-
   width: 100%;
   margin-top: 20px;
   padding: 24px 16px 120px;
-
   background: var(--header);
   color: #ffffff;
-
   text-align: center;
   font-family: Georgia, "Times New Roman", serif;
 }
@@ -1017,7 +941,6 @@ V11 - Secondary Navigation Footer
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-
   gap: 12px 26px;
   margin-bottom: 16px;
 }
@@ -1058,25 +981,17 @@ V11 - Secondary Navigation Footer
 
 </style>
 </head>
+
 <body>
 
-
 <!--##################################################################
-    03. HTML BODY STRUCTURE
+  03. HTML BODY STRUCTURE
 ##################################################################-->
-
 
 <!--==================================================================
   03.1 HEADER AND NAVIGATION
 ====================================================================
 V12 - Additional Pages Master
-
-Purpose:
-Provides the shared Everyday Saints header and navigation
-for all six additional pages.
-
-Topics and Search redirect to the homepage, where their
-corresponding functionality is available.
 ==================================================================-->
 
 <div class="site-header">
@@ -1133,102 +1048,44 @@ corresponding functionality is available.
 
 </div>
 
-
 <!--==================================================================
   03.2 NAVIGATION
 ====================================================================
 V12 - Additional Pages Master
 
-Purpose:
-Documents navigation behavior for the six additional pages.
-
 The navigation HTML is defined in Section 03.1.
-This section contains documentation only.
 
-====================================================================
-
-NAVIGATION STRUCTURE
-
-HOME
+HOME:
 - Links to index.html.
-- Returns visitors to the main Everyday Saints homepage.
 
-FEED
+FEED:
 - Links to index.html#feed.
-- Takes visitors to the homepage feed.
 
-TOPICS
-- Uses the topicsButton control defined in Section 03.1.
-- Redirects visitors to the homepage.
-- Requests that the homepage open its Topics controls.
-- Requires supporting JavaScript in the Additional Pages
-  Template and corresponding handling in Index.
+TOPICS:
+- Redirects to index.html?topics=open.
 
-ABOUT
+ABOUT:
 - Links to about.html.
-- Provides access to the site's introductory information.
 
-SEARCH
-- Uses the searchInput control defined in Section 03.1.
-- Accepts a search term on any additional page.
-- Redirects visitors to the homepage with that search term.
-- Requires supporting JavaScript in the Additional Pages
-  Template and corresponding handling in Index.
+SEARCH:
+- Redirects to index.html with a search parameter.
 
-VERSION LABEL
-- Retains the existing V12 navigation display.
-- May be updated separately when site-wide version
-  information is standardized.
-
-====================================================================
-
-ADDITIONAL PAGE NAVIGATION
-
-The footer provides links to:
-
-- Home
-- Sources
-- FAQ
-- What's Next
-- Privacy
-- Terms
-
-Footer HTML is defined in Section 03.5.
-Footer styling is defined in Section 02.9.
-
-====================================================================
-
-IMPLEMENTATION NOTES
-
-1. The additional pages do not load or process the feed.
-
-2. Search and Topics functionality remains on the homepage.
-
-3. Navigation controls on additional pages must redirect
-   to the homepage rather than attempt to operate locally.
-
-4. Shared navigation appearance remains controlled by
-   Sections 02.4 and 02.8.
-
-5. This section contains no executable HTML or JavaScript.
+Footer navigation is defined in Section 03.5.
 
 ==================================================================-->
 
-
 <!--==================================================================
-    03.3 ADVERTISEMENT CONTAINERS
+  03.3 ADVERTISEMENT CONTAINERS
 ====================================================================
 
 Current:
-
-Placeholder advertisement containers.
+- Placeholder advertisement containers.
 
 Future:
-
-- Google AdSense
-- House advertisements
-- Rotating advertisements
-- Responsive advertisement layouts
+- Google AdSense.
+- House advertisements.
+- Rotating advertisements.
+- Responsive advertisement layouts.
 
 ==================================================================-->
 
@@ -1240,21 +1097,12 @@ Future:
   AD SPACE
 </div>
 
-
-
 <!--==================================================================
   03.4 ADDITIONAL PAGE CONTENT
 ====================================================================
-V12 - Additional Pages Master
+V12 - Sources Directory
 
-Purpose:
-Provides a reusable content structure for all six
-additional pages of Everyday Saints.
-
-The shared appearance is controlled by Section 02.5.
-
-Each individual page will replace the placeholder title
-and content without changing the surrounding structure.
+The directory is generated from /20sources.json by Section 07.
 ==================================================================-->
 
 <main id="main-content">
@@ -1263,11 +1111,25 @@ and content without changing the surrounding structure.
 
     <h1>Sources</h1>
 
-    <section>
+    <section aria-label="Sources directory">
 
-      <p>
-        Page content goes here.
+      <p class="sources-intro">
+        Explore the channels and creators currently featured in
+        Everyday Saints. Select a source to visit its original
+        YouTube channel.
       </p>
+
+      <p
+        class="sources-status"
+        id="sourcesStatus"
+        role="status">
+        Loading sources...
+      </p>
+
+      <div
+        class="sources-grid"
+        id="sourcesDirectory">
+      </div>
 
     </section>
 
@@ -1275,17 +1137,14 @@ and content without changing the surrounding structure.
 
 </main>
 
-
-
 <!--==================================================================
-   03.5 SITE FOOTER
+  03.5 SITE FOOTER
 ====================================================================
 
 Purpose:
 Provides secondary navigation to informational and legal pages.
 
-The footer follows the feed in normal document flow.
-It moves downward as additional feed items are loaded.
+The footer follows the page content in normal document flow.
 
 ==================================================================-->
 
@@ -1314,25 +1173,19 @@ It moves downward as additional feed items are loaded.
 </footer>
 
 <!--##################################################################
-    04. JAVASCRIPT CONFIGURATION
+  04. JAVASCRIPT CONFIGURATION
 ##################################################################-->
+
 <script>
+
 //==================================================================
 // 04.1 GLOBAL VARIABLES
 //==================================================================
 //
 // Shared configuration for the Additional Pages Template.
 //
-// Current:
-//
 // Stores the available header logo options and the currently
 // selected logo.
-//
-// The logo system supports the V7 alternating header treatment.
-//
-// Future:
-//
-// Additional application settings will be centralized here.
 //
 //==================================================================
 
@@ -1348,42 +1201,16 @@ let currentLogo =
 // 05. LOGO SYSTEM
 //##################################################################
 //
-//
-// Purpose:
-//
-// Provides the rotating visual identity system for the application.
-//
-// Current:
-//
-// - Random logo selected on page load.
-// - Christus and temple artwork alternate as the logo.
-// - Logo transition animation.
-// - Automatic rotation every two minutes.
-//
-// Future:
-//
-// - Additional logo artwork.
-// - Expanded visual identity system.
+// Provides the rotating visual identity system.
 //
 //##################################################################
-
 
 //==================================================================
 // 05.1 ROTATE LOGO
 //==================================================================
-//
-// Purpose:
-//
-// Changes the currently displayed logo.
-//
-// Current:
-//
-// The initial logo is selected randomly when the page loads.
-// After the initial selection, the logos alternate in sequence
-// at the established rotation interval.
-//
-//==================================================================
+
 function rotateLogo() {
+
   const box = document.getElementById("logoBox");
 
   currentLogo =
@@ -1394,33 +1221,24 @@ function rotateLogo() {
   box.style.opacity = 0;
 
   setTimeout(() => {
+
     box.innerHTML = `
       <img
         src="${currentLogo}"
         alt="Everyday Saints"
       >
     `;
+
     box.style.opacity = 1;
+
   }, 200);
+
 }
 
 //==================================================================
 // 05.2 INITIALIZE LOGO SYSTEM
 //==================================================================
 
-//
-// Purpose:
-//
-// Starts the logo system after the page loads.
-//
-// Current:
-//
-// - Sets the initial logo.
-// - Makes the logo clickable.
-// - Opens the current artwork in a new browser tab.
-// - Starts the two-minute rotation timer.
-//
-//==================================================================
 document.addEventListener("DOMContentLoaded", () => {
 
   const box = document.getElementById("logoBox");
@@ -1443,36 +1261,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
 //##################################################################
 // 06. ADDITIONAL PAGES NAVIGATION
 //##################################################################
 //
-// V12 - Additional Pages Master
+// Connects shared navigation controls to homepage functionality.
 //
-// Purpose:
-// Connects the shared navigation controls on informational
-// pages to the corresponding functionality on the homepage.
-//
-// Current:
-// - Topics redirects to the homepage with a topics request.
-// - Search redirects to the homepage with a search term.
-// - No feed retrieval or processing occurs on these pages.
-//
-// Dependency:
-// Index must recognize the incoming URL parameters.
-// That functionality will be added separately.
-//
-//==================================================================
-
+//##################################################################
 
 //==================================================================
 // 06.1 TOPICS NAVIGATION
-//==================================================================
-//
-// Redirects visitors to the homepage and requests that
-// the Topics panel be opened.
-//
 //==================================================================
 
 const additionalTopicsButton =
@@ -1488,17 +1286,8 @@ if (additionalTopicsButton) {
 
 }
 
-
 //==================================================================
 // 06.2 SEARCH NAVIGATION
-//==================================================================
-//
-// Redirects visitors to the homepage with their search term.
-//
-// Search executes when the visitor presses Enter.
-// The homepage will read the incoming search parameter
-// and apply its existing search functionality.
-//
 //==================================================================
 
 const additionalSearchInput =
@@ -1525,24 +1314,193 @@ if (additionalSearchInput) {
 
 }
 
-
 //==================================================================
 // END SECTION 06
 //==================================================================
 
-//==================================================================
+//##################################################################
 // 07. SOURCES DIRECTORY SYSTEM
+//##################################################################
+//
+// Loads the existing root-level /20sources.json registry.
+//
+// Builds an alphabetical directory of source cards.
+//
+// Does not fetch YouTube videos or modify the homepage feed.
+//
+//##################################################################
+
+//==================================================================
+// 07.1 SOURCES JSON CONFIGURATION
 //==================================================================
 
-// 07.1 Sources JSON Configuration
-// 07.2 Load Sources Data
-// 07.3 Render Sources Directory
-// 07.4 Initialize Sources Directory
+const sourcesRegistryUrl = "/20sources.json";
 
+//==================================================================
+// 07.2 LOAD SOURCES DATA
+//==================================================================
+
+async function loadSourcesData() {
+
+  const response = await fetch(sourcesRegistryUrl, {
+    cache: "no-cache"
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not load the Sources registry.");
+  }
+
+  const sources = await response.json();
+
+  if (!Array.isArray(sources)) {
+    throw new Error("The Sources registry is not a list.");
+  }
+
+  return sources.filter(source =>
+    source &&
+    source.type === "youtube" &&
+    typeof source.name === "string" &&
+    typeof source.channelId === "string" &&
+    source.channelId.trim()
+  );
+
+}
+
+//==================================================================
+// 07.3 RENDER SOURCES DIRECTORY
+//==================================================================
+
+function renderSourcesDirectory(sources) {
+
+  const directory =
+    document.getElementById("sourcesDirectory");
+
+  const status =
+    document.getElementById("sourcesStatus");
+
+  directory.replaceChildren();
+
+  const sortedSources = [...sources].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, {
+      sensitivity: "base"
+    })
+  );
+
+  for (const source of sortedSources) {
+
+    // Build the card container.
+
+    const card = document.createElement("article");
+    card.className = "source-card";
+
+    // Build the card heading.
+
+    const heading = document.createElement("div");
+    heading.className = "source-card-heading";
+
+    // Display a simple YouTube identifier.
+
+    const icon = document.createElement("span");
+    icon.className = "source-card-icon";
+    icon.textContent = "YT";
+    icon.setAttribute("aria-hidden", "true");
+
+    // Display the channel name.
+
+    const title = document.createElement("h2");
+    title.className = "source-card-title";
+    title.textContent = source.name;
+
+    heading.append(icon, title);
+
+    card.appendChild(heading);
+
+    // Display the YouTube handle when available.
+
+    if (
+      typeof source.handle === "string" &&
+      source.handle.trim()
+    ) {
+
+      const handle = document.createElement("p");
+      handle.className = "source-card-handle";
+      handle.textContent = source.handle;
+
+      card.appendChild(handle);
+
+    }
+
+    // Construct a channel link from the Channel ID.
+
+    const link = document.createElement("a");
+    link.className = "source-card-link";
+
+    link.href =
+      "https://www.youtube.com/channel/" +
+      encodeURIComponent(source.channelId.trim());
+
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    link.textContent = "VISIT CHANNEL ↗";
+
+    link.setAttribute(
+      "aria-label",
+      "Visit " + source.name +
+      " on YouTube (opens in a new tab)"
+    );
+
+    card.appendChild(link);
+
+    // Add the completed card to the directory.
+
+    directory.appendChild(card);
+
+  }
+
+  // Display the current number of sources.
+
+  status.textContent = sortedSources.length
+    ? sortedSources.length + " YouTube channels"
+    : "No sources are currently listed.";
+
+}
+
+//==================================================================
+// 07.4 INITIALIZE SOURCES DIRECTORY
+//==================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const status =
+    document.getElementById("sourcesStatus");
+
+  try {
+
+    const sources = await loadSourcesData();
+
+    renderSourcesDirectory(sources);
+
+  } catch (error) {
+
+    console.error(
+      "Everyday Saints Sources directory:",
+      error
+    );
+
+    status.textContent =
+      "The Sources directory is temporarily unavailable. " +
+      "Please try again later.";
+
+  }
+
+});
+
+//==================================================================
+// END SECTION 07
+//==================================================================
 
 </script>
 
 </body>
 </html>
-
-
