@@ -1100,17 +1100,18 @@ V11 - Secondary Navigation Footer
 ##################################################################-->
 
 
+
 <!--==================================================================
   03.1 HEADER AND NAVIGATION
 ====================================================================
-V12 - Additional Pages Master
+V12 - Shared Navigation Test
 
 Purpose:
-Provides the shared Everyday Saints header and navigation
-for all six additional pages.
+Preserves the existing Everyday Saints branding and
+rotating logo while loading the navigation bar from
+/shared/topnav.html.
 
-Topics and Search redirect to the homepage, where their
-corresponding functionality is available.
+The shared navigation is managed by /shared/shared.js.
 ==================================================================-->
 
 <div class="site-header">
@@ -1135,35 +1136,8 @@ corresponding functionality is available.
 
   </header>
 
-  <nav>
-
-    <a href="index.html">Home</a>
-
-    <a href="index.html#feed">Feed</a>
-
-    <button
-      type="button"
-      id="topicsButton"
-      class="nav-button">
-      Topics
-    </button>
-
-    <a href="about.html">About</a>
-
-    <div class="nav-search">
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search"
-        aria-label="Search Everyday Saints"
-        autocomplete="off">
-    </div>
-
-    <div class="controls">
-      V9.5 • RSS Stream
-    </div>
-
-  </nav>
+  <!-- Shared Top Navigation -->
+  <div id="shared-topnav"></div>
 
 </div>
 
