@@ -1,1 +1,317 @@
 
+/*##################################################################
+  EVERYDAY SAINTS
+  SHARED NAVIGATION AND FOOTER STYLING
+  V12
+################################################################====
+
+Purpose:
+Provides centralized styling for the top navigation bar
+and site footer across all Everyday Saints pages.
+
+Components:
+- shared/topnav.html
+- shared/footernav.html
+
+Dependencies:
+- Existing site theme variables:
+  --header
+
+The title, branding, and rotating logo retain their
+page-specific styling.
+
+##################################################################*/
+
+
+/*==================================================================
+  01. TOP NAVIGATION
+====================================================================
+Based on V12 Section 02.4
+==================================================================*/
+
+nav {
+  position: fixed;
+  top: 175px;
+  left: 0;
+  right: 0;
+
+  height: 56px;
+
+  background: var(--header);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  font-size: 16px;
+
+  opacity: 0.96;
+
+  box-sizing: border-box;
+
+  z-index: 999;
+}
+
+
+/*==================================================================
+  01.1 NAVIGATION LINKS
+==================================================================*/
+
+nav a,
+.nav-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 9px;
+
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+nav a:visited {
+  color: white;
+}
+
+nav a:hover,
+.nav-button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+nav a:active,
+.nav-button:active {
+  background: rgba(255,255,255,0.14);
+}
+
+
+/*==================================================================
+  01.2 NAVIGATION SEARCH
+==================================================================*/
+
+.nav-search {
+  display: flex;
+  align-items: center;
+
+  width: 190px;
+}
+
+#searchInput {
+  width: 100%;
+  height: 32px;
+
+  padding: 5px 10px;
+
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 5px;
+
+  background: rgba(255,255,255,0.12);
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  outline: none;
+}
+
+#searchInput::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+#searchInput:focus {
+  border-color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+}
+
+
+/*==================================================================
+  01.3 VERSION DISPLAY
+==================================================================*/
+
+.controls {
+  font-size: 14px;
+
+  opacity: 0.75;
+
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+
+/*==================================================================
+  02. SITE FOOTER
+====================================================================
+Based on V12 Section 02.9
+==================================================================*/
+
+#site-footer {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+  margin-top: 20px;
+  padding: 24px 16px 120px;
+
+  background: var(--header);
+  color: #ffffff;
+
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px 26px;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+
+/*==================================================================
+  03. RESPONSIVE NAVIGATION
+====================================================================
+Extracted from V12 Section 02.8
+==================================================================*/
+
+
+/*==================================================================
+  03.1 MOBILE
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  nav {
+    top: 150px;
+    height: 48px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  nav span {
+    white-space: nowrap;
+  }
+
+  nav span:hover {
+    padding: 4px 5px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+}
+
+
+/*==================================================================
+  03.2 PORTRAIT PHONE
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  nav {
+    top: 120px;
+    height: 44px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+}
+
+
+/*==================================================================
+  03.3 MOBILE LANDSCAPE
+==================================================================*/
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  nav {
+    position: fixed;
+    top: 87px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    padding: 0;
+    margin: 0;
+    gap: 7px;
+    font-size: 11px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+}
+
+
+/*==================================================================
+  04. RESPONSIVE FOOTER
+====================================================================
+Extracted from V12 Section 02.9
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  #site-footer {
+    padding: 22px 12px 90px;
+  }
+
+  .footer-links {
+    gap: 12px 18px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+}
+
+
+/*==================================================================
+  END SHARED STYLING
+==================================================================*/
