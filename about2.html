@@ -1,0 +1,1844 @@
+
+
+<!--##################################################################
+  00. PROJECT DOCUMENTATION
+################################################################====
+
+EVERYDAY SAINTS
+V12 - ABOUT PAGE
+
+Purpose:
+Dedicated About page for the Everyday Saints website.
+
+Based on:
+V12 Additional Pages Master
+
+====================================================================
+
+TABLE OF CONTENTS
+====================================================================
+
+00. Project Documentation
+  00.1 Purpose
+  00.2 Development Status
+  00.3 Roadmap
+
+01. Document Setup
+  01.1 HTML Declaration
+  01.2 Head Information
+
+02. CSS Styling
+  02.1 Theme Variables
+  02.2 Base Page Styling
+  02.3 Header Styling
+  02.4 Navigation Styling
+  02.5 ADDITIONAL PAGES CONTENT STYLING
+  02.6
+  02.7 Advertisement Styling
+  02.8 Responsive Design
+  02.9 Site Footer Styling
+
+03. HTML Body Structure
+  03.1 Header
+  03.2 Navigation
+  03.3 Advertisement Containers
+  03.4 Additional Page Content
+  03.5 Site Footer
+
+04. JavaScript Configuration
+  04.1 Global Variables
+
+05. Logo System
+  05.1 Rotate Logo
+  05.2 Initialize Logo System
+
+06. Additional Pages Navigation
+  06.1 Topics Navigation
+  06.2 Search Navigation
+
+====================================================================
+  00.1 PURPOSE
+====================================================================
+
+The About page introduces Everyday Saints and explains
+the purpose of the website.
+
+Everyday Saints is designed as a curated discovery hub
+for Latter-day Saint-related content, bringing together
+material from multiple independent sources.
+
+The About page provides visitors with an understanding
+of the site's mission, general approach, and intended
+audience.
+
+This page is informational. It does not retrieve or
+process the homepage's video feeds.
+
+The page shares the site's established visual identity,
+including its header, navigation, rotating logo,
+advertisement containers, and footer.
+
+====================================================================
+  00.2 DEVELOPMENT STATUS
+====================================================================
+
+Version: V12
+Page: About
+Source Template: V12 Additional Pages Master
+
+IMPLEMENTED:
+
+- Shared Everyday Saints header and branding.
+- Responsive navigation and page layout.
+- Rotating header logo.
+- Advertisement placeholders.
+- Shared footer navigation.
+- Dedicated informational content container.
+- Navigation redirects for Topics and Search.
+
+PAGE-SPECIFIC:
+
+- About page browser title.
+- About page heading.
+- About page informational content.
+
+DEPENDENCIES:
+
+- Topics and Search redirects require corresponding
+  URL parameter handling on the homepage.
+
+====================================================================
+  00.3 ROADMAP
+====================================================================
+
+IMMEDIATE:
+
+- Finalize About page content.
+- Verify page-specific document information.
+- Deploy about.html.
+- Test desktop and mobile layouts.
+- Verify navigation and footer links.
+
+FOLLOWING:
+
+- Complete homepage handling for incoming Topics
+  and Search requests.
+- Test cross-page navigation.
+
+ONGOING:
+
+- Update About content as Everyday Saints develops.
+- Maintain visual consistency with the homepage
+  and other informational pages.
+
+====================================================================
+  END PROJECT DOCUMENTATION
+##################################################################-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!--
+====================================================================
+01.2 HEAD INFORMATION
+====================================================================
+
+Purpose:
+Defines document metadata and initializes the HTML head.
+
+Current Components:
+- Character encoding (UTF-8)
+- Responsive viewport
+- Browser page title
+- Beginning of embedded CSS
+
+Future Considerations:
+- Favicon
+- SEO metadata
+- Open Graph metadata
+- External CSS stylesheet(s), if adopted
+- External JavaScript file(s), if adopted
+
+====================================================================
+-->
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Everyday Saints</title>
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9235780111698930"
+     crossorigin="anonymous"></script>
+
+<style>
+/*##################################################################
+    02. CSS STYLING
+##################################################################*/
+
+/*==================================================================
+    02.1 THEME VARIABLES
+====================================================================
+
+Purpose:
+
+Central location for colors and visual design choices.
+
+Future:
+
+- Additional themes.
+- User customization.
+
+==================================================================*/
+
+:root {
+  --bg: #f5f3ef;
+  --header: #1c2a3a;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3f5f7a;
+  --border: rgba(0,0,0,0.08);
+}
+
+
+/*==================================================================
+    02.2 BASE PAGE STYLING
+====================================================================
+Purpose:
+Defines the default appearance of the page.
+==================================================================*/
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/*==================================================================
+    02.3 HEADER STYLING
+====================================================================
+V7.6.2 - Three Equal Header Fields
+==================================================================*/
+
+.site-header {
+  padding-top: 175px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 175px;
+  min-height: 175px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.brand {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.brand-word {
+  position: static;
+  transform: none;
+  width: 100%;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+}
+
+.brand-everyday {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 75px;
+  box-sizing: border-box;
+  transform: translateX(-20px) scaleX(0.97);
+  transform-origin: right center;  
+}
+
+.brand-saints {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 40px;
+  box-sizing: border-box;
+  letter-spacing: 12px;
+  transform: scaleX(1.08);
+  transform-origin: left center;
+}
+
+.logo {
+  grid-column: 2;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  border-radius: 5px;
+}
+
+/*==================================================================
+    02.4 NAVIGATION STYLING
+====================================================================
+V11.AOR - Primary Navigation and Search Field
+
+Current:
+- Fixed navigation field below the branding header.
+- Functional page links.
+- Topics control.
+- Integrated search input.
+- Version display.
+- Increased navigation opacity for improved readability.
+==================================================================*/
+
+nav {
+  position: fixed;
+  top: 175px;
+  left: 0;
+  right: 0;
+
+  height: 56px;
+
+  background: var(--header);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  font-size: 16px;
+
+  opacity: 0.96;
+
+  box-sizing: border-box;
+
+  z-index: 999;
+}
+
+
+/*==================================================================
+   NAVIGATION LINKS
+==================================================================*/
+
+nav a,
+.nav-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 9px;
+
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+nav a:visited {
+  color: white;
+}
+
+nav a:hover,
+.nav-button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+nav a:active,
+.nav-button:active {
+  background: rgba(255,255,255,0.14);
+}
+
+
+/*==================================================================
+   NAVIGATION SEARCH
+==================================================================*/
+
+.nav-search {
+  display: flex;
+  align-items: center;
+
+  width: 190px;
+}
+
+#searchInput {
+  width: 100%;
+  height: 32px;
+
+  padding: 5px 10px;
+
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 5px;
+
+  background: rgba(255,255,255,0.12);
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  outline: none;
+}
+
+#searchInput::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+#searchInput:focus {
+  border-color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+}
+
+
+/*==================================================================
+   VERSION DISPLAY
+==================================================================*/
+
+.controls {
+  font-size: 14px;
+
+  opacity: 0.75;
+
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+
+/*==================================================================
+  02.5 ADDITIONAL PAGES CONTENT STYLING
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Provides a consistent content layout for the six supporting
+pages of Everyday Saints.
+
+Current:
+- Shared content container.
+- Centered desktop presentation.
+- White content panel matching the established site design.
+- Consistent headings, paragraphs, and lists.
+- Responsive text and spacing.
+- Compatible with the existing header, navigation, footer,
+  and advertisement containers.
+
+Pages:
+- About
+- FAQ
+- Sources
+- What's Next
+- Privacy
+- Terms
+==================================================================*/
+
+
+/*==================================================================
+  MAIN CONTENT AREA
+==================================================================*/
+
+main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 980px;
+  margin: 100px auto 120px auto;
+  padding: 0 16px;
+}
+
+
+/*==================================================================
+  CONTENT PANEL
+==================================================================*/
+
+.page-content {
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 32px 36px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/*==================================================================
+  PAGE TITLE
+==================================================================*/
+
+.page-content h1 {
+  margin: 0 0 24px;
+
+  color: var(--text);
+
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+
+/*==================================================================
+  SECTION HEADINGS
+==================================================================*/
+
+.page-content h2 {
+  margin: 32px 0 14px;
+
+  color: var(--text);
+
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.page-content h3 {
+  margin: 24px 0 12px;
+
+  color: var(--text);
+
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+
+/*==================================================================
+  PARAGRAPHS AND LISTS
+==================================================================*/
+
+.page-content p {
+  margin: 0 0 16px;
+
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content ul,
+.page-content ol {
+  margin: 0 0 20px;
+  padding-left: 28px;
+
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content li {
+  margin-bottom: 8px;
+}
+
+
+/*==================================================================
+  LINKS
+==================================================================*/
+
+.page-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-content a:hover {
+  color: #527895;
+}
+
+
+/*==================================================================
+  CONTENT SPACING
+==================================================================*/
+
+.page-content > :last-child {
+  margin-bottom: 0;
+}
+
+.page-content section + section {
+  margin-top: 28px;
+}
+
+
+/*==================================================================
+  MOBILE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .page-content {
+    padding: 24px 20px;
+    border-radius: 10px;
+  }
+
+  .page-content h1 {
+    font-size: 26px;
+  }
+
+  .page-content h2 {
+    font-size: 21px;
+  }
+
+  .page-content h3 {
+    font-size: 18px;
+  }
+
+  .page-content p,
+  .page-content ul,
+  .page-content ol {
+    font-size: 15px;
+  }
+
+}
+
+
+/*==================================================================
+  SMALL PHONE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .page-content {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+
+  .page-content h1 {
+    font-size: 24px;
+  }
+
+  .page-content h2 {
+    font-size: 20px;
+  }
+
+}
+
+
+
+/*==================================================================
+    02.7 ADVERTISEMENT STYLING
+====================================================================
+
+Current:
+
+Placeholder advertising locations.
+
+Future:
+
+- Google AdSense.
+- In-feed advertisements.
+- Advertisement rotation.
+
+==================================================================*/
+
+#ad-right {
+  position: fixed;
+  right: 0;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+#ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: rgba(0,0,0,0.03);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+
+
+
+/*==================================================================
+  02.8 RESPONSIVE DESIGN
+====================================================================
+V12 - Additional Pages Responsive Layout
+
+Purpose:
+Preserves the established Everyday Saints header, navigation,
+branding, and advertisement behavior across screen sizes.
+
+Current:
+- Wide desktop retains the established layout.
+- Narrow desktop reserves space for the right advertisement.
+- Mobile portrait and landscape retain V12 branding proportions.
+- Feed-specific responsive rules have been removed.
+- Main content adapts to the available page width.
+==================================================================*/
+
+
+/*==================================================================
+  NARROW DESKTOP
+==================================================================*/
+
+@media (min-width: 901px) and (max-width: 1200px) {
+
+  main {
+    box-sizing: border-box;
+    max-width: calc(100% - 160px);
+    margin-left: 16px;
+    margin-right: auto;
+  }
+
+  header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand {
+    max-width: 100%;
+  }
+
+  .brand-word {
+    font-size: clamp(30px, 4.4vw, 52px);
+    letter-spacing: 0;
+  }
+
+  .brand-everyday {
+    padding-right: 8px;
+    transform: none;
+  }
+
+  .brand-saints {
+    padding-left: 8px;
+    letter-spacing: 2px;
+    transform: none;
+  }
+
+  .logo {
+    width: clamp(80px, 11vw, 132px);
+    height: clamp(80px, 11vw, 132px);
+  }
+
+}
+
+
+/*==================================================================
+  MOBILE
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .site-header {
+    padding-top: 150px;
+  }
+
+  header {
+    height: 150px;
+    min-height: 150px;
+    padding: 8px 10px;
+  }
+
+  .brand {
+    max-width: 700px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .brand-word {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 80px;
+    height: 125px;
+  }
+
+  nav {
+    top: 150px;
+    height: 48px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  nav span {
+    white-space: nowrap;
+  }
+
+  nav span:hover {
+    padding: 4px 5px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  main {
+    margin: 20px auto 80px auto;
+    padding: 0 10px;
+  }
+
+  #ad-right {
+    display: none;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+
+/*==================================================================
+  PORTRAIT PHONE
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .site-header {
+    padding-top: 120px;
+  }
+
+  header {
+    height: 120px;
+    min-height: 120px;
+    padding: 6px;
+  }
+
+  .brand {
+    max-width: 480px;
+  }
+
+  .brand-word {
+    font-size: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .brand-everyday {
+    padding-right: 6px;
+  }
+
+  .brand-saints {
+    padding-left: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 96px;
+  }
+
+  nav {
+    top: 120px;
+    height: 44px;
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  main {
+    margin: 48px auto 70px auto;
+    padding: 0 8px;
+  }
+
+}
+
+
+/*==================================================================
+  MOBILE LANDSCAPE
+==================================================================*/
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  .site-header {
+    padding-top: 129px;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 87px;
+    min-height: 87px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .brand {
+    width: 100%;
+    max-width: 900px;
+    height: 87px;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+
+  .brand-word {
+    font-size: 34.5px;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.2px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 75px;
+    height: 78px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  nav {
+    position: fixed;
+    top: 87px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 42px;
+    min-height: 42px;
+    padding: 0;
+    margin: 0;
+    gap: 7px;
+    font-size: 11px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  main {
+    margin: 0 auto 70px auto;
+    padding: 0 8px;
+    padding-right: 108px;
+  }
+
+  #ad-right {
+    display: flex;
+    top: 129px;
+    right: 0;
+    width: 90px;
+    height: 250px;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+
+/*==================================================================
+   02.9 SITE FOOTER STYLING
+====================================================================
+V11 - Secondary Navigation Footer
+
+- Follows the feed in normal document flow.
+- Moves downward when LOAD MORE adds videos.
+- Provides links to informational and legal pages.
+- Leaves clearance for the fixed bottom advertisement.
+- Supports desktop and mobile layouts.
+==================================================================*/
+
+#site-footer {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+  margin-top: 20px;
+  padding: 24px 16px 120px;
+
+  background: var(--header);
+  color: #ffffff;
+
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px 26px;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* Mobile footer adjustments */
+
+@media (max-width: 700px) {
+
+  #site-footer {
+    padding: 22px 12px 90px;
+  }
+
+  .footer-links {
+    gap: 12px 18px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+
+<!--##################################################################
+    03. HTML BODY STRUCTURE
+##################################################################-->
+
+
+<!--==================================================================
+  03.1 HEADER AND NAVIGATION
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Provides the shared Everyday Saints header and navigation
+for all six additional pages.
+
+Topics and Search redirect to the homepage, where their
+corresponding functionality is available.
+==================================================================-->
+
+<div class="site-header">
+
+  <header>
+
+    <div class="brand">
+
+      <div class="brand-word brand-everyday">
+        EVERYDAY
+      </div>
+
+      <div class="logo" id="logoBox">
+        <img src="images/christus.png" alt="Everyday Saints">
+      </div>
+
+      <div class="brand-word brand-saints">
+        SAINTS
+      </div>
+
+    </div>
+
+  </header>
+
+  <nav>
+
+    <a href="index.html">Home</a>
+
+    <a href="index.html#feed">Feed</a>
+
+    <button
+      type="button"
+      id="topicsButton"
+      class="nav-button">
+      Topics
+    </button>
+
+    <a href="about.html">About</a>
+
+    <div class="nav-search">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search"
+        aria-label="Search Everyday Saints"
+        autocomplete="off">
+    </div>
+
+    <div class="controls">
+      V9.5 • RSS Stream
+    </div>
+
+  </nav>
+
+</div>
+
+
+<!--==================================================================
+  03.2 NAVIGATION
+====================================================================
+V12 - Additional Pages Master
+
+Purpose:
+Documents navigation behavior for the six additional pages.
+
+The navigation HTML is defined in Section 03.1.
+This section contains documentation only.
+
+====================================================================
+
+NAVIGATION STRUCTURE
+
+HOME
+- Links to index.html.
+- Returns visitors to the main Everyday Saints homepage.
+
+FEED
+- Links to index.html#feed.
+- Takes visitors to the homepage feed.
+
+TOPICS
+- Uses the topicsButton control defined in Section 03.1.
+- Redirects visitors to the homepage.
+- Requests that the homepage open its Topics controls.
+- Requires supporting JavaScript in the Additional Pages
+  Template and corresponding handling in Index.
+
+ABOUT
+- Links to about.html.
+- Provides access to the site's introductory information.
+
+SEARCH
+- Uses the searchInput control defined in Section 03.1.
+- Accepts a search term on any additional page.
+- Redirects visitors to the homepage with that search term.
+- Requires supporting JavaScript in the Additional Pages
+  Template and corresponding handling in Index.
+
+VERSION LABEL
+- Retains the existing V12 navigation display.
+- May be updated separately when site-wide version
+  information is standardized.
+
+====================================================================
+
+ADDITIONAL PAGE NAVIGATION
+
+The footer provides links to:
+
+- Home
+- Sources
+- FAQ
+- What's Next
+- Privacy
+- Terms
+
+Footer HTML is defined in Section 03.5.
+Footer styling is defined in Section 02.9.
+
+====================================================================
+
+IMPLEMENTATION NOTES
+
+1. The additional pages do not load or process the feed.
+
+2. Search and Topics functionality remains on the homepage.
+
+3. Navigation controls on additional pages must redirect
+   to the homepage rather than attempt to operate locally.
+
+4. Shared navigation appearance remains controlled by
+   Sections 02.4 and 02.8.
+
+5. This section contains no executable HTML or JavaScript.
+
+==================================================================-->
+
+
+<!--==================================================================
+    03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+
+Placeholder advertisement containers.
+
+Future:
+
+- Google AdSense
+- House advertisements
+- Rotating advertisements
+- Responsive advertisement layouts
+
+==================================================================-->
+
+<div id="ad-right">
+  AD SPACE
+</div>
+
+<div id="ad-bottom">
+  AD SPACE
+</div>
+
+
+
+
+<!--==================================================================
+  03.4 ADDITIONAL PAGE CONTENT
+====================================================================
+V12 - About Page
+
+Purpose:
+Introduces Everyday Saints, explains its mission,
+and describes the value of curation, aggregation,
+and search.
+
+The shared appearance is controlled by Section 02.5.
+==================================================================-->
+
+<main id="main-content">
+
+  <article class="page-content">
+
+    <h1>About Everyday Saints</h1>
+
+    <section>
+
+<!-- ABOUT PAGE CONTENT -->
+
+<p>
+  <strong>Last Updated: October 26, 2026</strong>
+</p>
+
+<h2>What Is Everyday Saints?</h2>
+
+<p>
+  Everyday Saints is an independent website dedicated to
+  helping people discover content related to The Church of
+  Jesus Christ of Latter-day Saints, its teachings, history,
+  culture, and people.
+</p>
+
+<p>
+  There are countless videos, podcasts, articles, and other
+  resources available online, created by individuals and
+  organizations with a wide range of interests, experiences,
+  and perspectives.
+</p>
+
+<p>
+  Finding them, however, isn't always easy.
+</p>
+
+<p>
+  Everyday Saints aims to make that discovery easier by
+  bringing content from multiple sources together in one
+  convenient place.
+</p>
+
+<p>
+  Whether you're looking to learn something new, explore a
+  familiar subject more deeply, or simply see what others
+  are discussing, we hope you'll find something worthwhile
+  here.
+</p>
+
+<h2>Why Everyday Saints?</h2>
+
+<p>
+  Go to YouTube. Search for "Mormon."
+</p>
+
+<p>
+  <strong>What do you see?</strong>
+</p>
+
+<p>
+  You'll probably find a mixture of videos, advertisements,
+  commentary, criticism, discussions, and recommendations.
+  Some may be exactly what you're looking for. Others may
+  have little to do with what you actually wanted to find.
+</p>
+
+<p>
+  Just as with Google, finding what you want often requires
+  knowing how to refine your search.
+  <strong>Everyday Saints makes that easier.</strong>
+  There's no shortage of material hostile to The Church
+  of Jesus Christ of Latter-day Saints. We begin by bringing
+  together a growing selection of sources we find helpful,
+  leaving the rest out of sight.
+</p>
+
+<p>
+  Now suppose you want to discover Latter-day Saint creators
+  you haven't encountered before. Or explore different
+  perspectives on a particular subject. Or simply see what's
+  new across a variety of channels without searching for
+  each one individually.
+</p>
+
+<p>
+  Where do you begin?
+</p>
+
+<p>
+  <strong>
+    That's the problem Everyday Saints was created to address.
+  </strong>
+</p>
+
+<p>
+  The internet isn't lacking Latter-day Saint content.
+  We saw an opportunity for a more focused way to bring
+  relevant sources together, explore their work, and
+  discover material beyond the channels and recommendations
+  you already know.
+</p>
+
+<h2>What Makes Everyday Saints Different?</h2>
+
+<h3>Curation</h3>
+
+<p>
+  Everyday Saints brings together a growing collection of
+  sources selected for their relevance to Latter-day Saint
+  subjects and interests.
+</p>
+
+<p>
+  Rather than searching through everything available online,
+  visitors can begin with a focused selection of creators,
+  educators, commentators, organizations, and independent
+  voices.
+</p>
+
+<p>
+  Our selections aren't intended to suggest that every
+  source agrees with every other source, or that we endorse
+  every opinion expressed. The goal is to make useful
+  material easier to discover.
+</p>
+
+<h3>A Consolidated Feed</h3>
+
+<p>
+  Content from multiple independent sources appears
+  together in one continuously updated feed.
+</p>
+
+<p>
+  Instead of checking numerous channels individually,
+  visitors can explore recent material from a variety
+  of creators in one place.
+</p>
+
+<p>
+  This also gives smaller or less familiar creators an
+  opportunity to be discovered alongside more established
+  voices.
+</p>
+
+<h3>Search</h3>
+
+<p>
+  Our search feature helps visitors locate relevant
+  material within the collected content.
+</p>
+
+<p>
+  You don't have to remember which creator published
+  something or navigate numerous individual channels
+  to look for a particular subject.
+</p>
+
+<p>
+  Combined with our curated selection of sources,
+  search provides a more focused starting point for
+  exploring Latter-day Saint topics.
+</p>
+
+<p>
+  <strong>
+    We don't create the content. We make it easier to find.
+  </strong>
+</p>
+
+<h2>Why the Name Everyday Saints?</h2>
+
+<p>
+  In the New Testament, the word <em>saints</em> refers
+  to followers of Jesus Christ. It isn't a title reserved
+  exclusively for extraordinary individuals or people
+  who have achieved perfection.
+</p>
+
+<p>
+  Latter-day Saints understand that discipleship is a
+  lifelong process. We are ordinary people, with ordinary
+  lives, striving to follow Jesus Christ, learn from our
+  experiences, and become better along the way.
+</p>
+
+<p>
+  That's the idea behind <strong>Everyday Saints</strong>.
+</p>
+
+<p>
+  Faith isn't confined to Sunday worship, Church meetings,
+  or formal religious study. It is something people live,
+  question, discuss, learn about, and put into practice
+  every day.
+</p>
+
+<p>
+  The name also reflects the people whose contributions
+  make this website possible: individuals sharing their
+  knowledge, experiences, research, testimony, creativity,
+  and perspectives with others.
+</p>
+
+<p>
+  Not everyone featured here will agree on every subject.
+  That's part of what makes exploring different voices
+  worthwhile.
+</p>
+
+<h2>An Independent Project</h2>
+
+<p>
+  Everyday Saints is independently operated. It is not
+  an official website of, sponsored by, or affiliated
+  with The Church of Jesus Christ of Latter-day Saints.
+</p>
+
+<p>
+  The inclusion of a creator, publication, or particular
+  piece of content does not necessarily constitute an
+  endorsement of every opinion, interpretation, or claim
+  expressed.
+</p>
+
+<p>
+  Our purpose is to help people discover material, not
+  to dictate what they should think about it.
+</p>
+
+<p>
+  We don't produce or own the material featured in our
+  feed. Instead, we help visitors find content published
+  by its original creators, with links back to their work.
+</p>
+
+<p>
+  <strong>
+    The content belongs to its creators. The value
+    Everyday Saints adds is in how that content is
+    selected, brought together, organized, and made
+    discoverable.
+  </strong>
+</p>
+
+<h2>A Work in Progress</h2>
+
+<p>
+  Everyday Saints is an ongoing project. We expect our
+  collection of sources and the tools available to
+  visitors to grow and improve over time.
+</p>
+
+<p>
+  While we include official Church channels and content,
+  our primary focus is on everyday people doing their part
+  to share the gospel, strengthen faith, explore ideas,
+  and contribute to the wider Latter-day Saint community.
+</p>
+
+<p>
+  Occasionally, we may also feature content from people
+  who are not members of The Church of Jesus Christ of
+  Latter-day Saints when we believe their contributions
+  offer something of value to our visitors.
+</p>
+
+<p>
+  As the site develops, we plan to introduce topic-based
+  tagging, improve content discovery, and offer additional
+  ways for visitors to participate.
+</p>
+
+<p>
+  Please be patient with us as we grow! There are many,
+  many blogs, channels, podcasts, and other resources
+  out there. Finding them takes time, and adding them
+  takes time, too.
+</p>
+
+<p>
+  For now, it's line upon line, milk before meat.
+  (Although, truthfully, there's already quite a bit
+  of meat here!)
+</p>
+
+<p>
+  You can visit
+  <a href="whats-next.html">What's Next</a>
+  for announcements about the site's development, or
+  explore <a href="sources.html">Sources</a> to learn
+  more about the creators and publishers included here.
+</p>
+
+    </section>
+
+  </article>
+
+</main>
+
+<!--==================================================================
+   03.5 SITE FOOTER
+====================================================================
+
+Purpose:
+Provides secondary navigation to informational and legal pages.
+
+The footer follows the feed in normal document flow.
+It moves downward as additional feed items are loaded.
+
+==================================================================-->
+
+<footer id="site-footer">
+
+  <div class="footer-links">
+
+    <a href="index.html">Home</a>
+
+    <a href="sources.html">Sources</a>
+
+    <a href="faq.html">FAQ</a>
+
+    <a href="whats-next.html">What's Next</a>
+
+    <a href="privacy.html">Privacy</a>
+
+    <a href="terms.html">Terms</a>
+
+  </div>
+
+  <div class="footer-copyright">
+    &copy; 2026 Everyday Saints
+  </div>
+
+</footer>
+
+<!--##################################################################
+    04. JAVASCRIPT CONFIGURATION
+##################################################################-->
+<script>
+//==================================================================
+// 04.1 GLOBAL VARIABLES
+//==================================================================
+//
+// Shared configuration for the Additional Pages Template.
+//
+// Current:
+//
+// Stores the available header logo options and the currently
+// selected logo.
+//
+// The logo system supports the V7 alternating header treatment.
+//
+// Future:
+//
+// Additional application settings will be centralized here.
+//
+//==================================================================
+
+const logos = [
+  "images/christus.png",
+  "images/temple.png"
+];
+
+let currentLogo =
+  logos[Math.floor(Math.random() * logos.length)];
+
+//##################################################################
+// 05. LOGO SYSTEM
+//##################################################################
+//
+//
+// Purpose:
+//
+// Provides the rotating visual identity system for the application.
+//
+// Current:
+//
+// - Random logo selected on page load.
+// - Christus and temple artwork alternate as the logo.
+// - Logo transition animation.
+// - Automatic rotation every two minutes.
+//
+// Future:
+//
+// - Additional logo artwork.
+// - Expanded visual identity system.
+//
+//##################################################################
+
+
+//==================================================================
+// 05.1 ROTATE LOGO
+//==================================================================
+//
+// Purpose:
+//
+// Changes the currently displayed logo.
+//
+// Current:
+//
+// The initial logo is selected randomly when the page loads.
+// After the initial selection, the logos alternate in sequence
+// at the established rotation interval.
+//
+//==================================================================
+function rotateLogo() {
+  const box = document.getElementById("logoBox");
+
+  currentLogo =
+    currentLogo === logos[0]
+      ? logos[1]
+      : logos[0];
+
+  box.style.opacity = 0;
+
+  setTimeout(() => {
+    box.innerHTML = `
+      <img
+        src="${currentLogo}"
+        alt="Everyday Saints"
+      >
+    `;
+    box.style.opacity = 1;
+  }, 200);
+}
+
+//==================================================================
+// 05.2 INITIALIZE LOGO SYSTEM
+//==================================================================
+
+//
+// Purpose:
+//
+// Starts the logo system after the page loads.
+//
+// Current:
+//
+// - Sets the initial logo.
+// - Makes the logo clickable.
+// - Opens the current artwork in a new browser tab.
+// - Starts the two-minute rotation timer.
+//
+//==================================================================
+document.addEventListener("DOMContentLoaded", () => {
+
+  const box = document.getElementById("logoBox");
+
+  box.innerHTML = `
+    <img
+      src="${currentLogo}"
+      alt="Everyday Saints"
+    >
+  `;
+
+  box.addEventListener("click", () => {
+    window.open(currentLogo, "_blank");
+  });
+
+  setInterval(
+    rotateLogo,
+    2 * 60 * 1000
+  );
+
+});
+
+
+//##################################################################
+// 06. ADDITIONAL PAGES NAVIGATION
+//##################################################################
+//
+// V12 - Additional Pages Master
+//
+// Purpose:
+// Connects the shared navigation controls on informational
+// pages to the corresponding functionality on the homepage.
+//
+// Current:
+// - Topics redirects to the homepage with a topics request.
+// - Search redirects to the homepage with a search term.
+// - No feed retrieval or processing occurs on these pages.
+//
+// Dependency:
+// Index must recognize the incoming URL parameters.
+// That functionality will be added separately.
+//
+//==================================================================
+
+
+//==================================================================
+// 06.1 TOPICS NAVIGATION
+//==================================================================
+//
+// Redirects visitors to the homepage and requests that
+// the Topics panel be opened.
+//
+//==================================================================
+
+const additionalTopicsButton =
+  document.getElementById("topicsButton");
+
+if (additionalTopicsButton) {
+
+  additionalTopicsButton.addEventListener("click", function () {
+
+    window.location.href = "index.html?topics=open";
+
+  });
+
+}
+
+
+//==================================================================
+// 06.2 SEARCH NAVIGATION
+//==================================================================
+//
+// Redirects visitors to the homepage with their search term.
+//
+// Search executes when the visitor presses Enter.
+// The homepage will read the incoming search parameter
+// and apply its existing search functionality.
+//
+//==================================================================
+
+const additionalSearchInput =
+  document.getElementById("searchInput");
+
+if (additionalSearchInput) {
+
+  additionalSearchInput.addEventListener("keydown", function (event) {
+
+    if (event.key !== "Enter") {
+      return;
+    }
+
+    const searchTerm = additionalSearchInput.value.trim();
+
+    if (!searchTerm) {
+      return;
+    }
+
+    window.location.href =
+      "index.html?search=" + encodeURIComponent(searchTerm);
+
+  });
+
+}
+
+
+//==================================================================
+// END SECTION 06
+//==================================================================
+
+</script>
+
+</body>
+</html>
