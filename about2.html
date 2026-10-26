@@ -981,75 +981,23 @@ Current:
 
 
 /*==================================================================
-   02.9 SITE FOOTER STYLING
-====================================================================
-V11 - Secondary Navigation Footer
 
-- Follows the feed in normal document flow.
-- Moves downward when LOAD MORE adds videos.
-- Provides links to informational and legal pages.
-- Leaves clearance for the fixed bottom advertisement.
-- Supports desktop and mobile layouts.
+/*==================================================================
+  02.9 SITE FOOTER STYLING
+====================================================================
+V12 - Shared Footer
+
+Footer styling is now maintained in:
+
+/shared/shared.css
+
+Footer HTML is loaded from:
+
+/shared/footernav.html
+
+No local footer styling is required.
 ==================================================================*/
 
-#site-footer {
-  position: relative;
-  box-sizing: border-box;
-
-  width: 100%;
-  margin-top: 20px;
-  padding: 24px 16px 120px;
-
-  background: var(--header);
-  color: #ffffff;
-
-  text-align: center;
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  gap: 12px 26px;
-  margin-bottom: 16px;
-}
-
-.footer-links a {
-  color: #ffffff;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.footer-links a:hover,
-.footer-links a:focus-visible {
-  text-decoration: underline;
-}
-
-.footer-copyright {
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-/* Mobile footer adjustments */
-
-@media (max-width: 700px) {
-
-  #site-footer {
-    padding: 22px 12px 90px;
-  }
-
-  .footer-links {
-    gap: 12px 18px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-  }
-
-}
 
 </style>
 </head>
