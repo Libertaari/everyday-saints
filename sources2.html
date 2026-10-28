@@ -1,0 +1,1319 @@
+
+<!--##################################################################
+  00. PROJECT DOCUMENTATION
+====================================================================
+
+EVERYDAY SAINTS — V12 SOURCES PAGE
+
+====================================================================
+  00.1 PURPOSE
+====================================================================
+
+The Sources page identifies the content creators, channels,
+and other sources represented on Everyday Saints.
+
+The directory is generated from the existing root-level
+20sources.json file.
+
+The page does not retrieve or process homepage video feeds.
+
+====================================================================
+  00.2 DEVELOPMENT STATUS
+====================================================================
+
+Version: V12
+Page: Sources
+Source Template: V12 Additional Pages Master
+
+IMPLEMENTED:
+
+- Shared Everyday Saints header and branding.
+- Responsive navigation and page layout.
+- Rotating header logo.
+- Advertisement placeholders.
+- Shared footer navigation.
+- Dedicated informational content container.
+- Navigation redirects for Topics and Search.
+- JSON-powered Sources directory.
+- Responsive source cards.
+- Alphabetical source listings.
+- External links to original YouTube channels.
+
+DEPENDENCIES:
+
+- Root-level 20sources.json.
+- Homepage handling for incoming Search requests.
+
+====================================================================
+  00.3 ROADMAP
+====================================================================
+
+IMMEDIATE:
+
+- Deploy sources.html.
+- Verify all 20 source cards appear.
+- Test desktop and mobile layouts.
+- Verify external YouTube links.
+- Verify navigation and footer links.
+
+ONGOING:
+
+- Add sources through the existing JSON registry.
+- Expand to additional content source types.
+- Maintain visual consistency with the homepage.
+
+====================================================================
+  END PROJECT DOCUMENTATION
+##################################################################-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<!--==================================================================
+  01.2 HEAD INFORMATION
+====================================================================-->
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sources</title>
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9235780111698930"
+     crossorigin="anonymous"></script>
+
+<!-- Shared navigation and footer CSS -->
+<link rel="stylesheet" href="/shared/shared.css">
+
+<style>
+
+/*##################################################################
+  02. CSS STYLING
+##################################################################*/
+
+/*==================================================================
+  02.1 THEME VARIABLES
+==================================================================*/
+
+:root {
+  --bg: #f5f3ef;
+  --header: #1c2a3a;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3f5f7a;
+  --border: rgba(0,0,0,0.08);
+}
+
+/*==================================================================
+  02.2 BASE PAGE STYLING
+==================================================================*/
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/*==================================================================
+  02.3 HEADER STYLING
+====================================================================
+V7.6.2 - Three Equal Header Fields
+==================================================================*/
+
+.site-header {
+  padding-top: 175px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 175px;
+  min-height: 175px;
+  background: var(--header);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.brand {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.brand-word {
+  position: static;
+  transform: none;
+  width: 100%;
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+}
+
+.brand-everyday {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 75px;
+  box-sizing: border-box;
+  transform: translateX(-20px) scaleX(0.97);
+  transform-origin: right center;
+}
+
+.brand-saints {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 40px;
+  box-sizing: border-box;
+  letter-spacing: 12px;
+  transform: scaleX(1.08);
+  transform-origin: left center;
+}
+
+.logo {
+  grid-column: 2;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  border-radius: 5px;
+}
+
+/*==================================================================
+  02.4 NAVIGATION STYLING
+====================================================================
+V11.AOR - Primary Navigation and Search Field
+==================================================================*/
+
+
+
+/*==================================================================
+  NAVIGATION LINKS
+==================================================================*/
+
+
+
+
+
+
+
+
+
+/*==================================================================
+  NAVIGATION SEARCH
+==================================================================*/
+
+
+
+
+
+
+
+
+
+/*==================================================================
+  VERSION DISPLAY
+==================================================================*/
+
+
+
+/*==================================================================
+  02.5 ADDITIONAL PAGES CONTENT STYLING
+====================================================================
+V12 - Sources Page
+
+Preserves the shared informational page layout and adds
+responsive cards for the JSON-powered Sources directory.
+==================================================================*/
+
+/*==================================================================
+  MAIN CONTENT AREA
+==================================================================*/
+
+main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 980px;
+  margin: 100px auto 120px auto;
+  padding: 0 16px;
+}
+
+/*==================================================================
+  CONTENT PANEL
+==================================================================*/
+
+.page-content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32px 36px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/*==================================================================
+  PAGE TITLE
+==================================================================*/
+
+.page-content h1 {
+  margin: 0 0 24px;
+  color: var(--text);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/*==================================================================
+  SECTION HEADINGS
+==================================================================*/
+
+.page-content h2 {
+  margin: 32px 0 14px;
+  color: var(--text);
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.page-content h3 {
+  margin: 24px 0 12px;
+  color: var(--text);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/*==================================================================
+  PARAGRAPHS AND LISTS
+==================================================================*/
+
+.page-content p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content ul, .page-content ol {
+  margin: 0 0 20px;
+  padding-left: 28px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.page-content li {
+  margin-bottom: 8px;
+}
+
+/*==================================================================
+  LINKS
+==================================================================*/
+
+.page-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-content a:hover {
+  color: #527895;
+}
+
+/*==================================================================
+  CONTENT SPACING
+==================================================================*/
+
+.page-content > :last-child {
+  margin-bottom: 0;
+}
+
+.page-content section + section {
+  margin-top: 28px;
+}
+
+/*==================================================================
+  SOURCES DIRECTORY
+====================================================================
+
+The directory uses the existing 20sources.json registry.
+
+Each source receives a card containing:
+- Source name
+- YouTube handle
+- Link to original YouTube channel
+
+Cards are generated automatically by Section 07.
+==================================================================*/
+
+.sources-intro {
+  margin-bottom: 12px;
+}
+
+.sources-status {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/*==================================================================
+  SOURCES CARD GRID
+==================================================================*/
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+/*==================================================================
+  INDIVIDUAL SOURCE CARD
+==================================================================*/
+
+.source-card {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fafbfc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.source-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.source-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #c4302b;
+  color: white;
+  font: bold 11px Arial, sans-serif;
+}
+
+.page-content .source-card-title {
+  margin: 2px 0 0;
+  font-size: 18px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.source-card-handle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.page-content .source-card-link {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.page-content .source-card-link:hover, .page-content .source-card-link:focus-visible {
+  background: #527895;
+  color: white;
+}
+
+/*==================================================================
+  MOBILE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .page-content {
+    padding: 24px 20px;
+    border-radius: 10px;
+  }
+
+  .page-content h1 {
+    font-size: 26px;
+  }
+
+  .page-content h2 {
+    font-size: 21px;
+  }
+
+  .page-content h3 {
+    font-size: 18px;
+  }
+
+  .page-content p, .page-content ul, .page-content ol {
+    font-size: 15px;
+  }
+
+  .sources-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/*==================================================================
+  SMALL PHONE CONTENT ADJUSTMENTS
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .page-content {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+
+  .page-content h1 {
+    font-size: 24px;
+  }
+
+  .page-content h2 {
+    font-size: 20px;
+  }
+
+}
+
+/*==================================================================
+  02.7 ADVERTISEMENT STYLING
+====================================================================
+
+Current:
+- Placeholder advertising locations.
+
+Future:
+- Google AdSense.
+- In-feed advertisements.
+- Advertisement rotation.
+
+==================================================================*/
+
+#ad-right {
+  position: fixed;
+  right: 0;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+#ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: rgba(0,0,0,0.03);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  z-index: 900;
+}
+
+/*==================================================================
+  02.8 RESPONSIVE DESIGN
+====================================================================
+V12 - Additional Pages Responsive Layout
+==================================================================*/
+
+/*==================================================================
+  NARROW DESKTOP
+==================================================================*/
+
+@media (min-width: 901px) and (max-width: 1200px) {
+
+  main {
+    box-sizing: border-box;
+    max-width: calc(100% - 160px);
+    margin-left: 16px;
+    margin-right: auto;
+  }
+
+  header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .brand {
+    max-width: 100%;
+  }
+
+  .brand-word {
+    font-size: clamp(30px, 4.4vw, 52px);
+    letter-spacing: 0;
+  }
+
+  .brand-everyday {
+    padding-right: 8px;
+    transform: none;
+  }
+
+  .brand-saints {
+    padding-left: 8px;
+    letter-spacing: 2px;
+    transform: none;
+  }
+
+  .logo {
+    width: clamp(80px, 11vw, 132px);
+    height: clamp(80px, 11vw, 132px);
+  }
+
+}
+
+/*==================================================================
+  MOBILE
+==================================================================*/
+
+@media (max-width: 700px) {
+
+  .site-header {
+    padding-top: 150px;
+  }
+
+  header {
+    height: 150px;
+    min-height: 150px;
+    padding: 8px 10px;
+  }
+
+  .brand {
+    max-width: 700px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .brand-word {
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 80px;
+    height: 125px;
+  }
+
+  
+
+  
+
+  
+
+  
+
+  main {
+    margin: 20px auto 80px auto;
+    padding: 0 10px;
+  }
+
+  #ad-right {
+    display: none;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+/*==================================================================
+  PORTRAIT PHONE
+==================================================================*/
+
+@media (max-width: 480px) {
+
+  .site-header {
+    padding-top: 120px;
+  }
+
+  header {
+    height: 120px;
+    min-height: 120px;
+    padding: 6px;
+  }
+
+  .brand {
+    max-width: 480px;
+  }
+
+  .brand-word {
+    font-size: 24px;
+    letter-spacing: 0.3px;
+  }
+
+  .brand-everyday {
+    padding-right: 6px;
+  }
+
+  .brand-saints {
+    padding-left: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .logo {
+    width: 58px;
+    height: 96px;
+  }
+
+  
+
+  main {
+    margin: 48px auto 70px auto;
+    padding: 0 8px;
+  }
+
+}
+
+/*==================================================================
+  MOBILE LANDSCAPE
+==================================================================*/
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  .site-header {
+    padding-top: 129px;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 87px;
+    min-height: 87px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .brand {
+    width: 100%;
+    max-width: 900px;
+    height: 87px;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+
+  .brand-word {
+    font-size: 34.5px;
+    line-height: 1;
+    letter-spacing: 0.2px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .brand-everyday {
+    padding-right: 10px;
+    transform: none;
+    text-align: right;
+  }
+
+  .brand-saints {
+    padding-left: 10px;
+    letter-spacing: 0.2px;
+    transform: none;
+    text-align: left;
+  }
+
+  .logo {
+    width: 75px;
+    height: 78px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  
+
+  main {
+    margin: 0 auto 70px auto;
+    padding: 0 8px;
+    padding-right: 108px;
+  }
+
+  #ad-right {
+    display: flex;
+    top: 129px;
+    right: 0;
+    width: 90px;
+    height: 250px;
+  }
+
+  #ad-bottom {
+    height: 50px;
+  }
+
+}
+
+/*==================================================================
+  02.9 SITE FOOTER STYLING
+====================================================================
+V11 - Secondary Navigation Footer
+==================================================================*/
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile footer adjustments */
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<!--##################################################################
+  03. HTML BODY STRUCTURE
+##################################################################-->
+
+<!--==================================================================
+  03.1 HEADER AND NAVIGATION
+====================================================================
+V12 - Additional Pages Master
+==================================================================-->
+
+<div class="site-header">
+
+  <header>
+
+    <div class="brand">
+
+      <div class="brand-word brand-everyday">
+        EVERYDAY
+      </div>
+
+      <div class="logo" id="logoBox">
+        <img src="images/christus.png" alt="Everyday Saints">
+      </div>
+
+      <div class="brand-word brand-saints">
+        SAINTS
+      </div>
+
+    </div>
+
+  </header>
+
+  <div id="shared-topnav"></div>
+
+</div>
+
+<!--==================================================================
+  03.2 NAVIGATION
+====================================================================
+V12 - Additional Pages Master
+
+The navigation HTML is defined in Section 03.1.
+
+HOME:
+- Links to index.html.
+
+FEED:
+- Links to index.html#feed.
+
+TOPICS:
+- Redirects to index.html?topics=open.
+
+ABOUT:
+- Links to about.html.
+
+SEARCH:
+- Redirects to index.html with a search parameter.
+
+Footer navigation is defined in Section 03.5.
+
+==================================================================-->
+
+<!--==================================================================
+  03.3 ADVERTISEMENT CONTAINERS
+====================================================================
+
+Current:
+- Placeholder advertisement containers.
+
+Future:
+- Google AdSense.
+- House advertisements.
+- Rotating advertisements.
+- Responsive advertisement layouts.
+
+==================================================================-->
+
+<div id="ad-right">
+  AD SPACE
+</div>
+
+<div id="ad-bottom">
+  AD SPACE
+</div>
+
+<!--==================================================================
+  03.4 ADDITIONAL PAGE CONTENT
+====================================================================
+V12 - Sources Directory
+
+The directory is generated from /20sources.json by Section 07.
+==================================================================-->
+
+<main id="main-content">
+
+  <article class="page-content">
+
+    <h1>Sources</h1>
+
+    <section aria-label="Sources directory">
+
+      <p class="sources-intro">
+        Explore the channels and creators currently featured in
+        Everyday Saints. Select a source to visit its original
+        YouTube channel.
+      </p>
+
+      <p
+        class="sources-status"
+        id="sourcesStatus"
+        role="status">
+        Loading sources...
+      </p>
+
+      <div
+        class="sources-grid"
+        id="sourcesDirectory">
+      </div>
+
+    </section>
+
+  </article>
+
+</main>
+
+<!--==================================================================
+  03.5 SITE FOOTER
+====================================================================
+
+Purpose:
+Provides secondary navigation to informational and legal pages.
+
+The footer follows the page content in normal document flow.
+
+==================================================================-->
+
+<div id="shared-footernav"></div>
+
+<!--##################################################################
+  04. JAVASCRIPT CONFIGURATION
+##################################################################-->
+
+<script>
+
+//==================================================================
+// 04.1 GLOBAL VARIABLES
+//==================================================================
+//
+// Shared configuration for the Additional Pages Template.
+//
+// Stores the available header logo options and the currently
+// selected logo.
+//
+//==================================================================
+
+const logos = [
+  "images/christus.png",
+  "images/temple.png"
+];
+
+let currentLogo =
+  logos[Math.floor(Math.random() * logos.length)];
+
+//##################################################################
+// 05. LOGO SYSTEM
+//##################################################################
+//
+// Provides the rotating visual identity system.
+//
+//##################################################################
+
+//==================================================================
+// 05.1 ROTATE LOGO
+//==================================================================
+
+function rotateLogo() {
+
+  const box = document.getElementById("logoBox");
+
+  currentLogo =
+    currentLogo === logos[0]
+      ? logos[1]
+      : logos[0];
+
+  box.style.opacity = 0;
+
+  setTimeout(() => {
+
+    box.innerHTML = `
+      <img
+        src="${currentLogo}"
+        alt="Everyday Saints"
+      >
+    `;
+
+    box.style.opacity = 1;
+
+  }, 200);
+
+}
+
+//==================================================================
+// 05.2 INITIALIZE LOGO SYSTEM
+//==================================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const box = document.getElementById("logoBox");
+
+  box.innerHTML = `
+    <img
+      src="${currentLogo}"
+      alt="Everyday Saints"
+    >
+  `;
+
+  box.addEventListener("click", () => {
+    window.open(currentLogo, "_blank");
+  });
+
+  setInterval(
+    rotateLogo,
+    2 * 60 * 1000
+  );
+
+});
+
+//##################################################################
+// 06. ADDITIONAL PAGES NAVIGATION
+//##################################################################
+//
+// Connects shared navigation controls to homepage functionality.
+//
+//##################################################################
+
+//==================================================================
+// 06.1 TOPICS NAVIGATION
+//==================================================================
+
+const additionalTopicsButton =
+  document.getElementById("topicsButton");
+
+if (additionalTopicsButton) {
+
+  additionalTopicsButton.addEventListener("click", function () {
+
+    window.location.href = "index.html?topics=open";
+
+  });
+
+}
+
+//==================================================================
+// 06.2 SEARCH NAVIGATION
+//==================================================================
+
+const additionalSearchInput =
+  document.getElementById("searchInput");
+
+if (additionalSearchInput) {
+
+  additionalSearchInput.addEventListener("keydown", function (event) {
+
+    if (event.key !== "Enter") {
+      return;
+    }
+
+    const searchTerm = additionalSearchInput.value.trim();
+
+    if (!searchTerm) {
+      return;
+    }
+
+    window.location.href =
+      "index.html?search=" + encodeURIComponent(searchTerm);
+
+  });
+
+}
+
+//==================================================================
+// END SECTION 06
+//==================================================================
+
+//##################################################################
+// 07. SOURCES DIRECTORY SYSTEM
+//##################################################################
+//
+// Loads the existing root-level /20sources.json registry.
+//
+// Builds an alphabetical directory of source cards.
+//
+// Does not fetch YouTube videos or modify the homepage feed.
+//
+//##################################################################
+
+//==================================================================
+// 07.1 SOURCES JSON CONFIGURATION
+//==================================================================
+
+const sourcesRegistryUrl = "/20sources.json";
+
+//==================================================================
+// 07.2 LOAD SOURCES DATA
+//==================================================================
+
+async function loadSourcesData() {
+
+  const response = await fetch(sourcesRegistryUrl, {
+    cache: "no-cache"
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not load the Sources registry.");
+  }
+
+  const sources = await response.json();
+
+  if (!Array.isArray(sources)) {
+    throw new Error("The Sources registry is not a list.");
+  }
+
+  return sources.filter(source =>
+    source &&
+    source.type === "youtube" &&
+    typeof source.name === "string" &&
+    typeof source.channelId === "string" &&
+    source.channelId.trim()
+  );
+
+}
+
+//==================================================================
+// 07.3 RENDER SOURCES DIRECTORY
+//==================================================================
+
+function renderSourcesDirectory(sources) {
+
+  const directory =
+    document.getElementById("sourcesDirectory");
+
+  const status =
+    document.getElementById("sourcesStatus");
+
+  directory.replaceChildren();
+
+  const sortedSources = [...sources].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, {
+      sensitivity: "base"
+    })
+  );
+
+  for (const source of sortedSources) {
+
+    // Build the card container.
+
+    const card = document.createElement("article");
+    card.className = "source-card";
+
+    // Build the card heading.
+
+    const heading = document.createElement("div");
+    heading.className = "source-card-heading";
+
+    // Display a simple YouTube identifier.
+
+    const icon = document.createElement("span");
+    icon.className = "source-card-icon";
+    icon.textContent = "YT";
+    icon.setAttribute("aria-hidden", "true");
+
+    // Display the channel name.
+
+    const title = document.createElement("h2");
+    title.className = "source-card-title";
+    title.textContent = source.name;
+
+    heading.append(icon, title);
+
+    card.appendChild(heading);
+
+    // Display the YouTube handle when available.
+
+    if (
+      typeof source.handle === "string" &&
+      source.handle.trim()
+    ) {
+
+      const handle = document.createElement("p");
+      handle.className = "source-card-handle";
+      handle.textContent = source.handle;
+
+      card.appendChild(handle);
+
+    }
+
+    // Construct a channel link from the Channel ID.
+
+    const link = document.createElement("a");
+    link.className = "source-card-link";
+
+    link.href =
+      "https://www.youtube.com/channel/" +
+      encodeURIComponent(source.channelId.trim());
+
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    link.textContent = "VISIT CHANNEL ↗";
+
+    link.setAttribute(
+      "aria-label",
+      "Visit " + source.name +
+      " on YouTube (opens in a new tab)"
+    );
+
+    card.appendChild(link);
+
+    // Add the completed card to the directory.
+
+    directory.appendChild(card);
+
+  }
+
+  // Display the current number of sources.
+
+  status.textContent = sortedSources.length
+    ? sortedSources.length + " YouTube channels"
+    : "No sources are currently listed.";
+
+}
+
+//==================================================================
+// 07.4 INITIALIZE SOURCES DIRECTORY
+//==================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const status =
+    document.getElementById("sourcesStatus");
+
+  try {
+
+    const sources = await loadSourcesData();
+
+    renderSourcesDirectory(sources);
+
+  } catch (error) {
+
+    console.error(
+      "Everyday Saints Sources directory:",
+      error
+    );
+
+    status.textContent =
+      "The Sources directory is temporarily unavailable. " +
+      "Please try again later.";
+
+  }
+
+});
+
+//==================================================================
+// END SECTION 07
+//==================================================================
+
+</script>
+
+<!-- Shared navigation and footer loader -->
+<script src="/shared/shared-v12.js"></script>
+</body>
+</html>
